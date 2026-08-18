@@ -1,4 +1,8 @@
-const quizQuestions = [
+// Database of Quiz Questions for both Basic and Advanced / University levels
+// Developed by นายพีรพัฒน์ วิไชยวงค์ (69030188)
+
+const quizData = {
+  "basic": [
   {
     "id": 1,
     "category": "หมวดที่ 1: คอมพิวเตอร์ & SDLC (ข้อ 1-20)",
@@ -3119,4 +3123,3130 @@ const quizQuestions = [
     "answer": "ข",
     "explanation": "ควร git pull ดึงโค้ดล่าสุดก่อนเริ่มงานเสมอเพื่อป้องกัน Conflict"
   }
-];
+],
+  "advanced": [
+  {
+    "id": 1,
+    "category": "Session 01: Programming Concepts, SDLC & Compilers (ข้อ 1-20)",
+    "categoryKey": "cat1",
+    "question": "ข้อใดอธิบายความแตกต่างระหว่าง Compiler และ Interpreter ในแง่ของการจัดการ Memory และ Execution Performance ได้ถูกต้องที่สุด?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "Compiler ใช้หน่วยความจำน้อยกว่าระหว่าง Execution เพราะไม่ต้องเก็บ Source Code ไว้"
+      },
+      {
+        "key": "ข",
+        "text": "Interpreter แปลง Source Code ทั้งหมดเป็น Intermediate Code ก่อนเสมอ ทำให้ประมวลผลรอบถัดไปเร็วขึ้น"
+      },
+      {
+        "key": "ค",
+        "text": "Compiler สร้าง Executable File (Machine Code) ทำให้ประมวลผลเร็วกว่า แต่ใช้ Memory สูงกว่าในขั้นตอน Compilation"
+      },
+      {
+        "key": "ง",
+        "text": "Interpreter และ Compiler ใช้โครงสร้างการจัดการ Memory ไม่ต่างกัน"
+      }
+    ],
+    "answer": "ค",
+    "explanation": "Compiler แปลงทรานสเลททั้งโปรแกรมเป็น Executable File จึงประมวลผลเร็วกว่า แต่ขั้นตอน Compile ใช้ทรัพยากรสูง"
+  },
+  {
+    "id": 2,
+    "category": "Session 01: Programming Concepts, SDLC & Compilers (ข้อ 1-20)",
+    "categoryKey": "cat1",
+    "question": "ในขั้นตอน System Development Life Cycle (SDLC) ขั้นตอนใดที่หากเกิดความผิดพลาดจะส่งผลกระทบต่อต้นทุนโครงการมากที่สุด (Cost of Change)?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "Coding / Implementation"
+      },
+      {
+        "key": "ข",
+        "text": "Requirement Analysis & System Design"
+      },
+      {
+        "key": "ค",
+        "text": "Testing & Integration"
+      },
+      {
+        "key": "ง",
+        "text": "Maintenance"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "ความผิดพลาดในขั้นตอนวิเคราะห์/ออกแบบ (Requirement/Design) ส่งผลเสียเป็นลูกคลื่น แก้ไขยากและสิ้นเปลืองงบที่สุด"
+  },
+  {
+    "id": 3,
+    "category": "Session 01: Programming Concepts, SDLC & Compilers (ข้อ 1-20)",
+    "categoryKey": "cat1",
+    "question": "การประมวลผลแบบ \"Pass-by-Value\" และ \"Pass-by-Reference\" มีผลต่อ Memory Stack และ Heap อย่างไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "Pass-by-Value จะคัดลอกข้อมูลลงใน Stack Frame ใหม่ ส่วน Pass-by-Reference ส่งผ่าน Address ของ Memory"
+      },
+      {
+        "key": "ข",
+        "text": "Pass-by-Value ใช้ Heap เท่านั้น ส่วน Pass-by-Reference ใช้ Stack เท่านั้น"
+      },
+      {
+        "key": "ค",
+        "text": "ทั้งสองแบบสร้าง Copy ของข้อมูลบน Heap เสมอ"
+      },
+      {
+        "key": "ง",
+        "text": "Pass-by-Reference ป้องกันไม่ให้ฟังก์ชันแก้ไขค่าเดิมใน Memory"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "Pass-by-Value ทำการ Copy ค่าใหม่ลง Stack Frame; Pass-by-Reference ส่ง Address ไป"
+  },
+  {
+    "id": 4,
+    "category": "Session 01: Programming Concepts, SDLC & Compilers (ข้อ 1-20)",
+    "categoryKey": "cat1",
+    "question": "ข้อใดคือข้อเสียหลักของภาษาโปรแกรมระดับต่ำ (Low-level Language) เมื่อเปรียบเทียบกับภาษาระดับสูง?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "ทำงานได้ช้ากว่าเนื่องจากไม่มี Compiler ช่วย Optimize"
+      },
+      {
+        "key": "ข",
+        "text": "ขาด Machine Portability (ขึ้นกับสถาปัตยกรรมของ Hardware)"
+      },
+      {
+        "key": "ค",
+        "text": "ไม่สามารถเข้าถึงตำแหน่ง Memory (Pointers) ได้โดยตรง"
+      },
+      {
+        "key": "ง",
+        "text": "มี Overhead ของ Memory Management สูงมาก"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "Low-level (Assembly/Machine Code) ผูกติดกับ Hardware Architecture ทำให้ย้ายระบบได้ยาก (Not Portable)"
+  },
+  {
+    "id": 5,
+    "category": "Session 01: Programming Concepts, SDLC & Compilers (ข้อ 1-20)",
+    "categoryKey": "cat1",
+    "question": "ข้อใดอธิบายแนวคิดเรื่อง Linker ในกระบวนการ Compilation ได้ถูกต้อง?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "แปลง High-level Code เป็น Assembly Code"
+      },
+      {
+        "key": "ข",
+        "text": "รวม Object Files หลายๆ ไฟล์เข้ากับ Library Files เพื่อสร้าง Executable File"
+      },
+      {
+        "key": "ค",
+        "text": "โหลด Executable File ลงสู่ RAM เพื่อเตรียมประมวลผล"
+      },
+      {
+        "key": "ง",
+        "text": "ตรวจสอบความถูกต้องทางไวยากรณ์ (Syntax Analysis) ของโค้ด"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "Linker มีหน้าที่นำ Object files และ Libraries มารวมกันสร้างเป็น .exe"
+  },
+  {
+    "id": 6,
+    "category": "Session 01: Programming Concepts, SDLC & Compilers (ข้อ 1-20)",
+    "categoryKey": "cat1",
+    "question": "กระบวนการใดใน Compiler ที่ทำหน้าที่จัดกลุ่ม Character ให้เป็น Tokens?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "Lexical Analysis (Scanning)"
+      },
+      {
+        "key": "ข",
+        "text": "Syntax Analysis (Parsing)"
+      },
+      {
+        "key": "ค",
+        "text": "Semantic Analysis"
+      },
+      {
+        "key": "ง",
+        "text": "Code Optimization"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "Lexical Analysis (Scanner) แปลงสายตัวอักษรเป็น Tokens"
+  },
+  {
+    "id": 7,
+    "category": "Session 01: Programming Concepts, SDLC & Compilers (ข้อ 1-20)",
+    "categoryKey": "cat1",
+    "question": "Semantic Error ต่างจาก Syntax Error อย่างไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "Semantic Error เกิดขณะ Compile ส่วน Syntax Error เกิดขณะ Run"
+      },
+      {
+        "key": "ข",
+        "text": "Syntax Error ผิดไวยากรณ์ภาษา ส่วน Semantic Error ผิดความหมาย/ตรรกะของการทำงาน"
+      },
+      {
+        "key": "ค",
+        "text": "Syntax Error ทำให้โปรแกรม Crash ส่วน Semantic Error ทำให้ Compile ไม่ผ่าน"
+      },
+      {
+        "key": "ง",
+        "text": "ทั้งสองแบบมีความหมายเหมือนกัน"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "Syntax Error คือผิดกฎไวยากรณ์; Semantic Error คือไวยากรณ์ถูกแต่ความหมาย/ผลลัพธ์ผิด"
+  },
+  {
+    "id": 8,
+    "category": "Session 01: Programming Concepts, SDLC & Compilers (ข้อ 1-20)",
+    "categoryKey": "cat1",
+    "question": "แนวคิดเรื่อง High Cohesion และ Low Coupling ในการออกแบบโปรแกรมหมายถึงอะไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "Module ควรมีความเกี่ยวข้องกันเองสูง และลดการพึ่งพา Module อื่น"
+      },
+      {
+        "key": "ข",
+        "text": "Module ควรอ้างอิง Module อื่นให้มากที่สุด และลดฟังก์ชันภายใน"
+      },
+      {
+        "key": "ค",
+        "text": "โค้ดควรเขียนจบในไฟล์เดียว และใช้ตัวแปร Global เป็นหลัก"
+      },
+      {
+        "key": "ง",
+        "text": "เพิ่มความยืดหยุ่นโดยให้ทุก Module เรียกใช้ Memory ชุดเดียวกัน"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "หลักการ Modular Design: High Cohesion (ทำหน้าที่เดี่ยวๆ ได้ดี) และ Low Coupling (ขึ้นตรงกับโมดูลอื่นให้น้อยที่สุด)"
+  },
+  {
+    "id": 9,
+    "category": "Session 01: Programming Concepts, SDLC & Compilers (ข้อ 1-20)",
+    "categoryKey": "cat1",
+    "question": "ข้อใดเป็นตัวอย่างของ Static Memory Allocation?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "การจองอาร์เรย์ด้วยคำสั่ง malloc() หรือ new"
+      },
+      {
+        "key": "ข",
+        "text": "การประกาศตัวแปรอาร์เรย์ขนาดคงที่ เช่น int arr[100];"
+      },
+      {
+        "key": "ค",
+        "text": "การเพิ่มข้อมูลใน Linked List"
+      },
+      {
+        "key": "ง",
+        "text": "การใช้ Dynamic Vector"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "การประกาศอาร์เรย์ระบุขนาดคงที่ เกิดขึ้นตอน Compile Time (Static)"
+  },
+  {
+    "id": 10,
+    "category": "Session 01: Programming Concepts, SDLC & Compilers (ข้อ 1-20)",
+    "categoryKey": "cat1",
+    "question": "การเกิด Stack Overflow มักมีสาเหตุหลักมาจากข้อใด?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "การจอง Memory ใน Heap มากเกินไป"
+      },
+      {
+        "key": "ข",
+        "text": "การทำ Infinite Recursion หรือการเรียกใช้ Local Variables ใน Stack มากเกินขีดจำกัด"
+      },
+      {
+        "key": "ค",
+        "text": "การลืม Deallocate Memory ใน C/C++"
+      },
+      {
+        "key": "ง",
+        "text": "การอ่านไฟล์ขนาดใหญ่เกินขนาด RAM"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "Stack Overflow เกิดเมื่อใช้ Stack Memory เกินขีดจำกัด เช่น Infinite Recursion"
+  },
+  {
+    "id": 11,
+    "category": "Session 01: Programming Concepts, SDLC & Compilers (ข้อ 1-20)",
+    "categoryKey": "cat1",
+    "question": "โครงสร้างโปรแกรมแบบ Structured Programming มุ่งเน้นการหลีกเลี่ยงคำสั่งใด?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "for loop"
+      },
+      {
+        "key": "ข",
+        "text": "switch-case"
+      },
+      {
+        "key": "ค",
+        "text": "goto"
+      },
+      {
+        "key": "ง",
+        "text": "return"
+      }
+    ],
+    "answer": "ค",
+    "explanation": "Structured Programming เน้น Sequence, Selection, Iteration และหลีกเลี่ยง goto"
+  },
+  {
+    "id": 12,
+    "category": "Session 01: Programming Concepts, SDLC & Compilers (ข้อ 1-20)",
+    "categoryKey": "cat1",
+    "question": "ข้อใดคือหน้าที่ของ Loader ในระบบปฏิบัติการ?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "แปลงสัญลักษณ์ Assembly เป็น Machine Code"
+      },
+      {
+        "key": "ข",
+        "text": "นำ Executable Program จาก Disk ขึ้นสู่ Main Memory (RAM) และเตรียมการประมวลผล"
+      },
+      {
+        "key": "ค",
+        "text": "แปลงภาพ Flowchart เป็นซอร์สโค้ด"
+      },
+      {
+        "key": "ง",
+        "text": "จัดการการเข้าถึงข้อมูลใน Database"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "Loader มีหน้าที่โหลด Executable Code จาก Disk ลงสู่ RAM เพื่อเตรียม Executed"
+  },
+  {
+    "id": 13,
+    "category": "Session 01: Programming Concepts, SDLC & Compilers (ข้อ 1-20)",
+    "categoryKey": "cat1",
+    "question": "การทำงานของ Garbage Collection ในภาษาอย่าง Java หรือ Python ช่วยแก้ปัญหาใดเป็นหลัก?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "Syntax Error"
+      },
+      {
+        "key": "ข",
+        "text": "Memory Leak"
+      },
+      {
+        "key": "ค",
+        "text": "Deadlock"
+      },
+      {
+        "key": "ง",
+        "text": "Stack Overflow"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "Garbage Collection ช่วย คืนพื้นที่ Memory ที่ไม่ได้ใช้งานแล้วโดยอัตโนมัติ ป้องกัน Memory Leak"
+  },
+  {
+    "id": 14,
+    "category": "Session 01: Programming Concepts, SDLC & Compilers (ข้อ 1-20)",
+    "categoryKey": "cat1",
+    "question": "ในการคำนวณประสิทธิภาพอัลกอริทึม Big-O Notation ตัวใดแสดงถึงความซับซ้อนที่แย่ที่สุด (Worst Efficiency)?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "O(1)"
+      },
+      {
+        "key": "ข",
+        "text": "O(n log n)"
+      },
+      {
+        "key": "ค",
+        "text": "O(n^2)"
+      },
+      {
+        "key": "ง",
+        "text": "O(2^n)"
+      }
+    ],
+    "answer": "ง",
+    "explanation": "O(2^n) เป็น Exponential time มีความซับซ้อนและประสิทธิภาพแย่ที่สุดในตัวเลือก"
+  },
+  {
+    "id": 15,
+    "category": "Session 01: Programming Concepts, SDLC & Compilers (ข้อ 1-20)",
+    "categoryKey": "cat1",
+    "question": "ข้อใดไม่ใช่ขั้นตอนมาตรฐานในพัฒนาซอฟต์แวร์แบบ Waterfall Model?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "Feasibility Study"
+      },
+      {
+        "key": "ข",
+        "text": "Requirement Analysis"
+      },
+      {
+        "key": "ค",
+        "text": "Sprint Planning"
+      },
+      {
+        "key": "ง",
+        "text": "Integration & Testing"
+      }
+    ],
+    "answer": "ค",
+    "explanation": "Sprint Planning เป็นขั้นตอนของ Agile/Scrum ไม่ใช่ Waterfall Model"
+  },
+  {
+    "id": 16,
+    "category": "Session 01: Programming Concepts, SDLC & Compilers (ข้อ 1-20)",
+    "categoryKey": "cat1",
+    "question": "ข้อใดคือคำอธิบายของ \"Paradigm\" การเขียนโปรแกรมแบบ Functional Programming?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "มุ่งเน้นการเปลี่ยนแปลง State ของวัตถุ (Objects)"
+      },
+      {
+        "key": "ข",
+        "text": "มองการคำนวณเป็นการประมวลผลฟังก์ชันทางคณิตศาสตร์และหลีกเลี่ยง Mutable Data"
+      },
+      {
+        "key": "ค",
+        "text": "เขียนคำสั่งควบคุมตามลำดับ บรรทัดต่อบรรทัด"
+      },
+      {
+        "key": "ง",
+        "text": "ขับเคลื่อนการทำงานผ่าน Event เช่น การคลิกเมาส์"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "Functional Programming มองการประมวลผลเป็น Pure Functions และหลีกเลี่ยงการเปลี่ยน State"
+  },
+  {
+    "id": 17,
+    "category": "Session 01: Programming Concepts, SDLC & Compilers (ข้อ 1-20)",
+    "categoryKey": "cat1",
+    "question": "ในการแก้ไข Bug ประเภท Logic Error วิธีใดมีประสิทธิภาพสูงสุดในการหาจุดผิดพลาด?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "Re-compiling Code"
+      },
+      {
+        "key": "ข",
+        "text": "Code Dry-Run (Trace Table) และการใช้ Debugger (Breakpoints)"
+      },
+      {
+        "key": "ค",
+        "text": "เปลี่ยนไปใช้ Compiler ตัวอื่น"
+      },
+      {
+        "key": "ง",
+        "text": "เพิ่มขนาด Memory ของระบบ"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "การทำ Trace Table และการสร้าง Breakpoint บน Debugger ช่วยหา Logic Error ได้ตรงจุดที่สุด"
+  },
+  {
+    "id": 18,
+    "category": "Session 01: Programming Concepts, SDLC & Compilers (ข้อ 1-20)",
+    "categoryKey": "cat1",
+    "question": "ไฟล์นามสกุล .obj หรือ .o จัดอยู่ในประเภทใดในกระบวนการเขียนโปรแกรม?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "Source Code File"
+      },
+      {
+        "key": "ข",
+        "text": "Object File (Machine Code ที่ยังไม่ได้ Link)"
+      },
+      {
+        "key": "ค",
+        "text": "Executable File"
+      },
+      {
+        "key": "ง",
+        "text": "Header File"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "ไฟล์ .obj คือ Machine code จากการ Compile ซอร์สโค้ด แต่ยังไม่ได้ผ่านการ Link"
+  },
+  {
+    "id": 19,
+    "category": "Session 01: Programming Concepts, SDLC & Compilers (ข้อ 1-20)",
+    "categoryKey": "cat1",
+    "question": "ข้อใดอธิบายขอบเขตของตัวแปรประเภท \"Global Variable\" ได้ถูกต้องที่สุด?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "สามารถเข้าถึงได้เฉพาะภายในฟังก์ชันที่ประกาศไว้เท่านั้น"
+      },
+      {
+        "key": "ข",
+        "text": "อยู่ใน Memory สั้นๆ และถูกทำลายเมื่อจบ Block {}"
+      },
+      {
+        "key": "ค",
+        "text": "สามารถเข้าถึงและแก้ไขได้จากทุกส่วนของโปรแกรม และคงอยู่ตลอดอายุการทำงานของโปรแกรม"
+      },
+      {
+        "key": "ง",
+        "text": "ถูกจัดเก็บใน CPU Register เสมอ"
+      }
+    ],
+    "answer": "ค",
+    "explanation": "Global Variable มีอายุคงอยู่ตลอดระยะเวลาการทำงานของโปรแกรม และเข้าถึงได้จากทุกส่วน"
+  },
+  {
+    "id": 20,
+    "category": "Session 01: Programming Concepts, SDLC & Compilers (ข้อ 1-20)",
+    "categoryKey": "cat1",
+    "question": "คำว่า \"Portability\" ในซอฟต์แวร์หมายถึงอะไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "ความสามารถในการรันซอฟต์แวร์บนระบบปฏิบัติการ/สถาปัตยกรรมที่หลากหลายโดยดัดแปลงน้อยที่สุด"
+      },
+      {
+        "key": "ข",
+        "text": "ความเร็วในการประมวลผลข้อมูลขนาดใหญ่"
+      },
+      {
+        "key": "ค",
+        "text": "ความปลอดภัยจากการถูกแฮก"
+      },
+      {
+        "key": "ง",
+        "text": "การประหยัดพื้นที่บน Hard Disk Session 2: Flowcharts, Pseudocode & Algorithms (ข้อ 21 - 40)"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "Portability คือความสามารถในการนำโปรแกรมไปรันข้าม Platform ต่างๆ ได้ง่าย"
+  },
+  {
+    "id": 21,
+    "category": "Session 02: Flowcharts, Pseudocode & Algorithms (ข้อ 21-40)",
+    "categoryKey": "cat2",
+    "question": "สัญลักษณ์รูป \"เพชร\" (Decision/Diamond) ใน ผังงาน (Flowchart) จะต้องมีเส้นทางออกจากสัญลักษณ์อย่างน้อยกี่เส้นทาง?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "1 เส้นทาง"
+      },
+      {
+        "key": "ข",
+        "text": "2 เส้นทาง"
+      },
+      {
+        "key": "ค",
+        "text": "3 เส้นทาง"
+      },
+      {
+        "key": "ง",
+        "text": "ไม่จำกัด"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "สัญลักษณ์การตัดสินใจ (Decision) ต้องมีทางออกอย่างน้อย 2 ทางเสมอ (เช่น Yes/No, True/False)"
+  },
+  {
+    "id": 22,
+    "category": "Session 02: Flowcharts, Pseudocode & Algorithms (ข้อ 21-40)",
+    "categoryKey": "cat2",
+    "question": "จงหาผลลัพธ์ของ Pseudocode ต่อไปนี้: SET X = 10, Y = 20 X = X + Y Y = X - Y X = X - Y PRINT X, Y",
+    "options": [
+      {
+        "key": "ก",
+        "text": "10, 20"
+      },
+      {
+        "key": "ข",
+        "text": "20, 10"
+      },
+      {
+        "key": "ค",
+        "text": "30, -10"
+      },
+      {
+        "key": "ง",
+        "text": "30, 20"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "เทคนิคการ Swap ค่า: X=10+20=30, Y=30-20=10, X=30-10=20 ได้ผลลัพธ์ X=20, Y=10"
+  },
+  {
+    "id": 23,
+    "category": "Session 02: Flowcharts, Pseudocode & Algorithms (ข้อ 21-40)",
+    "categoryKey": "cat2",
+    "question": "โครงสร้างสัญลักษณ์ Flowchart สำหรับการวนซ้ำแบบ Do-While แตกต่างจาก While อย่างไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "Do-While ตรวจสอบเงื่อนไขก่อนทำรอบแรกเสมอ"
+      },
+      {
+        "key": "ข",
+        "text": "Do-While ทำงานใน Block อย่างน้อย 1 รอบก่อนตรวจสอบเงื่อนไข"
+      },
+      {
+        "key": "ค",
+        "text": "While สามารถมีเส้นทางออกจาก Decision ได้ 3 ทาง"
+      },
+      {
+        "key": "ง",
+        "text": "ไม่มีความแตกต่างกันเชิงโครงสร้าง"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "Do-While ทำงานใน Loop อย่างน้อย 1 รอบก่อนตรวจสอบเงื่อนไขที่ด้านล่าง"
+  },
+  {
+    "id": 24,
+    "category": "Session 02: Flowcharts, Pseudocode & Algorithms (ข้อ 21-40)",
+    "categoryKey": "cat2",
+    "question": "ข้อใดคือ Pseudocode ที่ใช้การทำงานแบบ Nested Loop ที่ถูกต้องในการสร้างตารางขนาด N x M?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "FOR i = 1 TO N FOR j = 1 TO M PRINT \"*\" END FOR END FOR"
+      },
+      {
+        "key": "ข",
+        "text": "FOR i = 1 TO N AND j = 1 TO M PRINT \"*\" END FOR"
+      },
+      {
+        "key": "ค",
+        "text": "WHILE i < N PRINT \"*\" END WHILE"
+      },
+      {
+        "key": "ง",
+        "text": "IF i < N THEN FOR j = 1 TO M PRINT \"*\" END IF"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "ลูปซ้อนลูปที่ถูกต้องสำหรับการสร้างตาราง N x M"
+  },
+  {
+    "id": 25,
+    "category": "Session 02: Flowcharts, Pseudocode & Algorithms (ข้อ 21-40)",
+    "categoryKey": "cat2",
+    "question": "หากพิจารณาอัลกอริทึมการค้นหาข้อมูลแบบ Binary Search เงื่อนไขเบื้องต้น (Prerequisite) ของข้อมูลนำเข้าคืออะไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "ข้อมูลต้องมีจำนวนเป็นเลขคู่"
+      },
+      {
+        "key": "ข",
+        "text": "ข้อมูลต้องถูกจัดเรียงลำดับ (Sorted) อยู่แล้ว"
+      },
+      {
+        "key": "ค",
+        "text": "ข้อมูลต้องเก็บอยู่ใน Linked List เท่านั้น"
+      },
+      {
+        "key": "ง",
+        "text": "ข้อมูลห้ามมีค่าซ้ำกัน"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "Binary Search จำเป็นต้องใช้กับข้อมูลที่ผ่านการจัดเรียง (Sorted) แล้วเท่านั้น"
+  },
+  {
+    "id": 26,
+    "category": "Session 02: Flowcharts, Pseudocode & Algorithms (ข้อ 21-40)",
+    "categoryKey": "cat2",
+    "question": "สัญลักษณ์ Off-page Connector ใน Flowchart ใช้เมื่อใด?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "เมื่อต้องการเชื่อมจุดตัดภายในหน้าเดียวกัน"
+      },
+      {
+        "key": "ข",
+        "text": "เมื่อผังงานยาวเกินหน้ากระดาษปัจจุบันและต้องต่อขึ้นหน้าใหม่"
+      },
+      {
+        "key": "ค",
+        "text": "เมื่อต้องการแสดงการอ่านข้อมูลจากไฟล์เอกสาร"
+      },
+      {
+        "key": "ง",
+        "text": "เมื่อต้องรับค่า Input จากแป้นพิมพ์"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "Off-page Connector (สัญลักษณ์บ้าน/ห้าเหลี่ยม) ใช้เชื่อมต่อผังงานข้ามหน้ากระดาษ"
+  },
+  {
+    "id": 27,
+    "category": "Session 02: Flowcharts, Pseudocode & Algorithms (ข้อ 21-40)",
+    "categoryKey": "cat2",
+    "question": "ข้อใดจัดเป็นข้อผิดพลาดแบบ Infinite Loop ใน Pseudocode?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "FOR i = 1 TO 10 STEP 1"
+      },
+      {
+        "key": "ข",
+        "text": "i = 10; WHILE i > 0 DO { i = i + 1; }"
+      },
+      {
+        "key": "ค",
+        "text": "i = 0; WHILE i < 5 DO { i = i + 1; }"
+      },
+      {
+        "key": "ง",
+        "text": "FOR i = 10 DOWNTO 1"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "i = 10 และเพิ่มค่า i = i + 1 เรื่อยๆ ทำให้เงื่อนไข i > 0 เป็นจริงตลอดกาล เกิด Infinite Loop"
+  },
+  {
+    "id": 28,
+    "category": "Session 02: Flowcharts, Pseudocode & Algorithms (ข้อ 21-40)",
+    "categoryKey": "cat2",
+    "question": "พิจารณา Pseudocode ต่อไปนี้ หากกำหนดให้ A = [3, 8, 2, 5, 1] ค่าของ MAX คือเท่าใดหลังจบโปรแกรม? SET MAX = A[0] FOR i = 1 TO 4 IF A[i] > MAX THEN MAX = A[i] END IF END FOR",
+    "options": [
+      {
+        "key": "ก",
+        "text": "3"
+      },
+      {
+        "key": "ข",
+        "text": "5"
+      },
+      {
+        "key": "ค",
+        "text": "8"
+      },
+      {
+        "key": "ง",
+        "text": "1"
+      }
+    ],
+    "answer": "ค",
+    "explanation": "อัลกอริทึมค้นหาค่าสูงสุด ในอาร์เรย์ [3, 8, 2, 5, 1] ค่าสูงสุดคือ 8"
+  },
+  {
+    "id": 29,
+    "category": "Session 02: Flowcharts, Pseudocode & Algorithms (ข้อ 21-40)",
+    "categoryKey": "cat2",
+    "question": "เทคนิค Top-Down Design ในการเขียน Pseudocode และ Algorithm คืออะไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "เขียนโค้ดจากบรรทัดล่างสุดขึ้นบน"
+      },
+      {
+        "key": "ข",
+        "text": "แตกปัญหาใหญ่ให้ออกเป็นปัญหาย่อยๆ (Sub-problems) ที่จัดการได้ง่ายขึ้นตามลำดับ"
+      },
+      {
+        "key": "ค",
+        "text": "การทดสอบระบบด้วยการจำลองข้อมูลจริง"
+      },
+      {
+        "key": "ง",
+        "text": "การแปลง Pseudocode ให้เป็น Machine Code โดยตรง"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "Top-Down Design คือการย่อยปัญหาใหญ่ให้ออกเป็นปัญหาย่อยๆ (Decomposition)"
+  },
+  {
+    "id": 30,
+    "category": "Session 02: Flowcharts, Pseudocode & Algorithms (ข้อ 21-40)",
+    "categoryKey": "cat2",
+    "question": "สัญลักษณ์สี่เหลี่ยมผืนผ้า (Rectangle) ใน Flowchart ใช้แทนการทำงานประเภทใด?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "Input/Output"
+      },
+      {
+        "key": "ข",
+        "text": "Process / Calculation / Assignment"
+      },
+      {
+        "key": "ค",
+        "text": "Start / End"
+      },
+      {
+        "key": "ง",
+        "text": "Manual Operation"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "สี่เหลี่ยมผืนผ้า คือ Process / Calculation / Assignment"
+  },
+  {
+    "id": 31,
+    "category": "Session 02: Flowcharts, Pseudocode & Algorithms (ข้อ 21-40)",
+    "categoryKey": "cat2",
+    "question": "อัลกอริทึมประเภท Divide and Conquer มีลักษณะการทำงานตามข้อใด?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "แก้ปัญหาทีละขั้นตอนเรียงตามลำดับอย่างตรงไปตรงมา"
+      },
+      {
+        "key": "ข",
+        "text": "แบ่งปัญหาเป็นส่วนย่อย แก้ปัญหาแต่ละส่วน แล้วนำผลลัพธ์มารวมกัน"
+      },
+      {
+        "key": "ค",
+        "text": "สุ่มเลือกทางเลือกเพื่อหาคำตอบที่ยอมรับได้"
+      },
+      {
+        "key": "ง",
+        "text": "ย้อนกลับไปทำขั้นตอนแรกใหม่เสมอหากคำตอบยังไม่ดีที่สุด"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "Divide and Conquer: แบ่ง ย่อย และรวมผลลัพธ์ (เช่น Merge Sort, Quick Sort)"
+  },
+  {
+    "id": 32,
+    "category": "Session 02: Flowcharts, Pseudocode & Algorithms (ข้อ 21-40)",
+    "categoryKey": "cat2",
+    "question": "คำสั่ง STEP -2 ในการวนซ้ำ FOR i = 10 TO 1 STEP -2 จะทำให้ลูปทำงานทั้งหมดกี่รอบ?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "4 รอบ"
+      },
+      {
+        "key": "ข",
+        "text": "5 รอบ"
+      },
+      {
+        "key": "ค",
+        "text": "6 รอบ"
+      },
+      {
+        "key": "ง",
+        "text": "10 รอบ"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "รอบที่ i = 10, 8, 6, 4, 2 รวมทั้งหมด 5 รอบ"
+  },
+  {
+    "id": 33,
+    "category": "Session 02: Flowcharts, Pseudocode & Algorithms (ข้อ 21-40)",
+    "categoryKey": "cat2",
+    "question": "พิจารณาการคำนวณค่า N! (Factorial) แบบ Recursion เงื่อนไข Base Case ที่จำเป็นคืออะไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "IF N > 1 RETURN N * Fact(N-1)"
+      },
+      {
+        "key": "ข",
+        "text": "IF N == 0 OR N == 1 RETURN 1"
+      },
+      {
+        "key": "ค",
+        "text": "IF N < 0 RETURN N"
+      },
+      {
+        "key": "ง",
+        "text": "WHILE N > 0 DO N--"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "Base Case ของ Factorial คือ 0! = 1 หรือ 1! = 1"
+  },
+  {
+    "id": 34,
+    "category": "Session 02: Flowcharts, Pseudocode & Algorithms (ข้อ 21-40)",
+    "categoryKey": "cat2",
+    "question": "สัญลักษณ์ใดใน Flowchart ที่ใช้รับข้อมูลโดยไม่ระบุประเภทอุปกรณ์สื่อสาร/นำเข้า?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "สี่เหลี่ยมด้านขนาน (Parallelogram)"
+      },
+      {
+        "key": "ข",
+        "text": "สี่เหลี่ยมผืนผ้าตัดมุม (Manual Input)"
+      },
+      {
+        "key": "ค",
+        "text": "วงกลม (Circle)"
+      },
+      {
+        "key": "ง",
+        "text": "ทรงกระบอก (Cylinder)"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "สี่เหลี่ยมด้านขนาน (Parallelogram) ใช้แทน General Input/Output"
+  },
+  {
+    "id": 35,
+    "category": "Session 02: Flowcharts, Pseudocode & Algorithms (ข้อ 21-40)",
+    "categoryKey": "cat2",
+    "question": "จาก Pseudocode ด้านล่าง ผลลัพธ์ของ count เท่ากับเท่าใด? SET count = 0 FOR i = 1 TO 3 FOR j = 1 TO i count = count + 1 END FOR END FOR",
+    "options": [
+      {
+        "key": "ก",
+        "text": "3"
+      },
+      {
+        "key": "ข",
+        "text": "6"
+      },
+      {
+        "key": "ค",
+        "text": "9"
+      },
+      {
+        "key": "ง",
+        "text": "12"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "i=1 (j=1) -> 1; i=2 (j=1,2) -> 2; i=3 (j=1,2,3) -> 3 รวม 1+2+3 = 6"
+  },
+  {
+    "id": 36,
+    "category": "Session 02: Flowcharts, Pseudocode & Algorithms (ข้อ 21-40)",
+    "categoryKey": "cat2",
+    "question": "ข้อใดเขียน Pseudocode สำหรับตรวจสอบว่าตัวแปร NUM เป็นเลขคู่หรือไม่ ได้ถูกต้องที่สุด?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "IF NUM / 2 == 0 THEN PRINT \"Even\""
+      },
+      {
+        "key": "ข",
+        "text": "IF NUM MOD 2 == 0 THEN PRINT \"Even\""
+      },
+      {
+        "key": "ค",
+        "text": "IF NUM % 2 == 1 THEN PRINT \"Even\""
+      },
+      {
+        "key": "ง",
+        "text": "IF NUM DIV 2 == 0 THEN PRINT \"Even\""
+      }
+    ],
+    "answer": "ข",
+    "explanation": "การหาเลขคู่ใช้ตัวดำเนินการ Modulus (NUM MOD 2 == 0) หรือเศษเหลือจากการหารสองเท่ากับ 0"
+  },
+  {
+    "id": 37,
+    "category": "Session 02: Flowcharts, Pseudocode & Algorithms (ข้อ 21-40)",
+    "categoryKey": "cat2",
+    "question": "สัญลักษณ์ \"แคปซูล\" หรือ \"สี่เหลี่ยมมุมมน\" (Terminal) ใน Flowchart ใช้สำหรับอะไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "แสดงจุดเริ่มต้น (Start) หรือ จุดสิ้นสุด (End) ของผังงาน"
+      },
+      {
+        "key": "ข",
+        "text": "แสดงการตัดสินใจ"
+      },
+      {
+        "key": "ค",
+        "text": "แสดงการประมวลผลคำนวณ"
+      },
+      {
+        "key": "ง",
+        "text": "แสดงการพิมพ์รายงานออกทางเครื่องพิมพ์"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "Terminal Symbol ใช้แสดงจุดเริ่มต้น (Start) และจุดสิ้นสุด (End)"
+  },
+  {
+    "id": 38,
+    "category": "Session 02: Flowcharts, Pseudocode & Algorithms (ข้อ 21-40)",
+    "categoryKey": "cat2",
+    "question": "เมื่อแปลง Dry-run Trace Table ของอัลกอริทึม การบันทึก State ของตัวแปรมีวัตถุประสงค์เพื่ออะไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "เพื่อเพิ่มความเร็วในการประมวลผลของ Compiler"
+      },
+      {
+        "key": "ข",
+        "text": "เพื่อติดตามการเปลี่ยนแปลงค่าของตัวแปรในแต่ละรอบการประมวลผลเพื่อตรวจสอบตรรกะ"
+      },
+      {
+        "key": "ค",
+        "text": "เพื่อคำนวณขนาดการใช้พื้นที่ใน RAM"
+      },
+      {
+        "key": "ง",
+        "text": "เพื่อใช้สร้างไฟล์ Executable"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "Trace table ช่วยไล่ตรวจติดตามการเปลี่ยนแปลงของตัวแปรเพื่อตรวจหา Logic Error"
+  },
+  {
+    "id": 39,
+    "category": "Session 02: Flowcharts, Pseudocode & Algorithms (ข้อ 21-40)",
+    "categoryKey": "cat2",
+    "question": "Pseudocode ข้อใดแสดงการทำงานแบบ \"Swapping\" ค่าสองตัวแปรโดยไม่ใช้ตัวแปรชั่วคราว (Temporary Variable)?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "A = B; B = A;"
+      },
+      {
+        "key": "ข",
+        "text": "A = A + B; B = A - B; A = A - B;"
+      },
+      {
+        "key": "ค",
+        "text": "TEMP = A; A = B; B = TEMP;"
+      },
+      {
+        "key": "ง",
+        "text": "A = B + 1; B = A - 1;"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "การสลับค่าโดยไม่ใช้ตัวแปรชั่วคราวอาศัยการบวกลบ (หรือ Bitwise XOR)"
+  },
+  {
+    "id": 40,
+    "category": "Session 02: Flowcharts, Pseudocode & Algorithms (ข้อ 21-40)",
+    "categoryKey": "cat2",
+    "question": "คุณลักษณะที่ดีของ อัลกอริทึม (Algorithm) ข้อใดสำคัญที่สุด?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "ต้องเขียนด้วยภาษาระดับสูงเท่านั้น"
+      },
+      {
+        "key": "ข",
+        "text": "ต้องมีจุดสิ้นสุดที่แน่นอน (Finiteness) และมีผลลัพธ์ที่ถูกต้องชัดเจน (Definiteness)"
+      },
+      {
+        "key": "ค",
+        "text": "ต้องใช้ตัวแปรให้น้อยที่สุดเสมอ"
+      },
+      {
+        "key": "ง",
+        "text": "ต้องเขียนให้อยู่ในรูปของสัญลักษณ์ Flowchart เท่านั้น Session 3: Data Types, Operators & Expressions (ข้อ 41 - 60)"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "อัลกอริทึมที่ดีต้องมีจุดสิ้นสุดชัดเจน (Finiteness) และผลลัพธ์ถูกต้องแน่นอน (Definiteness)"
+  },
+  {
+    "id": 41,
+    "category": "Session 03: Data Types, Operators & Expressions (ข้อ 41-60)",
+    "categoryKey": "cat3",
+    "question": "กำหนดให้ a = 5, b = 2 ในภาษา C/C++ นิพจน์ (float)a / b มีค่าเท่ากับเท่าใด?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "2.0"
+      },
+      {
+        "key": "ข",
+        "text": "2.5"
+      },
+      {
+        "key": "ค",
+        "text": "2"
+      },
+      {
+        "key": "ง",
+        "text": "2.5000 (เป็นข้อมูลประเภท Integer)"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "(float)a แปลง a เป็น 5.0 จากนั้นหารด้วย 2 (Implicit Conversion) ได้ 2.5"
+  },
+  {
+    "id": 42,
+    "category": "Session 03: Data Types, Operators & Expressions (ข้อ 41-60)",
+    "categoryKey": "cat3",
+    "question": "นิพจน์ทางตรรกศาสตร์ !(A && B) || C จะมีค่าเป็น FALSE ในกรณีใด?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "A = True, B = True, C = False"
+      },
+      {
+        "key": "ข",
+        "text": "A = True, B = False, C = False"
+      },
+      {
+        "key": "ค",
+        "text": "A = False, B = False, C = True"
+      },
+      {
+        "key": "ง",
+        "text": "A = True, B = True, C = True"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "!(T && T)"
+  },
+  {
+    "id": 43,
+    "category": "Session 03: Data Types, Operators & Expressions (ข้อ 41-60)",
+    "categoryKey": "cat3",
+    "question": "พิจารณาลำดับความสำคัญของตัวดำเนินการ (Operator Precedence) นิพจน์ 10 + 4 * 3 / 2 - 1 ได้ผลลัพธ์เท่าใด?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "20"
+      },
+      {
+        "key": "ข",
+        "text": "15"
+      },
+      {
+        "key": "ค",
+        "text": "16"
+      },
+      {
+        "key": "ง",
+        "text": "12"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "คูณหารทำก่อนจากซ้ายไปขวา: 4 x 3 = 12 -> 12 / 2 = 6; แล้วบวกลบ: 10 + 6 - 1 = 15"
+  },
+  {
+    "id": 44,
+    "category": "Session 03: Data Types, Operators & Expressions (ข้อ 41-60)",
+    "categoryKey": "cat3",
+    "question": "การทำงานของ Bitwise Operator 5 & 3 (5 AND 3) ให้ผลลัพธ์ในระบบฐานสิบเท่ากับเท่าใด?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "1"
+      },
+      {
+        "key": "ข",
+        "text": "7"
+      },
+      {
+        "key": "ค",
+        "text": "0"
+      },
+      {
+        "key": "ง",
+        "text": "2"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "5 = 101_2, 3 = 011_2; 101_2 & 011_2 = 001_2 = 1"
+  },
+  {
+    "id": 45,
+    "category": "Session 03: Data Types, Operators & Expressions (ข้อ 41-60)",
+    "categoryKey": "cat3",
+    "question": "หากทำการ Shift Bit ทางซ้าย: x << 2 โดยกำหนดให้ x = 3 (ในระบบฐานสิบ) ผลลัพธ์จะเป็นเท่าใด?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "6"
+      },
+      {
+        "key": "ข",
+        "text": "12"
+      },
+      {
+        "key": "ค",
+        "text": "1.5"
+      },
+      {
+        "key": "ง",
+        "text": "8"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "Bitwise Left Shift: x << n = x * 2^n => 3 * 2^2 = 12"
+  },
+  {
+    "id": 46,
+    "category": "Session 03: Data Types, Operators & Expressions (ข้อ 41-60)",
+    "categoryKey": "cat3",
+    "question": "ข้อใดบรรยายลักษณะของ \"Short-circuit Evaluation\" ในตัวดำเนินการตรรกศาสตร์ && (AND) ได้ถูกต้อง?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "ประเมินนิพจน์ทางขวาก่อนเสมอ"
+      },
+      {
+        "key": "ข",
+        "text": "ถ้านิพจน์ทางซ้ายเป็น False จะไม่ประเมินนิพจน์ทางขวาต่อทันที"
+      },
+      {
+        "key": "ค",
+        "text": "ถ้านิพจน์ทางซ้ายเป็น True จะหยุดประเมินทันที"
+      },
+      {
+        "key": "ง",
+        "text": "ทำการประเมินทั้งสองฝั่งเสมอเพื่อความถูกต้อง"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "สำหรับ && ถ้าตัวหน้าเป็น False ผลลัพธ์รวมย่อมเป็น False แน่นอน จึงไม่ประเมินตัวหลังต่อ"
+  },
+  {
+    "id": 47,
+    "category": "Session 03: Data Types, Operators & Expressions (ข้อ 41-60)",
+    "categoryKey": "cat3",
+    "question": "ขนาดของชนิดข้อมูล (Data Type Size) ขึ้นอยู่กับสิ่งใดมากที่สุด?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "ขนาดของไฟล์ซอร์สโค้ด"
+      },
+      {
+        "key": "ข",
+        "text": "สถาปัตยกรรมของระบบคอมพิวเตอร์และ Compiler (เช่น 32-bit vs 64-bit)"
+      },
+      {
+        "key": "ค",
+        "text": "จำนวนตัวแปรที่ประกาศในโปรแกรม"
+      },
+      {
+        "key": "ง",
+        "text": "ความเร็วของ CPU"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "ขนาด Data type ขึ้นอยู่กับ architecture (เช่น 32/64 bit) และตัว Compiler"
+  },
+  {
+    "id": 48,
+    "category": "Session 03: Data Types, Operators & Expressions (ข้อ 41-60)",
+    "categoryKey": "cat3",
+    "question": "จงหาค่าของ x หลังจากการประมวลผลคำสั่งต่อไปนี้: int x = 5; int y = x++;",
+    "options": [
+      {
+        "key": "ก",
+        "text": "x = 5, y = 5"
+      },
+      {
+        "key": "ข",
+        "text": "x = 6, y = 5"
+      },
+      {
+        "key": "ค",
+        "text": "x = 6, y = 6"
+      },
+      {
+        "key": "ง",
+        "text": "x = 5, y = 6"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "y = x++ (Post-increment) ให้ y รับค่าเดิม (5) ไปก่อน แล้ว x ค่อยบวกเพิ่มเป็น 6"
+  },
+  {
+    "id": 49,
+    "category": "Session 03: Data Types, Operators & Expressions (ข้อ 41-60)",
+    "categoryKey": "cat3",
+    "question": "ข้อใดต่อไปนี้ตั้งชื่อตัวแปร (Identifier) ถูกต้องตามหลักสากล?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "2nd_number"
+      },
+      {
+        "key": "ข",
+        "text": "float"
+      },
+      {
+        "key": "ค",
+        "text": "_user_total_score"
+      },
+      {
+        "key": "ง",
+        "text": "user-name"
+      }
+    ],
+    "answer": "ค",
+    "explanation": "ชื่อตัวแปรสามารถขึ้นต้นด้วย _ ได้ ตัวเลือกอื่นผิดกฎ (ขึ้นต้นด้วยตัวเลข, เป็นคำห้าม, มีเครื่องหมายลบ)"
+  },
+  {
+    "id": 50,
+    "category": "Session 03: Data Types, Operators & Expressions (ข้อ 41-60)",
+    "categoryKey": "cat3",
+    "question": "ผลลัพธ์ของการคำนวณ 13 % 5 (Modulus) เท่ากับเท่าใด?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "2.6"
+      },
+      {
+        "key": "ข",
+        "text": "2"
+      },
+      {
+        "key": "ค",
+        "text": "3"
+      },
+      {
+        "key": "ง",
+        "text": "0"
+      }
+    ],
+    "answer": "ค",
+    "explanation": "13 หารด้วย 5 ได้ 2 เศษ 3 ผลลัพธ์การ Modulus คือ 3"
+  },
+  {
+    "id": 51,
+    "category": "Session 03: Data Types, Operators & Expressions (ข้อ 41-60)",
+    "categoryKey": "cat3",
+    "question": "Implicit Type Conversion (Coercion) เกิดขึ้นเมื่อใด?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "เมื่อโปรแกรมเมอร์เขียน cast explicit เช่น (int)3.14"
+      },
+      {
+        "key": "ข",
+        "text": "เมื่อตัวดำเนินการกระทำกับ operand ต่าง data type กัน แล้วภาษาแปลงชนิดข้อมูลให้โดยอัตโนมัติ"
+      },
+      {
+        "key": "ค",
+        "text": "เมื่อโปรแกรมเกิด Runtime Error"
+      },
+      {
+        "key": "ง",
+        "text": "เมื่อแปลงค่าตัวแปรผ่านการรับค่าทาง Keyboard"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "Implicit type conversion เกิดขึ้นโดยอัตโนมัติเมื่อประมวลผล operand ต่างชนิดกัน"
+  },
+  {
+    "id": 52,
+    "category": "Session 03: Data Types, Operators & Expressions (ข้อ 41-60)",
+    "categoryKey": "cat3",
+    "question": "ในระบบรหัส ASCII ตัวอักษร 'A' มีค่าเท่ากับ 65 (ฐานสิบ) นิพจน์ 'C' - 'A' จะมีค่าเท่ากับเท่าใด?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "67"
+      },
+      {
+        "key": "ข",
+        "text": "2"
+      },
+      {
+        "key": "ค",
+        "text": "'B'"
+      },
+      {
+        "key": "ง",
+        "text": "-2"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "'C' มีรหัส 67, 'A' มีรหัส 65 -> 67 - 65 = 2"
+  },
+  {
+    "id": 53,
+    "category": "Session 03: Data Types, Operators & Expressions (ข้อ 41-60)",
+    "categoryKey": "cat3",
+    "question": "ชนิดข้อมูลประเภท unsigned int ต่างจาก signed int อย่างไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "unsigned int ใช้พื้นที่ Memory มากกว่า 2 เท่า"
+      },
+      {
+        "key": "ข",
+        "text": "unsigned int ไม่สามารถเก็บค่าติดลบได้ ทำให้ช่วงค่าบวกกว้างขึ้นเป็น 2 เท่า"
+      },
+      {
+        "key": "ค",
+        "text": "unsigned int สามารถเก็บทศนิยมได้"
+      },
+      {
+        "key": "ง",
+        "text": "unsigned int ทำงานช้ากว่า signed int"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "unsigned ตัดช่วงติดลบออก แล้วนำพื้นที่ Bit ไปขยายช่วงค่าบวกได้เป็น 2 เท่า"
+  },
+  {
+    "id": 54,
+    "category": "Session 03: Data Types, Operators & Expressions (ข้อ 41-60)",
+    "categoryKey": "cat3",
+    "question": "นิพจน์แบบ Ternary Operator ในข้อใดทำงานเทียบเท่ากับโครงสร้าง if (a > b) max = a; else max = b;?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "max = (a > b) : a ? b;"
+      },
+      {
+        "key": "ข",
+        "text": "max = (a > b) ? a : b;"
+      },
+      {
+        "key": "ค",
+        "text": "max = if(a > b) ? a : b;"
+      },
+      {
+        "key": "ง",
+        "text": "(a > b) ? max = a : max = b;"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "Ternary Syntax: condition ? expr_if_true : expr_if_false;"
+  },
+  {
+    "id": 55,
+    "category": "Session 03: Data Types, Operators & Expressions (ข้อ 41-60)",
+    "categoryKey": "cat3",
+    "question": "ข้อใดเกิดปัญหา Overflow ชัดเจนที่สุด?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "กำหนดค่า 300 ให้กับตัวแปรประเภท 8-bit signed integer (ซึ่งเก็บได้ระหว่าง -128 ถึง 127)"
+      },
+      {
+        "key": "ข",
+        "text": "หารตัวเลขด้วย 0"
+      },
+      {
+        "key": "ค",
+        "text": "แปลง Float เป็น Double"
+      },
+      {
+        "key": "ง",
+        "text": "นำ String ความยาว 5 ตัวอักษรไปต่อกับ String อื่น"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "signed 8-bit int เก็บได้สูงสุด 127 การใส่ค่า 300 จะเกิด Integer Overflow"
+  },
+  {
+    "id": 56,
+    "category": "Session 03: Data Types, Operators & Expressions (ข้อ 41-60)",
+    "categoryKey": "cat3",
+    "question": "นิพจน์ 5 + 2 * 3 ^ 2 (ให้ ^ แทนการยกกำลัง) ตามหลักคณิตศาสตร์มาตรฐานมีค่าเท่าใด?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "63"
+      },
+      {
+        "key": "ข",
+        "text": "23"
+      },
+      {
+        "key": "ค",
+        "text": "441"
+      },
+      {
+        "key": "ง",
+        "text": "147"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "ยกกำลังก่อน: 3^2=9 -> คูณ: 2 x 9 = 18 -> บวก: 5 + 18 = 23"
+  },
+  {
+    "id": 57,
+    "category": "Session 03: Data Types, Operators & Expressions (ข้อ 41-60)",
+    "categoryKey": "cat3",
+    "question": "ค่าความจริง (Boolean) ในภาษา C มาตรฐาน (C99 ลงไป) Represent ค่า True/False อย่างไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "True = \"TRUE\", False = \"FALSE\""
+      },
+      {
+        "key": "ข",
+        "text": "True = 1 เท่านั้น, False = -1 เท่านั้น"
+      },
+      {
+        "key": "ค",
+        "text": "True = ค่าใดๆ ที่ไม่ใช่ 0, False = 0"
+      },
+      {
+        "key": "ง",
+        "text": "True = 0, False = 1"
+      }
+    ],
+    "answer": "ค",
+    "explanation": "ภาษา C มองค่า 0 เป็น False และค่าที่ไม่ใช่ 0 (Non-zero) ทั้งหมดเป็น True"
+  },
+  {
+    "id": 58,
+    "category": "Session 03: Data Types, Operators & Expressions (ข้อ 41-60)",
+    "categoryKey": "cat3",
+    "question": "การคำนวณแบบ Floating-point precision issue เช่น 0.1 + 0.2 != 0.3 เกิดจากสาเหตุใด?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "ข้อผิดพลาดของ Compiler"
+      },
+      {
+        "key": "ข",
+        "text": "การแปลงตัวเลขฐานสิบที่มีทศนิยมเป็นระบบฐานสองแบบคงที่เกิดการปัดเศษ (IEEE 754 Representation)"
+      },
+      {
+        "key": "ค",
+        "text": "RAM ประมวลผลช้าเกินไป"
+      },
+      {
+        "key": "ง",
+        "text": "การใช้ชนิดข้อมูลแบบ Double แทน Float"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "Floating-point precision issue ตามมาตรฐาน IEEE 754 ไม่สามารถแปลงเลขทศนิยมฐานสิบเป็นฐานสองได้ลงตัวเป๊ะๆ"
+  },
+  {
+    "id": 59,
+    "category": "Session 03: Data Types, Operators & Expressions (ข้อ 41-60)",
+    "categoryKey": "cat3",
+    "question": "จงหาค่าของ result จากนิพจน์: int result = (5 == 5) && (3 > 8) || (2 <= 2);",
+    "options": [
+      {
+        "key": "ก",
+        "text": "0 (False)"
+      },
+      {
+        "key": "ข",
+        "text": "1 (True)"
+      },
+      {
+        "key": "ค",
+        "text": "Syntax Error"
+      },
+      {
+        "key": "ง",
+        "text": "Null"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "(T) && (F)"
+  },
+  {
+    "id": 60,
+    "category": "Session 03: Data Types, Operators & Expressions (ข้อ 41-60)",
+    "categoryKey": "cat3",
+    "question": "ตัวดำเนินการ Compound Assignment ข้อใดมีความหมายเทียบเท่ากับ x = x * (y + 3)?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "x *= y + 3;"
+      },
+      {
+        "key": "ข",
+        "text": "x =* y + 3;"
+      },
+      {
+        "key": "ค",
+        "text": "x *+= y + 3;"
+      },
+      {
+        "key": "ง",
+        "text": "x = x * y + 3; Session 4: Control Structures (Selection & Iteration) (ข้อ 61 - 80)"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "x *= y + 3 เทียบเท่ากับ x = x * (y + 3) ตามหลักการจัดกลุ่ม Compound Assignment"
+  },
+  {
+    "id": 61,
+    "category": "Session 04: Control Structures (Selection & Iteration) (ข้อ 61-80)",
+    "categoryKey": "cat4",
+    "question": "โค้ดภาษา C ต่อไปนี้จะพิมพ์คำว่าอะไรออกทางหน้าจอ? int x = 2; switch(x) { case 1: printf(\"One \"); case 2: printf(\"Two \"); case 3: printf(\"Three \"); default: printf(\"Default\"); }",
+    "options": [
+      {
+        "key": "ก",
+        "text": "Two"
+      },
+      {
+        "key": "ข",
+        "text": "Two Three"
+      },
+      {
+        "key": "ค",
+        "text": "Two Three Default"
+      },
+      {
+        "key": "ง",
+        "text": "Default"
+      }
+    ],
+    "answer": "ค",
+    "explanation": "เนื่องจากไม่มีคำสั่ง break; หลัง case 2 โปรแกรมจะทำงานทะลุผ่าน (Fall-through) ไปยัง case 3 และ default"
+  },
+  {
+    "id": 62,
+    "category": "Session 04: Control Structures (Selection & Iteration) (ข้อ 61-80)",
+    "categoryKey": "cat4",
+    "question": "เหตุใดคำสั่ง switch-case จึงไม่เหมาะสำหรับการตรวจสอบเงื่อนไขประเภทใด?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "การเปรียบเทียบค่าความเท่ากันของ Integer"
+      },
+      {
+        "key": "ข",
+        "text": "การตรวจสอบเงื่อนไขที่เป็นช่วงข้อมูล (Range check) เช่น x >= 80 && x <= 100"
+      },
+      {
+        "key": "ค",
+        "text": "การตรวจสอบตัวอักษร (Char)"
+      },
+      {
+        "key": "ง",
+        "text": "การใช้นิพจน์ Enum"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "switch-case เหมาะกับการเช็คค่าคงที่เฉพาะเจาะจง ไม่เหมาะกับการเช็คช่วงเงื่อนไข (Range)"
+  },
+  {
+    "id": 63,
+    "category": "Session 04: Control Structures (Selection & Iteration) (ข้อ 61-80)",
+    "categoryKey": "cat4",
+    "question": "ลูปชนิดใดประกันว่าบล็อกคำสั่งภายในจะถูกรันอย่างน้อย 1 ครั้งแน่นอนเสมอ?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "for loop"
+      },
+      {
+        "key": "ข",
+        "text": "while loop"
+      },
+      {
+        "key": "ค",
+        "text": "do-while loop"
+      },
+      {
+        "key": "ง",
+        "text": "foreach loop"
+      }
+    ],
+    "answer": "ค",
+    "explanation": "do-while เช็คเงื่อนไขทีหลัง จึงการันตีการทำงานอย่างน้อย 1 รอบเสมอ"
+  },
+  {
+    "id": 64,
+    "category": "Session 04: Control Structures (Selection & Iteration) (ข้อ 61-80)",
+    "categoryKey": "cat4",
+    "question": "คำสั่ง break และ continue มีความแตกต่างกันอย่างไรในการควบคุม ลูป?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "break ข้ามไปรอบถัดไป, continue ออกจากลูปทันที"
+      },
+      {
+        "key": "ข",
+        "text": "break ออกจากลูปทันที, continue ข้ามคำสั่งที่เหลือในรอบปัจจุบันแล้วไปเริ่มรอบถัดไป"
+      },
+      {
+        "key": "ค",
+        "text": "break หยุดการทำงานของโปรแกรมทั้งหมด, continue เริ่มต้นลูปใหม่ตั้งแต่รอบแรก"
+      },
+      {
+        "key": "ง",
+        "text": "ไม่มีความแตกต่างกัน"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "break หลุดออกจากลูปทันที; continue ข้ามไปรอบถัดไปทันที"
+  },
+  {
+    "id": 65,
+    "category": "Session 04: Control Structures (Selection & Iteration) (ข้อ 61-80)",
+    "categoryKey": "cat4",
+    "question": "พิจารณาโค้ดต่อไปนี้ ข้อใดเป็นผลลัพธ์ของ sum? int sum = 0; for (int i = 0; i < 5; i++) { if (i % 2 == 0) continue; sum += i; }",
+    "options": [
+      {
+        "key": "ก",
+        "text": "4"
+      },
+      {
+        "key": "ข",
+        "text": "6"
+      },
+      {
+        "key": "ค",
+        "text": "10"
+      },
+      {
+        "key": "ง",
+        "text": "0"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "รอบ i=1 (1%2 != 0 => sum+=1), รอบ i=3 (3%2 != 0 => sum+=3) ผลรวมคือ 1+3 = 4"
+  },
+  {
+    "id": 66,
+    "category": "Session 04: Control Structures (Selection & Iteration) (ข้อ 61-80)",
+    "categoryKey": "cat4",
+    "question": "การเขียนเงื่อนไข if (x = 5) แทนที่จะเป็น if (x == 5) จะส่งผลอย่างไรในภาษา C?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "เกิด Syntax Error Compile ไม่ผ่าน"
+      },
+      {
+        "key": "ข",
+        "text": "กำหนดค่า 5 ให้ x และเงื่อนไขประเมินเป็น True เสมอ"
+      },
+      {
+        "key": "ค",
+        "text": "เกิด Runtime Crash"
+      },
+      {
+        "key": "ง",
+        "text": "โปรแกรมจะละเว้นบล็อก if ไปทำ else"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "x = 5 คือ Assignment ได้ผลลัพธ์เป็น 5 (ซึ่งไม่ใช่ 0) ทำให้ประเมินเป็น True เสมอ"
+  },
+  {
+    "id": 67,
+    "category": "Session 04: Control Structures (Selection & Iteration) (ข้อ 61-80)",
+    "categoryKey": "cat4",
+    "question": "ข้อใดคือจำนวนรอบการทำงานของลูป for (int i = 10; i > 0; i /= 2)?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "10 รอบ"
+      },
+      {
+        "key": "ข",
+        "text": "5 รอบ"
+      },
+      {
+        "key": "ค",
+        "text": "4 รอบ"
+      },
+      {
+        "key": "ง",
+        "text": "Infinite loop"
+      }
+    ],
+    "answer": "ค",
+    "explanation": "i = 10, 5, 2, 1 เมื่อ i = 0 เงื่อนไข 0 > 0 เป็นเท็จ หยุดทำงาน รวมเป็น 4 รอบ"
+  },
+  {
+    "id": 68,
+    "category": "Session 04: Control Structures (Selection & Iteration) (ข้อ 61-80)",
+    "categoryKey": "cat4",
+    "question": "พิจารณา Nested Loop ต่อไปนี้ คำว่า \"Hello\" จะถูกพิมพ์กี่ครั้ง? for(int i=0; i<3; i++) { for(int j=0; j<4; j++) { printf(\"Hello \"); } }",
+    "options": [
+      {
+        "key": "ก",
+        "text": "7 ครั้ง"
+      },
+      {
+        "key": "ข",
+        "text": "12 ครั้ง"
+      },
+      {
+        "key": "ค",
+        "text": "3 ครั้ง"
+      },
+      {
+        "key": "ง",
+        "text": "4 ครั้ง"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "ลูปนอก 3 รอบ ลูปใน 4 รอบ ทำงานทั้งหมด 3 x 4 = 12 ครั้ง"
+  },
+  {
+    "id": 69,
+    "category": "Session 04: Control Structures (Selection & Iteration) (ข้อ 61-80)",
+    "categoryKey": "cat4",
+    "question": "ข้อใดอธิบายโครงสร้างการทำงานของ Dangling Else Problem ได้ถูกต้อง?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "คำสั่ง else ที่ไม่มีการใส่เครื่องหมายปาท่องโก๋ {} จะถูกผูกกับ if ตัวที่ใกล้ที่สุดก่อนเสมอ"
+      },
+      {
+        "key": "ข",
+        "text": "คำสั่ง else ทำงานโดยไม่สนใจเงื่อนไข if"
+      },
+      {
+        "key": "ค",
+        "text": "โปรแกรมค้างเนื่องจากวนลูปไม่สิ้นสุด"
+      },
+      {
+        "key": "ง",
+        "text": "else ทำงานพร้อมกับ if เสมอ"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "Dangling Else: คำสั่ง else ที่ลอยอยู่จะจับคู่กับ if ตัวที่ใกล้ที่สุดเสมอหากไม่มีปาท่องโก๋ {}"
+  },
+  {
+    "id": 70,
+    "category": "Session 04: Control Structures (Selection & Iteration) (ข้อ 61-80)",
+    "categoryKey": "cat4",
+    "question": "โค้ดนี้จะให้ผลลัพธ์อย่างไร? int i = 0; while(i < 3); { printf(\"%d \", i); i++; }",
+    "options": [
+      {
+        "key": "ก",
+        "text": "0 1 2"
+      },
+      {
+        "key": "ข",
+        "text": "0 1 2 3"
+      },
+      {
+        "key": "ค",
+        "text": "ติด Infinite Loop (ไม่พิมพ์อะไรเลยออกหน้าจอ)"
+      },
+      {
+        "key": "ง",
+        "text": "Compile Error"
+      }
+    ],
+    "answer": "ค",
+    "explanation": "เครื่องหมาย ; หลัง while(i < 3); ทำให้เกิดลูปว่างเปล่าที่ติด Infinite Loop อยู่บรรทัดนั้น"
+  },
+  {
+    "id": 71,
+    "category": "Session 04: Control Structures (Selection & Iteration) (ข้อ 61-80)",
+    "categoryKey": "cat4",
+    "question": "โครงสร้างทางเลือกแบบใดที่ใช้ในการเลือกทำ 1 จากหลายๆ ทางเลือกด้วยการประเมินหลายเงื่อนไขตามลำดับ?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "Simple If"
+      },
+      {
+        "key": "ข",
+        "text": "If-Else"
+      },
+      {
+        "key": "ค",
+        "text": "Nested If"
+      },
+      {
+        "key": "ง",
+        "text": "If-Else If-Else Ladder"
+      }
+    ],
+    "answer": "ง",
+    "explanation": "If-Else If-Else Ladder เหมาะสำหรับการเช็คหลายเงื่อนไขเรียงตามลำดับ"
+  },
+  {
+    "id": 72,
+    "category": "Session 04: Control Structures (Selection & Iteration) (ข้อ 61-80)",
+    "categoryKey": "cat4",
+    "question": "ข้อใดคือผลลัพธ์ของโปรแกรมต่อไปนี้? int a = 5, b = 10; if (a > 0) if (b < 5) printf(\"A\"); else printf(\"B\");",
+    "options": [
+      {
+        "key": "ก",
+        "text": "A"
+      },
+      {
+        "key": "ข",
+        "text": "B"
+      },
+      {
+        "key": "ค",
+        "text": "ไม่พิมพ์อะไรเลย"
+      },
+      {
+        "key": "ง",
+        "text": "Compile Error"
+      }
+    ],
+    "answer": "ค",
+    "explanation": "a > 0 เป็นจริง เข้ามาเช็ค b < 5 (10 < 5) เป็นเท็จ คำสั่ง else ถูกจับคู่กับ if (b < 5) จึงไม่พิมพ์อะไรเลย"
+  },
+  {
+    "id": 73,
+    "category": "Session 04: Control Structures (Selection & Iteration) (ข้อ 61-80)",
+    "categoryKey": "cat4",
+    "question": "การใช้งาน Loop Invariant หมายถึงอะไรในการพิสูจน์ความถูกต้องของโปรแกรม?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "เงื่อนไขที่กลายเป็น False เสมอเมื่อจบลูป"
+      },
+      {
+        "key": "ข",
+        "text": "คุณสมบัติ/เงื่อนไขที่เป็นจริงเสมอ ทั้งก่อนเข้าลูป, ระหว่างการวนลูปทุกรอบ และหลังออกจากลูป"
+      },
+      {
+        "key": "ค",
+        "text": "ตัวแปรที่ใช้นับจำนวนรอบของลูป"
+      },
+      {
+        "key": "ง",
+        "text": "คำสั่งสั่งหยุดลูปกลางคัน"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "Loop Invariant คือเงื่อนไขทางตรรกศาสตร์ที่เป็นจริงเสมอในทุกสเตจของลูป"
+  },
+  {
+    "id": 74,
+    "category": "Session 04: Control Structures (Selection & Iteration) (ข้อ 61-80)",
+    "categoryKey": "cat4",
+    "question": "ลูปประเภท for ( ; ; ) ในภาษา C/C++ มีพฤติกรรมอย่างไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "เกิด Syntax Error เนื่องจากไม่มี Parameter"
+      },
+      {
+        "key": "ข",
+        "text": "เป็น Infinite Loop (วนลูปไม่สิ้นสุด)"
+      },
+      {
+        "key": "ค",
+        "text": "ไม่ทำงานเลยสักรอบ"
+      },
+      {
+        "key": "ง",
+        "text": "ทำงานเพียง 1 รอบ"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "for(;;) ละเว้นทุกลูปพารามิเตอร์ มีค่าเท่ากับ Infinite Loop"
+  },
+  {
+    "id": 75,
+    "category": "Session 04: Control Structures (Selection & Iteration) (ข้อ 61-80)",
+    "categoryKey": "cat4",
+    "question": "เงื่อนไขใน while (x != 0) สามารถเขียนอีกรูปแบบหนึ่งสั้นๆ ได้อย่างไรในภาษา C?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "while (!x)"
+      },
+      {
+        "key": "ข",
+        "text": "while (x)"
+      },
+      {
+        "key": "ค",
+        "text": "while (x == 1)"
+      },
+      {
+        "key": "ง",
+        "text": "while (x++)"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "ในภาษา C while(x) มีความหมายตรงกับ while(x != 0)"
+  },
+  {
+    "id": 76,
+    "category": "Session 04: Control Structures (Selection & Iteration) (ข้อ 61-80)",
+    "categoryKey": "cat4",
+    "question": "ข้อใดจัดเป็นข้อเสียของการใช้ Nested Loop ลึกเกินไป (เช่น 4-5 ชั้น)?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "ทำให้ขนาดไฟล์ Executable ใหญ่ขึ้นแบบ Exponential"
+      },
+      {
+        "key": "ข",
+        "text": "ทำให้ความซับซ้อนเชิงเวลา (Time Complexity) สูงขึ้นอย่างมาก ส่งผลให้โปรแกรมทำงานช้าลง"
+      },
+      {
+        "key": "ค",
+        "text": "ทำให้เกิด Syntax Error บน Compiler ยุคใหม่"
+      },
+      {
+        "key": "ง",
+        "text": "ทำให้ตัวแปรถูกลบออกจาก Memory"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "Nested loop ยิ่งลึกจะยิ่งเพิ่มความซับซ้อนเชิงเวลาแบบ Polynomial/Exponential (O(n^k))"
+  },
+  {
+    "id": 77,
+    "category": "Session 04: Control Structures (Selection & Iteration) (ข้อ 61-80)",
+    "categoryKey": "cat4",
+    "question": "พิจารณาโค้ดนี้ ผลลัพธ์สุดท้ายของ a คือเท่าใด? int a = 1; do { a += 2; } while(a < 5);",
+    "options": [
+      {
+        "key": "ก",
+        "text": "3"
+      },
+      {
+        "key": "ข",
+        "text": "5"
+      },
+      {
+        "key": "ค",
+        "text": "7"
+      },
+      {
+        "key": "ง",
+        "text": "1"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "รอบที่ 1: a = 1+2 = 3 (เงื่อนไข 3 < 5 True) -> รอบที่ 2: a = 3+2 = 5 (เงื่อนไข 5 < 5 False) ออกจากลูป a=5"
+  },
+  {
+    "id": 78,
+    "category": "Session 04: Control Structures (Selection & Iteration) (ข้อ 61-80)",
+    "categoryKey": "cat4",
+    "question": "ข้อใดระบุข้อผิดพลาดของโค้ดต่อไปนี้ได้ถูกต้อง? for (float f = 0.0; f != 1.0; f += 0.1) { printf(\"%f \", f); }",
+    "options": [
+      {
+        "key": "ก",
+        "text": "ตัวแปรลูปห้ามใช้ Float"
+      },
+      {
+        "key": "ข",
+        "text": "อาจติด Infinite Loop เนื่องจากปัญหาการปัดเศษ (Floating-point precision) ทำให้ f อาจไม่เท่ากับ 1.0 แบบเป๊ะๆ"
+      },
+      {
+        "key": "ค",
+        "text": "คำสั่ง printf ใช้ Format Specifier ผิด"
+      },
+      {
+        "key": "ง",
+        "text": "โค้ดทำงานถูกต้องเรียบร้อย พิมพ์ 0.0 ถึง 0.9"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "ค่า f อาจเป็น 0.999999 ซึ่งไม่เท่ากับ 1.0 พอดี ทำให้เกิด Infinite Loop"
+  },
+  {
+    "id": 79,
+    "category": "Session 04: Control Structures (Selection & Iteration) (ข้อ 61-80)",
+    "categoryKey": "cat4",
+    "question": "การทำ \"Loop Unrolling\" เป็นเทคนิคเพื่ออะไรในการปรับแต่งโปรแกรม (Optimization)?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "ลดจำนวนครั้งในการเช็คเงื่อนไขลูป เพื่อเพิ่มความเร็วในการประมวลผล"
+      },
+      {
+        "key": "ข",
+        "text": "ช่วยประหยัด RAM"
+      },
+      {
+        "key": "ค",
+        "text": "เปลี่ยนลูปเป็นโครงสร้าง Recursion"
+      },
+      {
+        "key": "ง",
+        "text": "ป้องกันการเกิด Stack Overflow"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "Loop Unrolling ลด Overhead การเช็คเงื่อนไขหัวลูป ช่วยให้ CPU ประมวลผลเร็วขึ้น"
+  },
+  {
+    "id": 80,
+    "category": "Session 04: Control Structures (Selection & Iteration) (ข้อ 61-80)",
+    "categoryKey": "cat4",
+    "question": "คำสั่ง switch ในภาษา C มาตรฐาน ไม่สามารถ ใช้กับชนิดข้อมูลประเภทใดได้?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "int"
+      },
+      {
+        "key": "ข",
+        "text": "char"
+      },
+      {
+        "key": "ค",
+        "text": "enum"
+      },
+      {
+        "key": "ง",
+        "text": "double Session 5: Functions, Scope & Memory Management (ข้อ 81 - 100)"
+      }
+    ],
+    "answer": "ง",
+    "explanation": "คำสั่ง switch รับได้เฉพาะชนิดข้อมูลแบบ Integral (int, char, enum) ไม่รองรับ Float/Double"
+  },
+  {
+    "id": 81,
+    "category": "Session 05: Functions, Scope & Memory Management (ข้อ 81-100)",
+    "categoryKey": "cat5",
+    "question": "การประกาศ Function Prototype ก่อนฟังก์ชัน main() มีวัตถุประสงค์หลักเพื่ออะไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "เพื่อจอง Memory ใน Heap"
+      },
+      {
+        "key": "ข",
+        "text": "เพื่อแจ้ง Compiler ให้ทราบถึงชื่อ, ชนิดข้อมูลคืนค่า (Return type) และ Parameter ของฟังก์ชันก่อนการเรียกใช้งานจริง"
+      },
+      {
+        "key": "ค",
+        "text": "เพื่อเพิ่มความเร็วในการ Run โปรแกรม"
+      },
+      {
+        "key": "ง",
+        "text": "เพื่อสร้างตัวแปรแบบ Global"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "Function Prototype แจ้งข้อมูลป้ายชื่อและลายเซ็นของฟังก์ชันให้ Compiler ทราบล่วงหน้า"
+  },
+  {
+    "id": 82,
+    "category": "Session 05: Functions, Scope & Memory Management (ข้อ 81-100)",
+    "categoryKey": "cat5",
+    "question": "คำสั่ง static เมื่อใช้ประกาศหน้าตัวแปรใน Local Scope ของฟังก์ชัน มีผลอย่างไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "ทำให้ตัวแปรนั้นกลายเป็น Constant ห้ามแก้ไขค่า"
+      },
+      {
+        "key": "ข",
+        "text": "ทำให้ตัวแปรคงค่าเดิมไว้ไม่ถูกทำลายแม้ว่าจะจบการทำงานของฟังก์ชันไปแล้ว"
+      },
+      {
+        "key": "ค",
+        "text": "ทำให้ฟังก์ชันอื่นสามารถเรียกใช้ตัวแปรนี้ได้โดยตรง"
+      },
+      {
+        "key": "ง",
+        "text": "ส่งตัวแปรไปเก็บไว้ใน CPU Register"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "static local variable จะถูกจัดเก็บใน Data Segment ทำให้ค่าคงอยู่ตลอดชีวิตโปรแกรม"
+  },
+  {
+    "id": 83,
+    "category": "Session 05: Functions, Scope & Memory Management (ข้อ 81-100)",
+    "categoryKey": "cat5",
+    "question": "ผลลัพธ์ของการรันโปรแกรมนี้คืออะไร? #include <stdio.h> void update(int x) { x = x * 2; } int main() { int num = 10; update(num); printf(\"%d\", num); return 0; }",
+    "options": [
+      {
+        "key": "ก",
+        "text": "10"
+      },
+      {
+        "key": "ข",
+        "text": "20"
+      },
+      {
+        "key": "ค",
+        "text": "0"
+      },
+      {
+        "key": "ง",
+        "text": "Garbage Value"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "ภาษา C ส่งค่าแบบ Pass-by-Value เป็นหลัก การแก้ไข x ในฟังก์ชันไม่กระทบค่า num ใน main()"
+  },
+  {
+    "id": 84,
+    "category": "Session 05: Functions, Scope & Memory Management (ข้อ 81-100)",
+    "categoryKey": "cat5",
+    "question": "แนวคิดเรื่อง Recursion ข้อใดที่เสี่ยงต่อการทำให้เกิด \"Stack Overflow\" มากที่สุด?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "การเขียน Base Case ไว้บรรทัดแรก"
+      },
+      {
+        "key": "ข",
+        "text": "การไม่มี Base Case หรือเงื่อนไขเพื่อหยุดการเรียกตัวเอง"
+      },
+      {
+        "key": "ค",
+        "text": "การส่ง Parameter แบบ Pass-by-Reference"
+      },
+      {
+        "key": "ง",
+        "text": "การคืนค่าข้อมูลประเภท Integer"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "Recursion ที่ไม่มี Base Case จะเรียกตัวเองไปเรื่อยๆ จน Stack Frame เต็ม RAM เกิด Stack Overflow"
+  },
+  {
+    "id": 85,
+    "category": "Session 05: Functions, Scope & Memory Management (ข้อ 81-100)",
+    "categoryKey": "cat5",
+    "question": "การคืนค่าตำแหน่ง Pointer ของ Local Variable ออกจากฟังก์ชัน ถือเป็นความเสี่ยงอย่างไร (Dangling Pointer)?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "เกิด Syntax Error ทันที"
+      },
+      {
+        "key": "ข",
+        "text": "เมื่อฟังก์ชันจบ Stack Frame ของ Local Variable นั้นจะถูกพังไป ทำให้ Pointer ชี้ไปยัง Memory ที่ไม่ปลอดภัย"
+      },
+      {
+        "key": "ค",
+        "text": "ทำให้ RAM เต็มทันที"
+      },
+      {
+        "key": "ง",
+        "text": "ไม่มีผลเสียใดๆ โปรแกรมทำงานได้ปกติ"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "การคืนค่า Pointer ของ Local Variable นำไปสู่ Dangling Pointer เพราะ Memory นั้นถูก Deallocate ไปแล้ว"
+  },
+  {
+    "id": 86,
+    "category": "Session 05: Functions, Scope & Memory Management (ข้อ 81-100)",
+    "categoryKey": "cat5",
+    "question": "ฟังก์ชันประเภท Inline Function ช่วยลด Overhead ของอะไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "Overhead ในการจองพื้นที่ Disk Space"
+      },
+      {
+        "key": "ข",
+        "text": "Overhead ในการจัดเก็บไฟล์ Source Code"
+      },
+      {
+        "key": "ค",
+        "text": "Function Call Overhead (การ Push/Pop Stack Frame และการ Jump สลับการทำงาน)"
+      },
+      {
+        "key": "ง",
+        "text": "Overhead ของการ Compile โค้ด"
+      }
+    ],
+    "answer": "ค",
+    "explanation": "Inline Function จะคัดลอกโค้ดไปวางตรงจุดเรียก ช่วยลด overhead การสร้าง Stack Frame"
+  },
+  {
+    "id": 87,
+    "category": "Session 05: Functions, Scope & Memory Management (ข้อ 81-100)",
+    "categoryKey": "cat5",
+    "question": "โครงสร้าง Stack Frame ของฟังก์ชันจัดเก็บสิ่งใดบ้าง?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "Return Address, Local Variables, Function Parameters"
+      },
+      {
+        "key": "ข",
+        "text": "Dynamic Arrays, Global Variables"
+      },
+      {
+        "key": "ค",
+        "text": "Source Code, Binary Output"
+      },
+      {
+        "key": "ง",
+        "text": "File Descriptors, Heap Pointers"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "Stack Frame เก็บ Return Address, Parameters, และ Local Variables ของฟังก์ชันนั้นๆ"
+  },
+  {
+    "id": 88,
+    "category": "Session 05: Functions, Scope & Memory Management (ข้อ 81-100)",
+    "categoryKey": "cat5",
+    "question": "ข้อใดคือลักษณะของ \"Pure Function\" ในหลักการออกแบบโปรแกรมที่ดี?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "อ่านค่าและแก้ไข Global Variable เสมอ"
+      },
+      {
+        "key": "ข",
+        "text": "ให้ผลลัพธ์เหมือนเดิมเสมอเมื่อส่ง Argument ค่าเดิมเข้าไป และไม่มี Side Effects (ไม่แก้ไขภายนอก)"
+      },
+      {
+        "key": "ค",
+        "text": "ฟังก์ชันที่ไม่รับ Parameter และไม่ Return ค่า"
+      },
+      {
+        "key": "ง",
+        "text": "ฟังก์ชันที่ทำงานร่วมกับระบบ Hardware โดยตรง"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "Pure Function: ให้ Output เดิมเสมอสำหรับ Input เดิม และไม่มี Side Effects"
+  },
+  {
+    "id": 89,
+    "category": "Session 05: Functions, Scope & Memory Management (ข้อ 81-100)",
+    "categoryKey": "cat5",
+    "question": "พิจารณาโค้ดต่อไปนี้ x จะมีค่าเท่าใดใน main()? int x = 5; // Global int main() { int x = 10; // Local printf(\"%d\", x); return 0; }",
+    "options": [
+      {
+        "key": "ก",
+        "text": "5"
+      },
+      {
+        "key": "ข",
+        "text": "10"
+      },
+      {
+        "key": "ค",
+        "text": "เกิดข้อผิดพลาด Variable Redeclaration Error"
+      },
+      {
+        "key": "ง",
+        "text": "15"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "Local variable จะทำหน้าที่ \"Shadow\" (บดบัง) Global variable ที่มีชื่อซ้ำกันใน Scope นั้น"
+  },
+  {
+    "id": 90,
+    "category": "Session 05: Functions, Scope & Memory Management (ข้อ 81-100)",
+    "categoryKey": "cat5",
+    "question": "ข้อใดอธิบายพฤติกรรมของการส่งค่าแบบ Pass-by-Reference ได้ถูกต้องที่สุด?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "ฟังก์ชันทำงานกับ Copy ของข้อมูลดั้งเดิม"
+      },
+      {
+        "key": "ข",
+        "text": "ฟังก์ชันเข้าถึงและแก้ไขข้อมูลดั้งเดิมผ่านทาง Memory Address โดยตรง"
+      },
+      {
+        "key": "ค",
+        "text": "ใช้หน่วยความจำใน Stack เพิ่มขึ้นตามขนาดของโครงสร้างข้อมูล"
+      },
+      {
+        "key": "ง",
+        "text": "ไม่สามารถใช้กับโครงสร้างข้อมูลขนาดใหญ่ได้"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "Pass-by-Reference ส่ง Memory Address ไป ทำให้ฟังก์ชันแก้ไขตัวแปรต้นทางได้โดยตรง"
+  },
+  {
+    "id": 91,
+    "category": "Session 05: Functions, Scope & Memory Management (ข้อ 81-100)",
+    "categoryKey": "cat5",
+    "question": "หากต้องการส่ง Array ขนาด 100 Element เข้าไปในฟังก์ชัน ข้อใดเป็นวิธีที่มีประสิทธิภาพสูงสุดในเชิง Memory?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "คัดลอก Array ทั้งหมดลงในตัวแปรใหม่"
+      },
+      {
+        "key": "ข",
+        "text": "ส่ง Pointer หรือ Address ของ Array ตัวแรกเข้าไป (Pass-by-Reference/Pointer)"
+      },
+      {
+        "key": "ค",
+        "text": "ประกาศ Array ใหม่ใน Heap แล้วคัดลอกทีละค่า"
+      },
+      {
+        "key": "ง",
+        "text": "แปลง Array ให้เป็น String ก่อนส่ง"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "ส่งแบบ Pointer/Reference ประหยัดความจุและเวลาที่สุด เพราะไม่ต้องคัดลอกข้อมูลทั้ง 100 ชิ้น"
+  },
+  {
+    "id": 92,
+    "category": "Session 05: Functions, Scope & Memory Management (ข้อ 81-100)",
+    "categoryKey": "cat5",
+    "question": "ฟังก์ชัน malloc() ในภาษา C ทำการจอง Memory ในส่วนใดของโครงสร้างหน่วยความจำ?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "Stack"
+      },
+      {
+        "key": "ข",
+        "text": "Heap"
+      },
+      {
+        "key": "ค",
+        "text": "Code Segment (Text)"
+      },
+      {
+        "key": "ง",
+        "text": "Data Segment"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "malloc() ทำหน้าที่จองหน่วยความจำในส่วน Heap แบบ Dynamic"
+  },
+  {
+    "id": 93,
+    "category": "Session 05: Functions, Scope & Memory Management (ข้อ 81-100)",
+    "categoryKey": "cat5",
+    "question": "เมื่อใช้ malloc() หรือ calloc() แล้ว ไม่ได้ทำการ free() Memory หลังจากเลิกใช้งาน จะเกิดปัญหาใด?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "Buffer Overflow"
+      },
+      {
+        "key": "ข",
+        "text": "Memory Leak"
+      },
+      {
+        "key": "ค",
+        "text": "Segment Fault"
+      },
+      {
+        "key": "ง",
+        "text": "Deadlock"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "การจอง Dynamic Memory แล้วไม่คืนคืนสู่ระบบ เรียกว่า Memory Leak"
+  },
+  {
+    "id": 94,
+    "category": "Session 05: Functions, Scope & Memory Management (ข้อ 81-100)",
+    "categoryKey": "cat5",
+    "question": "ข้อใดคือความแตกต่างระหว่าง calloc() และ malloc()?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "calloc() ใช้จอง Stack แต่ malloc() ใช้จอง Heap"
+      },
+      {
+        "key": "ข",
+        "text": "calloc() จะเคลียร์ค่าใน Memory ให้เป็น 0 ทั้งหมดหลังจอง แต่ malloc() ไม่ทำการ เคลียร์ค่า (เป็น Garbage Value)"
+      },
+      {
+        "key": "ค",
+        "text": "malloc() สามารถขยายขนาด Memory ได้ แต่ calloc() ทำไม่ได้"
+      },
+      {
+        "key": "ง",
+        "text": "ทั้งคู่ไม่มีความแตกต่างกัน"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "calloc() ต่างจาก malloc() ตรงที่มันจะทำการเคลียร์ Memory ทุก Byte ให้เป็นค่าศูนย์ (Zero-initialization)"
+  },
+  {
+    "id": 95,
+    "category": "Session 05: Functions, Scope & Memory Management (ข้อ 81-100)",
+    "categoryKey": "cat5",
+    "question": "พิจารณาฟังก์ชันก้าวหน้า (Tail Recursion) ข้อใดคือข้อดีหลักเมื่อเทียบกับ Recursion ทั่วไป?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "ใช้งาน Memory ใน Heap น้อยลง"
+      },
+      {
+        "key": "ข",
+        "text": "Compiler ยุคใหม่สามารถ Optimize ให้เปลี่ยนรูปแบบเป็น Iteration เพื่อป้องกัน Stack Overflow ได้ (Tail Call Optimization)"
+      },
+      {
+        "key": "ค",
+        "text": "สามารถรันได้โดยไม่ต้องมี Base Case"
+      },
+      {
+        "key": "ง",
+        "text": "คืนค่าผลลัพธ์ได้หลายค่าพร้อมกัน"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "Tail Recursion เปิดโอกาสให้ Compiler ทำการ Optimize เป็นการวนลูป (Tail Call Optimization) ได้"
+  },
+  {
+    "id": 96,
+    "category": "Session 05: Functions, Scope & Memory Management (ข้อ 81-100)",
+    "categoryKey": "cat5",
+    "question": "ตัวแปรชนิด extern ในภาษา C ใช้เพื่อวัตถุประสงค์ใด?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "ประกาศตัวแปรที่เป็น Constant"
+      },
+      {
+        "key": "ข",
+        "text": "อ้างอิงถึงตัวแปร Global ที่ถูกประกาศไว้ในไฟล์ซอร์สโค้ดอื่น (Multi-file project)"
+      },
+      {
+        "key": "ค",
+        "text": "สร้างตัวแปรที่ใช้งานเฉพาะใน Thread ปัจจุบัน"
+      },
+      {
+        "key": "ง",
+        "text": "บังคับให้ตัวแปรเก็บใน CPU Register"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "Keyword extern ประกาศอ้างอิงถึง Global variable ที่อยู่ในไฟล์อื่น"
+  },
+  {
+    "id": 97,
+    "category": "Session 05: Functions, Scope & Memory Management (ข้อ 81-100)",
+    "categoryKey": "cat5",
+    "question": "คำสั่ง return; (ไม่มีการส่งค่ากลับ) เหมาะสำหรับฟังก์ชันที่มี Return Type แบบใด?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "int"
+      },
+      {
+        "key": "ข",
+        "text": "float"
+      },
+      {
+        "key": "ค",
+        "text": "void"
+      },
+      {
+        "key": "ง",
+        "text": "char*"
+      }
+    ],
+    "answer": "ค",
+    "explanation": "return; ไม่มีนิพจน์ส่งคืน ใช้หยุดการทำงานในฟังก์ชันประเภท void"
+  },
+  {
+    "id": 98,
+    "category": "Session 05: Functions, Scope & Memory Management (ข้อ 81-100)",
+    "categoryKey": "cat5",
+    "question": "ข้อใดคือผลลัพธ์ของการรันโปรแกรมนี้? #include <stdio.h> int fun() { static int count = 0; count++; return count; } int main() { printf(\"%d \", fun()); printf(\"%d \", fun()); return 0; }",
+    "options": [
+      {
+        "key": "ก",
+        "text": "1 1"
+      },
+      {
+        "key": "ข",
+        "text": "1 2"
+      },
+      {
+        "key": "ค",
+        "text": "2 2"
+      },
+      {
+        "key": "ง",
+        "text": "0 1"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "count เป็น static variable: เรียกครั้งแรกได้ 1, เรียกครั้งที่สองขยับเป็น 2"
+  },
+  {
+    "id": 99,
+    "category": "Session 05: Functions, Scope & Memory Management (ข้อ 81-100)",
+    "categoryKey": "cat5",
+    "question": "การใช้ Overloading Function (ในภาษาอย่าง C++ หรือ Java) หมายถึงอะไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "การเขียนฟังก์ชันใน Class ลูกเพื่อทับฟังก์ชันใน Class แม่"
+      },
+      {
+        "key": "ข",
+        "text": "การมีฟังก์ชันชื่อเดียวกันหลายฟังก์ชันใน Scope เดียวกัน โดยมี Parameter List ต่างกัน"
+      },
+      {
+        "key": "ค",
+        "text": "การเรียกใช้ฟังก์ชันซ้ำๆ จนเต็ม RAM"
+      },
+      {
+        "key": "ง",
+        "text": "การสร้างฟังก์ชันที่ไม่คืนค่าใดๆ"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "Function Overloading คือการสร้างฟังก์ชันชื่อเดียวกัน แต่มี Parameter List ต่างกัน"
+  },
+  {
+    "id": 100,
+    "category": "Session 05: Functions, Scope & Memory Management (ข้อ 81-100)",
+    "categoryKey": "cat5",
+    "question": "ข้อใดเป็นแนวทางปฏิบัติที่ดี (Best Practice) เกี่ยวกับขอบเขตตัวแปร (Scope)?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "ใช้ Global Variable ให้ได้มากที่สุดเพื่อความสะดวกในการส่งค่า"
+      },
+      {
+        "key": "ข",
+        "text": "จำกัดขอบเขตตัวแปรให้แคบที่สุดเท่าที่เป็นไปได้ (Minimize Scope) เพื่อลด Side Effects"
+      },
+      {
+        "key": "ค",
+        "text": "ประกาศตัวแปรทุกตัวไว้ที่ต้นโปรแกรมเสมอ"
+      },
+      {
+        "key": "ง",
+        "text": "หลีกเลี่ยงการใช้ Local Variable Session 6: Data Structures & Basic Algorithms (ข้อ 101 - 120)"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "หลักการแคบที่สุด (Principle of Least Privilege): ควรจำกัด Scope ของตัวแปรให้น้อยที่สุดเพื่อความปลอดภัย"
+  },
+  {
+    "id": 101,
+    "category": "Session 06: Data Structures & Basic Algorithms (ข้อ 101-120)",
+    "categoryKey": "cat6",
+    "question": "การเข้าถึงข้อมูลตัวที่ i ใน Array ขนาด N มีความซับซ้อนทางเวลา (Time Complexity) เท่าใด?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "O(1)"
+      },
+      {
+        "key": "ข",
+        "text": "O(n)"
+      },
+      {
+        "key": "ค",
+        "text": "O(log n)"
+      },
+      {
+        "key": "ง",
+        "text": "O(n^2)"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "อาร์เรย์คำนวณตำแหน่งด้วย Offset: Address = Base + i * Size จึงเข้าถึงได้ด้วยความเร็ว constant time O(1)"
+  },
+  {
+    "id": 102,
+    "category": "Session 06: Data Structures & Basic Algorithms (ข้อ 101-120)",
+    "categoryKey": "cat6",
+    "question": "โครงสร้างข้อมูล Array ต่างจาก Linked List ในเรื่อง Memory Allocation อย่างไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "Array จองพื้นที่ต่อเนื่องกันใน Memory (Contiguous) แต่ Linked List ไม่จำเป็นต้องต่อเนื่องกัน"
+      },
+      {
+        "key": "ข",
+        "text": "Linked List จองพื้นที่แบบ Static ส่วน Array จองแบบ Dynamic"
+      },
+      {
+        "key": "ค",
+        "text": "Array เก็บข้อมูลประเภทต่างกันได้ แต่ Linked List เก็บได้ชนิดเดียว"
+      },
+      {
+        "key": "ง",
+        "text": "ไม่มีความแตกต่างกันในเรื่อง Memory"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "อาร์เรย์ใช้ Memory แบบต่อเนื่องกัน (Contiguous) ส่วน Linked List ใช้ Pointer เชื่อม Node ที่อยู่กระจัดกระจาย"
+  },
+  {
+    "id": 103,
+    "category": "Session 06: Data Structures & Basic Algorithms (ข้อ 101-120)",
+    "categoryKey": "cat6",
+    "question": "กำหนดอาร์เรย์ int A[3][4]; ในภาษา C/C++ จำนวน Element ทั้งหมดและ indexing ตัวแรกคืออะไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "12 elements, A[1][1]"
+      },
+      {
+        "key": "ข",
+        "text": "12 elements, A[0][0]"
+      },
+      {
+        "key": "ค",
+        "text": "7 elements, A[0][0]"
+      },
+      {
+        "key": "ง",
+        "text": "12 elements, A[3][4]"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "3 x 4 = 12 elements และในภาษา C จะเริ่ม Index ด้วย [0][0]"
+  },
+  {
+    "id": 104,
+    "category": "Session 06: Data Structures & Basic Algorithms (ข้อ 101-120)",
+    "categoryKey": "cat6",
+    "question": "อัลกอริทึมการจัดเรียงข้อมูลแบบใดที่มีประสิทธิภาพเฉลี่ยดีที่สุด (O(n log n))?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "Bubble Sort"
+      },
+      {
+        "key": "ข",
+        "text": "Insertion Sort"
+      },
+      {
+        "key": "ค",
+        "text": "Selection Sort"
+      },
+      {
+        "key": "ง",
+        "text": "Quick Sort"
+      }
+    ],
+    "answer": "ง",
+    "explanation": "Quick Sort มีประสิทธิภาพเฉลี่ยเป็น O(n log n) ขณะที่ตัวเลือกอื่นเป็น O(n^2)"
+  },
+  {
+    "id": 105,
+    "category": "Session 06: Data Structures & Basic Algorithms (ข้อ 101-120)",
+    "categoryKey": "cat6",
+    "question": "โครงสร้างข้อมูลแบบ Stack ทำงานตามหลักการใด?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "FIFO (First In, First Out)"
+      },
+      {
+        "key": "ข",
+        "text": "LIFO (Last In, First Out)"
+      },
+      {
+        "key": "ค",
+        "text": "LILO (Last In, Last Out)"
+      },
+      {
+        "key": "ง",
+        "text": "Random Access"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "Stack เป็นโครงสร้างแบบ เข้าทีหลัง-ออกก่อน (LIFO: Last In, First Out)"
+  },
+  {
+    "id": 106,
+    "category": "Session 06: Data Structures & Basic Algorithms (ข้อ 101-120)",
+    "categoryKey": "cat6",
+    "question": "โครงสร้างข้อมูลแบบ Queue ทำงานตามหลักการใด?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "FIFO (First In, First Out)"
+      },
+      {
+        "key": "ข",
+        "text": "LIFO (Last In, First Out)"
+      },
+      {
+        "key": "ค",
+        "text": "Priority-based เท่านั้น"
+      },
+      {
+        "key": "ง",
+        "text": "FILO (First In, Last Out)"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "Queue เป็นโครงสร้างแบบ เข้าก่อน-ออกก่อน (FIFO: First In, First Out)"
+  },
+  {
+    "id": 107,
+    "category": "Session 06: Data Structures & Basic Algorithms (ข้อ 101-120)",
+    "categoryKey": "cat6",
+    "question": "หากต้องการหาข้อมูลในอาร์เรย์ที่ ไม่ได้จัดเรียงลำดับ อัลกอริทึมใดที่สามารถใช้งานได้?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "Binary Search"
+      },
+      {
+        "key": "ข",
+        "text": "Linear Search"
+      },
+      {
+        "key": "ค",
+        "text": "Interpolation Search"
+      },
+      {
+        "key": "ง",
+        "text": "Exponential Search"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "Linear Search อ่านเช็คทีละตัวจากหน้าไปหลัง จึงใช้ได้กับอาร์เรย์ที่ยังไม่ได้เรียงลำดับ"
+  },
+  {
+    "id": 108,
+    "category": "Session 06: Data Structures & Basic Algorithms (ข้อ 101-120)",
+    "categoryKey": "cat6",
+    "question": "พิจารณาโค้ดอาร์เรย์ภาษา C: int arr[] = {10, 20, 30, 40}; ค่าของ *(arr + 2) คือเท่าใด?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "10"
+      },
+      {
+        "key": "ข",
+        "text": "20"
+      },
+      {
+        "key": "ค",
+        "text": "30"
+      },
+      {
+        "key": "ง",
+        "text": "Address ของ arr"
+      }
+    ],
+    "answer": "ค",
+    "explanation": "Pointer Arithmetic: *(arr + 2) มีค่าเท่ากับ arr[2] ซึ่งคือ 30"
+  },
+  {
+    "id": 109,
+    "category": "Session 06: Data Structures & Basic Algorithms (ข้อ 101-120)",
+    "categoryKey": "cat6",
+    "question": "ข้อใดคือข้อเสียหลักของ Array เมื่อเปรียบเทียบกับ Linked List?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "การเข้าถึงข้อมูลตามดัชนีทำได้ช้ากว่า"
+      },
+      {
+        "key": "ข",
+        "text": "ขนาดคงที่ (Fixed Size) ไม่สามารถขยายขนาดได้ทันทีขณะรัน และการแทรก/ลบข้อมูลตรงกลางทำได้ช้า"
+      },
+      {
+        "key": "ค",
+        "text": "เปลืองพื้นที่เก็บ Pointer"
+      },
+      {
+        "key": "ง",
+        "text": "ไม่รองรับข้อมูลประเภท Integer"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "ข้อเสียหลักของ Array คือไม่สามารถขยายขนาดกะทันหันได้ และยุ่งยากเมื่อต้อง Insert/Delete ข้อมูลกลางแถว"
+  },
+  {
+    "id": 110,
+    "category": "Session 06: Data Structures & Basic Algorithms (ข้อ 101-120)",
+    "categoryKey": "cat6",
+    "question": "ข้อใดอธิบายสถานการณ์ \"Off-by-One Error\" ในการใช้อาร์เรย์ได้ถูกต้อง?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "การลืมใส่ตัวแปรรับค่า"
+      },
+      {
+        "key": "ข",
+        "text": "การใช้อินเด็กซ์เกินขนาดอาร์เรย์ เช่น ประกาศขนาด 10 แต่อ่านอินเด็กซ์ที่ 10 (ซึ่งคือตัวที่ 11)"
+      },
+      {
+        "key": "ค",
+        "text": "การหารด้วยเลข 1"
+      },
+      {
+        "key": "ง",
+        "text": "การกำหนดค่าอาร์เรย์ผิดประเภท"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "Off-by-One Error เกิดจากการนับ Index ผิดไป 1 ตำแหน่ง เช่น ลูปไปถึง Index เท่ากับขนาด Array"
+  },
+  {
+    "id": 111,
+    "category": "Session 06: Data Structures & Basic Algorithms (ข้อ 101-120)",
+    "categoryKey": "cat6",
+    "question": "ในการจัดเรียงข้อมูลแบบ Bubble Sort หากมีข้อมูล N ชุด ในกรณีแย่ที่สุด (Worst Case) ต้องทำการเปรียบเทียบข้อมูลประมาณกี่ครั้ง?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "N ครั้ง"
+      },
+      {
+        "key": "ข",
+        "text": "N log N ครั้ง"
+      },
+      {
+        "key": "ค",
+        "text": "N(N-1)/2 ครั้ง"
+      },
+      {
+        "key": "ง",
+        "text": "2^N ครั้ง"
+      }
+    ],
+    "answer": "ค",
+    "explanation": "Bubble Sort Worst-case การเปรียบเทียบคือ N(N-1)/2 หรือ O(n^2)"
+  },
+  {
+    "id": 112,
+    "category": "Session 06: Data Structures & Basic Algorithms (ข้อ 101-120)",
+    "categoryKey": "cat6",
+    "question": "Null Character ('\\0') มีบทบาทอย่างไรใน String ของภาษา C?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "ใช้แสดงจุดเริ่มต้นของ String"
+      },
+      {
+        "key": "ข",
+        "text": "ใช้เป็นตัวคั่นระว่างคำ"
+      },
+      {
+        "key": "ค",
+        "text": "ใช้เป็น Sentinel value ระบุจุดสิ้นสุดของ String ใน Character Array"
+      },
+      {
+        "key": "ง",
+        "text": "ไม่มีประโยชน์ เป็นเพียงตัวอักษรขยะ"
+      }
+    ],
+    "answer": "ค",
+    "explanation": "'\\0' เป็นสัญลักษณ์แสดงการสิ้นสุดของข้อความ (Null-terminator) ใน C-String"
+  },
+  {
+    "id": 113,
+    "category": "Session 06: Data Structures & Basic Algorithms (ข้อ 101-120)",
+    "categoryKey": "cat6",
+    "question": "การประกาศ Structure (struct) ในภาษา C มีวัตถุประสงค์เพื่ออะไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "เพื่อรวมตัวแปรต่างชนิดข้อมูลกันให้อยู่ภายใต้ชื่อกลุ่มเดียวกัน"
+      },
+      {
+        "key": "ข",
+        "text": "เพื่อสร้างฟังก์ชันใหม่"
+      },
+      {
+        "key": "ค",
+        "text": "เพื่อเพิ่มความเร็วในการประมวลผลทางคณิตศาสตร์"
+      },
+      {
+        "key": "ง",
+        "text": "เพื่อใช้จอง Memory แบบ Dynamic"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "struct เป็น Heterogeneous Data Structure รวมข้อมูลต่างประเภทเข้าด้วยกัน"
+  },
+  {
+    "id": 114,
+    "category": "Session 06: Data Structures & Basic Algorithms (ข้อ 101-120)",
+    "categoryKey": "cat6",
+    "question": "การค้นหาแบบ Binary Search บนอาร์เรย์ขนาด 1,000 ชิ้น จะใช้จำนวนการเปรียบเทียบในกรณีแย่ที่สุด (Worst Case) ไม่เกินกี่ครั้ง?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "10 ครั้ง"
+      },
+      {
+        "key": "ข",
+        "text": "500 ครั้ง"
+      },
+      {
+        "key": "ค",
+        "text": "1,000 ครั้ง"
+      },
+      {
+        "key": "ง",
+        "text": "100 ครั้ง"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "log_2(1000) ≈ 9.96 ดังนั้น Binary Search จะเปรียบเทียบไม่เกิน 10 ครั้ง"
+  },
+  {
+    "id": 115,
+    "category": "Session 06: Data Structures & Basic Algorithms (ข้อ 101-120)",
+    "categoryKey": "cat6",
+    "question": "พิจารณาการส่ง Array เข้าไปในฟังก์ชัน void process(int arr[]) เหตุใดการเปลี่ยนค่า arr[0] ภายในฟังก์ชันจึงส่งผลกระทบถึงอาร์เรย์ตัวจริงนอกฟังก์ชัน?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "เพราะอาร์เรย์ถูกคัดลอกลง Global memory"
+      },
+      {
+        "key": "ข",
+        "text": "เพราะชื่อของ Array จะถูก Decay เป็น Pointer ชี้ไปยังตำแหน่งเริ่มต้นใน Memory (Pass-by-Pointer)"
+      },
+      {
+        "key": "ค",
+        "text": "เพราะฟังก์ชันทำการสั่ง Save ไฟล์โดยอัตโนมัติ"
+      },
+      {
+        "key": "ง",
+        "text": "เพราะเป็นคุณสมบัติเฉพาะของภาษา C++ เท่านั้น"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "ชื่อของ Array จะถูกส่งไปแบบ Pointer (Array Decay) เสมอ ทำให้ฟังก์ชันอ้างอิงตำแหน่งจริงใน Memory"
+  },
+  {
+    "id": 116,
+    "category": "Session 06: Data Structures & Basic Algorithms (ข้อ 101-120)",
+    "categoryKey": "cat6",
+    "question": "ข้อใดต่อไปนี้จัดเป็นโครงสร้างข้อมูลแบบ Non-linear Data Structure?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "Array"
+      },
+      {
+        "key": "ข",
+        "text": "Linked List"
+      },
+      {
+        "key": "ค",
+        "text": "Tree / Graph"
+      },
+      {
+        "key": "ง",
+        "text": "Queue"
+      }
+    ],
+    "answer": "ค",
+    "explanation": "Tree และ Graph เป็นโครงสร้างข้อมูลแบบไม่เป็นเส้นตรง (Non-linear)"
+  },
+  {
+    "id": 117,
+    "category": "Session 06: Data Structures & Basic Algorithms (ข้อ 101-120)",
+    "categoryKey": "cat6",
+    "question": "การเรียงลำดับแบบ Selection Sort มีกลไกการทำงานอย่างไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "สลับข้อมูลคู่ที่ติดกันไปเรื่อยๆ"
+      },
+      {
+        "key": "ข",
+        "text": "ค้นหาข้อมูลที่น้อยที่สุดในส่วนที่ยังไม่ได้จัดเรียง แล้วนำมาสลับวางไว้ที่ตำแหน่งแรกของรอบนั้นๆ"
+      },
+      {
+        "key": "ค",
+        "text": "แบ่งข้อมูลออกเป็นสองส่วนเท่าๆ กันเสมอ"
+      },
+      {
+        "key": "ง",
+        "text": "แทรกข้อมูลลงในตำแหน่งที่ถูกต้องทีละตัว"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "Selection Sort เลือกตัวที่น้อยที่สุดมาวางสลับไว้ตำแหน่งหน้าสุดของรอบนั้นๆ"
+  },
+  {
+    "id": 118,
+    "category": "Session 06: Data Structures & Basic Algorithms (ข้อ 101-120)",
+    "categoryKey": "cat6",
+    "question": "string char str[10] = \"HELLO\"; จะใช้พื้นที่ Memory ทั้งหมดกี่ Bytes (สมมติ char ขนาด 1 byte)?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "5 Bytes"
+      },
+      {
+        "key": "ข",
+        "text": "6 Bytes"
+      },
+      {
+        "key": "ค",
+        "text": "10 Bytes"
+      },
+      {
+        "key": "ง",
+        "text": "11 Bytes"
+      }
+    ],
+    "answer": "ค",
+    "explanation": "ประกาศขนาดไว้เท่าใด จะกินพื้นที่ Memory ตามขนาดนั้น: char str[10] ใช้ 10 Bytes"
+  },
+  {
+    "id": 119,
+    "category": "Session 06: Data Structures & Basic Algorithms (ข้อ 101-120)",
+    "categoryKey": "cat6",
+    "question": "ถ้าทำ Push ข้อมูล 1, 2, 3 เข้าไปใน Stack ตามลำดับ แล้วสั่ง Pop ออก 2 ครั้ง ข้อมูลที่เหลือใน Stack คืออะไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "3"
+      },
+      {
+        "key": "ข",
+        "text": "2"
+      },
+      {
+        "key": "ค",
+        "text": "1"
+      },
+      {
+        "key": "ง",
+        "text": "สว่าง/ว่างเปล่า"
+      }
+    ],
+    "answer": "ค",
+    "explanation": "Push(1), Push(2), Push(3) -> Pop() เอา 3 ออก -> Pop() เอา 2 ออก เหลือ 1"
+  },
+  {
+    "id": 120,
+    "category": "Session 06: Data Structures & Basic Algorithms (ข้อ 101-120)",
+    "categoryKey": "cat6",
+    "question": "คำสั่ง sizeof(arr) / sizeof(arr[0]) ใช้ประโยชน์อย่างไรในภาษา C?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "คำนวณหา Memory Address ของอาร์เรย์"
+      },
+      {
+        "key": "ข",
+        "text": "คำนวณหาจำนวน Element (ความยาว) ของ Static Array"
+      },
+      {
+        "key": "ค",
+        "text": "เคลียร์ค่าข้อมูลในอาร์เรย์"
+      },
+      {
+        "key": "ง",
+        "text": "ตรวจสอบว่าอาร์เรย์ว่างเปล่าหรือไม่"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "sizeof(arr) (ขนาดทั้งหมด) หารด้วย sizeof(arr[0]) (ขนาด 1 element) ได้ผลลัพธ์เป็นจำนวน Element ใน Array"
+  }
+]
+};
+
+// Default pointer for backward compatibility
+const quizQuestions = quizData.basic;
