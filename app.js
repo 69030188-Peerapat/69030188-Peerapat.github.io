@@ -4,6 +4,7 @@
  * Features:
  * - Home Session Selection (1-6 & All)
  * - 2-step Quiz Flow (Select -> Check -> Lock & Reveal)
+ * - Safe HTML Escaping (Fixes unescaped <tag> options like <class 'int'>, <URL>, etc.)
  * - Detailed Answer Review (Check correct / wrong answers with explanations)
  */
 
@@ -16,6 +17,17 @@ const state = {
   answers: {}, // questionId -> { selected: "ก", checked: boolean, isCorrect: boolean }
   reviewFilter: 'all' // 'all' | 'correct' | 'wrong'
 };
+
+// Safe HTML Escaping Helper (Fixes missing/hidden text caused by < > characters)
+function escapeHtml(text) {
+  if (typeof text !== 'string') return text || '';
+  return text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
 
 // DOM References
 const dom = {
@@ -145,9 +157,9 @@ function renderQuiz() {
       dom.expHeader.innerHTML = '✓ ตอบถูกต้อง!';
     } else {
       dom.expHeader.className = 'exp-header is-wrong';
-      dom.expHeader.innerHTML = `✕ ตอบไม่ถูกต้อง (เฉลยข้อ ${currentQ.answer})`;
+      dom.expHeader.innerHTML = `✕ ตอบไม่ถูกต้อง (เฉลยข้อ ${escapeHtml(currentQ.answer)})`;
     }
-    dom.expText.innerHTML = `💡 <strong>คำอธิบาย:</strong> ${currentQ.explanation}`;
+    dom.expText.innerHTML = `💡 <strong>คำอธิบาย:</strong> ${escapeHtml(currentQ.explanation)}`;
   } else {
     dom.explanationBox.style.display = 'none';
   }
@@ -173,7 +185,7 @@ function renderQuiz() {
   renderPalette();
 }
 
-// Render Choices
+// Render Choices (with safe HTML escaping for <class>, <URL>, etc.)
 function renderChoices(question, ansState) {
   dom.choicesContainer.innerHTML = '';
 
@@ -200,9 +212,10 @@ function renderChoices(question, ansState) {
       btn.classList.add('selected');
     }
 
+    // Safely inject text using escapeHtml
     btn.innerHTML = `
-      <div class="choice-key">${opt.key}</div>
-      <div class="choice-text">${opt.text}</div>
+      <div class="choice-key">${escapeHtml(opt.key)}</div>
+      <div class="choice-text">${escapeHtml(opt.text)}</div>
       <div class="choice-status-icon">${opt.key === question.answer ? '✓' : '✕'}</div>
     `;
 
@@ -374,7 +387,7 @@ function renderReviewList() {
       <div class="review-item-top">
         <div class="review-q-title-group">
           <div class="review-q-badge">${q.id}</div>
-          <div class="review-q-text">${q.question}</div>
+          <div class="review-q-text">${escapeHtml(q.question)}</div>
         </div>
         <span class="review-status-tag ${isCorrect ? 'correct' : 'wrong'}">
           ${isCorrect ? '✓ ตอบถูกต้อง' : '✕ ตอบผิด'}
@@ -384,18 +397,18 @@ function renderReviewList() {
       <div class="review-answers-box">
         <div class="review-ans-row">
           <span class="review-ans-label">คำตอบของคุณ:</span>
-          <span class="review-ans-value ${isCorrect ? 'correct' : 'wrong'}">${userAnsText}</span>
+          <span class="review-ans-value ${isCorrect ? 'correct' : 'wrong'}">${escapeHtml(userAnsText)}</span>
         </div>
         ${!isCorrect ? `
           <div class="review-ans-row">
             <span class="review-ans-label">เฉลยที่ถูกต้อง:</span>
-            <span class="review-ans-value correct">${correctAnsText}</span>
+            <span class="review-ans-value correct">${escapeHtml(correctAnsText)}</span>
           </div>
         ` : ''}
       </div>
 
       <div class="review-explanation">
-        💡 <strong>คำอธิบาย:</strong> ${q.explanation}
+        💡 <strong>คำอธิบาย:</strong> ${escapeHtml(q.explanation)}
       </div>
     `;
 
