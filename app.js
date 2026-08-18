@@ -1,24 +1,28 @@
 /**
- * Clean Minimalist Quiz Application (120 Questions)
+ * Multi-Course & Multi-Level Quiz Application
+ * Courses:
+ * 1. PRINCIPLE OF SOFTWARE DESIGN AND DEVELOPMENT (240 Questions Total)
+ *    - ระดับพื้นฐาน (Basic): 120 ข้อ
+ *    - ระดับยาก (Advanced): 120 ข้อ
+ * 2. DATABASE (Draft / โครงสร้างร่าง 6 Sessions)
+ * 3. COMPUTER SYSTEM (Draft / โครงสร้างร่าง 6 Sessions)
+ * 
  * Developed by: นายพีรพัฒน์ วิไชยวงค์ (รหัส 69030188)
- * Features:
- * - Home Session Selection (1-6 & All)
- * - 2-step Quiz Flow (Select -> Check -> Lock & Reveal)
- * - Safe HTML Escaping (Fixes unescaped <tag> options like <class 'int'>, <URL>, etc.)
- * - Detailed Answer Review (Check correct / wrong answers with explanations)
  */
 
 // Application State
 const state = {
-  view: 'home', // 'home' | 'quiz' | 'result'
+  view: 'subject', // 'subject' | 'home' | 'quiz' | 'result'
+  currentSubject: 'psdd', // 'psdd' | 'db' | 'cs'
+  currentLevel: 'basic', // 'basic' | 'advanced'
   currentCategory: 'all',
   currentQuestionIndex: 0,
-  questions: [], // filtered questions based on chosen category
+  questions: [], // filtered questions based on chosen level and category
   answers: {}, // questionId -> { selected: "ก", checked: boolean, isCorrect: boolean }
   reviewFilter: 'all' // 'all' | 'correct' | 'wrong'
 };
 
-// Safe HTML Escaping Helper (Fixes missing/hidden text caused by < > characters)
+// Safe HTML Escaping Helper
 function escapeHtml(text) {
   if (typeof text !== 'string') return text || '';
   return text
@@ -29,15 +33,293 @@ function escapeHtml(text) {
     .replace(/'/g, "&#039;");
 }
 
+// Course Configurations Database
+const coursesData = {
+  psdd: {
+    id: 'psdd',
+    name: 'PRINCIPLE OF SOFTWARE DESIGN AND DEVELOPMENT',
+    fullName: 'หลักการออกแบบและการพัฒนาซอฟต์แวร์ (PRINCIPLE OF SOFTWARE DESIGN AND DEVELOPMENT)',
+    isReady: true,
+    levels: {
+      basic: {
+        levelName: 'ระดับพื้นฐาน (Basic)',
+        headerSub: '120 ข้อ (คอมพิวเตอร์เบื้องต้น, SDLC, อัลกอริทึม, Python, ตัวแปร, Git)',
+        homeTitle: 'หมวดหมู่แบบทดสอบระดับพื้นฐาน',
+        homeDesc: 'คลิกเลือก Session ที่ต้องการฝึกฝน หรือทำข้อสอบครบทั้งหมด 120 ข้อ',
+        featured: {
+          title: 'ข้อสอบระดับพื้นฐานทั้งหมด (All In One)',
+          badge: '120 ข้อ',
+          desc: 'ทดสอบความรู้พื้นฐานครบถ้วนทุกหมวดหมู่ (ข้อ 1 - 120) จำลองการสอบจริงแบบครอบคลุม'
+        },
+        categories: [
+          {
+            key: 'cat1',
+            icon: '💻',
+            title: 'Session 01: คอมพิวเตอร์ & SDLC',
+            badge: '20 ข้อ',
+            desc: 'ฮาร์ดแวร์, CPU, RAM, ALU, SDLC, Waterfall, Agile และ Big Bang Model (ข้อ 1 - 20)'
+          },
+          {
+            key: 'cat2',
+            icon: '📐',
+            title: 'Session 02: อัลกอริทึม & ผังงาน',
+            badge: '20 ข้อ',
+            desc: 'อัลกอริทึม, ซูโดโคด, IPO Cycle, Top-down Design และสัญลักษณ์ Flowchart (ข้อ 21 - 40)'
+          },
+          {
+            key: 'cat3',
+            icon: '🐍',
+            title: 'Session 03: ภาษา Python เบื้องต้น',
+            badge: '20 ข้อ',
+            desc: 'ประวัติ Python, Interpreter, print, input, Indentation, if-elif-else, while, break, continue (ข้อ 41 - 60)'
+          },
+          {
+            key: 'cat4',
+            icon: '🔢',
+            title: 'Session 04: ตัวแปร & ตัวดำเนินการ',
+            badge: '20 ข้อ',
+            desc: 'การตั้งชื่อตัวแปร, int, float, str, bool, ตัวดำเนินการ %, //, **, ตรรกศาสตร์ and/or/not (ข้อ 61 - 80)'
+          },
+          {
+            key: 'cat5',
+            icon: '📦',
+            title: 'Session 05: Git พื้นฐาน',
+            badge: '20 ข้อ',
+            desc: 'ระบบ DVCS, Staging Area, git init, add, commit, log, status, Commit message, .gitignore (ข้อ 81 - 100)'
+          },
+          {
+            key: 'cat6',
+            icon: '🌿',
+            title: 'Session 06: Git Branching & Remote',
+            badge: '20 ข้อ',
+            desc: 'Branch, checkout/switch, merge, Merge Conflict, GitHub, clone, push, pull, Vi/Vim (ข้อ 101 - 120)'
+          }
+        ]
+      },
+      advanced: {
+        levelName: 'ระดับยาก (Advanced)',
+        headerSub: '120 ข้อ (Concepts, Compilers, Flowcharts, Operators, Control, Memory, Data Structures)',
+        homeTitle: 'หมวดหมู่ข้อสอบระดับยาก (Advanced Level)',
+        homeDesc: 'ข้อสอบเชิงลึก Programming Concepts, Memory Stack/Heap, Pointers, Flowcharts และ Data Structures',
+        featured: {
+          title: 'ข้อสอบระดับยากทั้งหมด (All In One)',
+          badge: '120 ข้อ',
+          desc: 'ทดสอบความรู้ระดับเข้มข้นครบทั้ง 6 Sessions (ข้อ 1 - 120) ข้อสอบระดับปริญญาตรีครอบคลุมทุกมิติ'
+        },
+        categories: [
+          {
+            key: 'cat1',
+            icon: '⚙️',
+            title: 'Session 01: Programming Concepts, SDLC & Compilers',
+            badge: '20 ข้อ',
+            desc: 'Compiler vs Interpreter, Pass-by-Value/Ref, Linker, Lexical/Syntax/Semantic Error, Cohesion & Coupling (ข้อ 1 - 20)'
+          },
+          {
+            key: 'cat2',
+            icon: '📐',
+            title: 'Session 02: Flowcharts, Pseudocode & Algorithms',
+            badge: '20 ข้อ',
+            desc: 'Decision, Do-While Loop, Nested Loop, Binary Search, Infinite Loop, Top-Down Design, Divide & Conquer (ข้อ 21 - 40)'
+          },
+          {
+            key: 'cat3',
+            icon: '🔢',
+            title: 'Session 03: Data Types, Operators & Expressions',
+            badge: '20 ข้อ',
+            desc: 'Type Casting, Precedence, Bitwise AND/Shift, Short-circuit, Post-increment, Ternary, IEEE 754 Float (ข้อ 41 - 60)'
+          },
+          {
+            key: 'cat4',
+            icon: '🔀',
+            title: 'Session 04: Control Structures (Selection & Iteration)',
+            badge: '20 ข้อ',
+            desc: 'Switch Fall-through, Break vs Continue, Dangling Else, Loop Invariant, Infinite Loop, Loop Unrolling (ข้อ 61 - 80)'
+          },
+          {
+            key: 'cat5',
+            icon: '🧠',
+            title: 'Session 05: Functions, Scope & Memory Management',
+            badge: '20 ข้อ',
+            desc: 'Static Variables, Dangling Pointer, Inline Function, Stack Frame, Pure Function, malloc/calloc/free (ข้อ 81 - 100)'
+          },
+          {
+            key: 'cat6',
+            icon: '📦',
+            title: 'Session 06: Data Structures & Basic Algorithms',
+            badge: '20 ข้อ',
+            desc: 'Array vs Linked List, Multi-dim Array, Quick/Selection/Bubble Sort, Stack/Queue, Pointer Arithmetic (ข้อ 101 - 120)'
+          }
+        ]
+      }
+    }
+  },
+
+  // 2. Draft Subject: DATABASE
+  db: {
+    id: 'db',
+    name: 'DATABASE',
+    fullName: 'ระบบฐานข้อมูลและการจัดการข้อมูล (DATABASE SYSTEMS)',
+    isReady: false,
+    levels: {
+      basic: {
+        levelName: 'ระดับพื้นฐาน (Basic)',
+        headerSub: 'เค้าโครง 6 Sessions (อยู่ระหว่างเตรียมข้อสอบ)',
+        homeTitle: 'โครงสร้างหมวดหมู่รายวิชา DATABASE',
+        homeDesc: 'เค้าโครงเนื้อหา 6 Sessions ที่จะใช้ในการจัดทำแบบทดสอบประเมินความรู้',
+        featured: {
+          title: 'ข้อสอบวิชา DATABASE ทั้งหมด (All In One)',
+          badge: 'เตรียมจัดทำ',
+          desc: 'รวบรวมข้อสอบวิชา Database Systems ครอบคลุมตั้งแต่ Relational Model จนถึง NoSQL'
+        },
+        categories: [
+          {
+            key: 'db_cat1',
+            icon: '🗄️',
+            title: 'Session 01: Database Fundamentals & Relational Model',
+            badge: 'โครงสร้างร่าง',
+            desc: 'DBMS Architecture, Schema, Instances, Relational Data Model, Primary/Foreign Keys'
+          },
+          {
+            key: 'db_cat2',
+            icon: '📝',
+            title: 'Session 02: SQL Queries & DDL / DML / DCL',
+            badge: 'โครงสร้างร่าง',
+            desc: 'CREATE, ALTER, DROP, SELECT, JOIN (Inner/Left/Right), GROUP BY, HAVING, Aggregate Functions'
+          },
+          {
+            key: 'db_cat3',
+            icon: '📊',
+            title: 'Session 03: Entity Relationship (ER) Modeling',
+            badge: 'โครงสร้างร่าง',
+            desc: 'Entities, Attributes, Relationships, Cardinality Ratio (1:1, 1:N, M:N), ER Diagram to Schema Mapping'
+          },
+          {
+            key: 'db_cat4',
+            icon: '🧹',
+            title: 'Session 04: Database Normalization (1NF - BCNF)',
+            badge: 'โครงสร้างร่าง',
+            desc: 'Functional Dependencies, 1NF, 2NF, 3NF, Boyce-Codd Normal Form (BCNF), Anomaly Prevention'
+          },
+          {
+            key: 'db_cat5',
+            icon: '🔄',
+            title: 'Session 05: Transaction & Concurrency Control',
+            badge: 'โครงสร้างร่าง',
+            desc: 'ACID Properties, Serializability, Locking Protocols, Deadlock Prevention, Rollback & Commit'
+          },
+          {
+            key: 'db_cat6',
+            icon: '⚡',
+            title: 'Session 06: Indexing, Optimization & NoSQL',
+            badge: 'โครงสร้างร่าง',
+            desc: 'B-Tree/B+ Tree Indexing, Query Optimization, NoSQL Data Models (Document, Key-Value, Graph)'
+          }
+        ]
+      }
+    }
+  },
+
+  // 3. Draft Subject: COMPUTER SYSTEM
+  cs: {
+    id: 'cs',
+    name: 'COMPUTER SYSTEM',
+    fullName: 'ระบบคอมพิวเตอร์และสถาปัตยกรรม (COMPUTER SYSTEM ARCHITECTURE)',
+    isReady: false,
+    levels: {
+      basic: {
+        levelName: 'ระดับพื้นฐาน (Basic)',
+        headerSub: 'เค้าโครง 6 Sessions (อยู่ระหว่างเตรียมข้อสอบ)',
+        homeTitle: 'โครงสร้างหมวดหมู่รายวิชา COMPUTER SYSTEM',
+        homeDesc: 'เค้าโครงเนื้อหา 6 Sessions ที่จะใช้ในการจัดทำแบบทดสอบประเมินความรู้',
+        featured: {
+          title: 'ข้อสอบวิชา COMPUTER SYSTEM ทั้งหมด (All In One)',
+          badge: 'เตรียมจัดทำ',
+          desc: 'รวบรวมข้อสอบวิชา Computer Systems ครอบคลุมตั้งแต่ Logic Gates จนถึง Operating Systems'
+        },
+        categories: [
+          {
+            key: 'cs_cat1',
+            icon: '⚡',
+            title: 'Session 01: Computer Organization & Architecture',
+            badge: 'โครงสร้างร่าง',
+            desc: 'Von Neumann Architecture, Harvard Architecture, System Bus, Control Unit, ALU'
+          },
+          {
+            key: 'cs_cat2',
+            icon: '🔢',
+            title: 'Session 02: Number Systems & Logic Gates',
+            badge: 'โครงสร้างร่าง',
+            desc: 'Binary, Octal, Hexadecimal, Two’s Complement, Boolean Algebra, Logic Gates (AND/OR/NOT/XOR)'
+          },
+          {
+            key: 'cs_cat3',
+            icon: '⚙️',
+            title: 'Session 03: CPU Structure & Instruction Cycle',
+            badge: 'โครงสร้างร่าง',
+            desc: 'Instruction Fetch, Decode, Execute, CPU Registers (PC, IR, MAR, MBR), Instruction Pipeline'
+          },
+          {
+            key: 'cs_cat4',
+            icon: '💾',
+            title: 'Session 04: Memory Hierarchy & Cache Memory',
+            badge: 'โครงสร้างร่าง',
+            desc: 'Registers, L1/L2/L3 Cache, SRAM vs DRAM, Cache Mapping, Virtual Memory & Paging'
+          },
+          {
+            key: 'cs_cat5',
+            icon: '🔌',
+            title: 'Session 05: I/O Systems & Interconnection',
+            badge: 'โครงสร้างร่าง',
+            desc: 'Programmed I/O, Interrupt-Driven I/O, Direct Memory Access (DMA), System Bus Protocols'
+          },
+          {
+            key: 'cs_cat6',
+            icon: '🖥️',
+            title: 'Session 06: Operating System Interface & Scheduling',
+            badge: 'โครงสร้างร่าง',
+            desc: 'Kernel vs User Mode, System Calls, Process Lifecycle, CPU Scheduling Algorithms, Context Switch'
+          }
+        ]
+      }
+    }
+  }
+};
+
 // DOM References
 const dom = {
+  subjectSection: document.getElementById('subject-section'),
   homeSection: document.getElementById('home-section'),
   quizSection: document.getElementById('quiz-section'),
   resultSection: document.getElementById('result-section'),
   
+  navSubjectBtn: document.getElementById('nav-subject-btn'),
   navHomeBtn: document.getElementById('nav-home-btn'),
   brandHomeBtn: document.getElementById('brand-home-btn'),
+  btnBackToSubjects: document.getElementById('btn-back-to-subjects'),
   btnGoHome: document.getElementById('btn-go-home'),
+  btnGoSubject: document.getElementById('btn-go-subject'),
+
+  // Subject Cards
+  subjectCardPsdd: document.getElementById('subject-card-psdd'),
+  subjectCardDb: document.getElementById('subject-card-db'),
+  subjectCardCs: document.getElementById('subject-card-cs'),
+
+  // Course Dashboard elements
+  currentCourseTitle: document.getElementById('current-course-title'),
+  courseDraftNotice: document.getElementById('course-draft-notice'),
+  levelSelectorContainer: document.getElementById('level-selector-container'),
+
+  // Level controls
+  levelBtnBasic: document.getElementById('level-btn-basic'),
+  levelBtnAdvanced: document.getElementById('level-btn-advanced'),
+  headerLevelSubtitle: document.getElementById('header-level-subtitle'),
+  homeCategoryTitle: document.getElementById('home-category-title'),
+  homeCategoryDesc: document.getElementById('home-category-desc'),
+  featuredCard: document.getElementById('featured-card'),
+  featuredTitle: document.getElementById('featured-title'),
+  featuredBadge: document.getElementById('featured-badge'),
+  featuredDesc: document.getElementById('featured-desc'),
+  categoryGrid: document.getElementById('category-grid'),
 
   categoryTag: document.getElementById('category-tag'),
   qCounter: document.getElementById('q-counter'),
@@ -69,24 +351,171 @@ const dom = {
   countWrong: document.getElementById('count-wrong')
 };
 
-// Category Titles Map
-const categoryTitles = {
-  all: 'ข้อสอบทั้งหมด (120 ข้อ)',
-  cat1: 'Session 01: คอมพิวเตอร์ & SDLC (ข้อ 1-20)',
-  cat2: 'Session 02: อัลกอริทึม & ผังงาน (ข้อ 21-40)',
-  cat3: 'Session 03: ภาษา Python เบื้องต้น (ข้อ 41-60)',
-  cat4: 'Session 04: ตัวแปร & ตัวดำเนินการ (ข้อ 61-80)',
-  cat5: 'Session 05: Git พื้นฐาน (ข้อ 81-100)',
-  cat6: 'Session 06: Git Branching & Remote (ข้อ 101-120)'
-};
+// Select Course / Subject
+function selectSubject(subjectKey) {
+  state.currentSubject = subjectKey;
+  const course = coursesData[subjectKey];
+  if (!course) return;
+
+  if (dom.currentCourseTitle) {
+    dom.currentCourseTitle.textContent = course.name;
+  }
+
+  // If Draft Course:
+  if (!course.isReady) {
+    if (dom.courseDraftNotice) dom.courseDraftNotice.style.display = 'flex';
+    if (dom.levelSelectorContainer) dom.levelSelectorContainer.style.display = 'none';
+    
+    state.currentLevel = 'basic';
+    const config = course.levels.basic;
+    
+    if (dom.homeCategoryTitle) dom.homeCategoryTitle.textContent = config.homeTitle;
+    if (dom.homeCategoryDesc) dom.homeCategoryDesc.textContent = config.homeDesc;
+    if (dom.featuredTitle) dom.featuredTitle.textContent = config.featured.title;
+    if (dom.featuredBadge) dom.featuredBadge.textContent = config.featured.badge;
+    if (dom.featuredDesc) dom.featuredDesc.textContent = config.featured.desc;
+
+    renderDraftCategories(config.categories);
+  } else {
+    // Active PSDD Course:
+    if (dom.courseDraftNotice) dom.courseDraftNotice.style.display = 'none';
+    if (dom.levelSelectorContainer) dom.levelSelectorContainer.style.display = 'block';
+    setLevel(state.currentLevel);
+  }
+
+  switchView('home');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Render Draft Subject Category Cards
+function renderDraftCategories(categories) {
+  if (!dom.categoryGrid) return;
+  dom.categoryGrid.innerHTML = '';
+
+  categories.forEach(cat => {
+    const card = document.createElement('div');
+    card.className = 'category-card';
+    card.setAttribute('role', 'button');
+    card.setAttribute('tabindex', '0');
+
+    card.innerHTML = `
+      <div class="card-icon-wrapper">${cat.icon}</div>
+      <div class="card-content">
+        <div class="card-title-row">
+          <h3 class="card-title">${escapeHtml(cat.title)}</h3>
+          <span class="card-badge">${escapeHtml(cat.badge)}</span>
+        </div>
+        <p class="card-desc">${escapeHtml(cat.desc)}</p>
+      </div>
+      <div class="card-arrow">🔒</div>
+    `;
+
+    card.addEventListener('click', () => {
+      alert(`📌 รายวิชา [${coursesData[state.currentSubject].name}] อยู่ระหว่างจัดเตรียมคลังข้อสอบครับ\n\nสามารถเลือกทำข้อสอบวิชา PRINCIPLE OF SOFTWARE DESIGN AND DEVELOPMENT (240 ข้อ) ได้ทันทีครับ`);
+    });
+
+    dom.categoryGrid.appendChild(card);
+  });
+}
+
+// Set Active Level (Basic or Advanced for PSDD)
+function setLevel(levelKey) {
+  state.currentLevel = levelKey;
+  
+  // Update Level Buttons UI
+  if (dom.levelBtnBasic) dom.levelBtnBasic.classList.toggle('active', levelKey === 'basic');
+  if (dom.levelBtnAdvanced) dom.levelBtnAdvanced.classList.toggle('active', levelKey === 'advanced');
+
+  const course = coursesData[state.currentSubject];
+  if (!course || !course.levels) return;
+
+  const config = course.levels[levelKey] || course.levels.basic;
+  if (!config) return;
+
+  if (dom.homeCategoryTitle) dom.homeCategoryTitle.textContent = config.homeTitle;
+  if (dom.homeCategoryDesc) dom.homeCategoryDesc.textContent = config.homeDesc;
+
+  // Update Featured Card
+  if (dom.featuredTitle) dom.featuredTitle.textContent = config.featured.title;
+  if (dom.featuredBadge) dom.featuredBadge.textContent = config.featured.badge;
+  if (dom.featuredDesc) dom.featuredDesc.textContent = config.featured.desc;
+
+  // Render 6 Category Cards for this level
+  renderHomeCategories(config.categories);
+}
+
+// Render Home Category Cards dynamically
+function renderHomeCategories(categories) {
+  if (!dom.categoryGrid) return;
+  dom.categoryGrid.innerHTML = '';
+
+  categories.forEach(cat => {
+    const card = document.createElement('div');
+    card.className = 'category-card';
+    card.setAttribute('data-cat', cat.key);
+    card.setAttribute('role', 'button');
+    card.setAttribute('tabindex', '0');
+
+    card.innerHTML = `
+      <div class="card-icon-wrapper">${cat.icon}</div>
+      <div class="card-content">
+        <div class="card-title-row">
+          <h3 class="card-title">${escapeHtml(cat.title)}</h3>
+          <span class="card-badge">${escapeHtml(cat.badge)}</span>
+        </div>
+        <p class="card-desc">${escapeHtml(cat.desc)}</p>
+      </div>
+      <div class="card-arrow">➔</div>
+    `;
+
+    card.addEventListener('click', () => startCategoryQuiz(cat.key));
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') startCategoryQuiz(cat.key);
+    });
+
+    dom.categoryGrid.appendChild(card);
+  });
+}
+
+// Switch Views (subject | home | quiz | result)
+function switchView(viewName) {
+  state.view = viewName;
+
+  if (dom.subjectSection) dom.subjectSection.style.display = viewName === 'subject' ? 'block' : 'none';
+  if (dom.homeSection) dom.homeSection.style.display = viewName === 'home' ? 'block' : 'none';
+  if (dom.quizSection) dom.quizSection.style.display = viewName === 'quiz' ? 'block' : 'none';
+  if (dom.resultSection) dom.resultSection.style.display = viewName === 'result' ? 'block' : 'none';
+
+  // Navigation Header Buttons
+  if (dom.navSubjectBtn) dom.navSubjectBtn.style.display = viewName !== 'subject' ? 'inline-flex' : 'none';
+  if (dom.navHomeBtn) dom.navHomeBtn.style.display = (viewName === 'quiz' || viewName === 'result') ? 'inline-flex' : 'none';
+
+  // Header Subtitle Text
+  if (dom.headerLevelSubtitle) {
+    if (viewName === 'subject') {
+      dom.headerLevelSubtitle.textContent = 'คลังข้อสอบวัดระดับความรู้รายวิชา';
+    } else {
+      const course = coursesData[state.currentSubject];
+      dom.headerLevelSubtitle.textContent = course ? `วิชา: ${course.name}` : 'ระบบแบบทดสอบประเมินความรู้';
+    }
+  }
+}
 
 // Start Quiz with Selected Category
 function startCategoryQuiz(catKey) {
+  const course = coursesData[state.currentSubject];
+  if (!course || !course.isReady) {
+    alert(`📌 รายวิชา [${course ? course.name : ''}] อยู่ระหว่างจัดเตรียมคลังข้อสอบครับ\n\nสามารถเลือกทำข้อสอบวิชา PRINCIPLE OF SOFTWARE DESIGN AND DEVELOPMENT (240 ข้อ) ได้ทันทีครับ`);
+    return;
+  }
+
   state.currentCategory = catKey;
+  const questionPool = quizData[state.currentLevel] || quizData.basic;
+
   if (catKey === 'all') {
-    state.questions = [...quizQuestions];
+    state.questions = [...questionPool];
   } else {
-    state.questions = quizQuestions.filter(q => q.categoryKey === catKey);
+    state.questions = questionPool.filter(q => q.categoryKey === catKey);
   }
 
   state.currentQuestionIndex = 0;
@@ -94,16 +523,6 @@ function startCategoryQuiz(catKey) {
   switchView('quiz');
   renderQuiz();
   window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-// Switch Views (home | quiz | result)
-function switchView(viewName) {
-  state.view = viewName;
-
-  dom.homeSection.style.display = viewName === 'home' ? 'block' : 'none';
-  dom.quizSection.style.display = viewName === 'quiz' ? 'block' : 'none';
-  dom.resultSection.style.display = viewName === 'result' ? 'block' : 'none';
-  dom.navHomeBtn.style.display = viewName !== 'home' ? 'inline-flex' : 'none';
 }
 
 // Update Top Statistics (Correct / Wrong counts)
@@ -185,7 +604,7 @@ function renderQuiz() {
   renderPalette();
 }
 
-// Render Choices (with safe HTML escaping for <class>, <URL>, etc.)
+// Render Choices
 function renderChoices(question, ansState) {
   dom.choicesContainer.innerHTML = '';
 
@@ -311,16 +730,17 @@ function showResultScreen() {
   
   const title = document.getElementById('res-msg-title');
   const desc = document.getElementById('res-msg-desc');
+  const levelLabel = state.currentLevel === 'advanced' ? 'ระดับยาก (Advanced)' : 'ระดับพื้นฐาน (Basic)';
 
   if (scorePercent >= 80) {
-    title.textContent = '🎉 ยอดเยี่ยมมาก! พร้อมสอบแน่นอน';
-    desc.textContent = `คุณทำคะแนนใน ${categoryTitles[state.currentCategory] || 'แบบทดสอบ'} ได้ยอดเยี่ยม`;
+    title.textContent = '🎉 ยอดเยี่ยมมาก! เก่งระดับผู้เชี่ยวชาญ';
+    desc.textContent = `คุณทำคะแนนในแบบทดสอบ [${levelLabel}] ได้อย่างยอดเยี่ยม`;
   } else if (scorePercent >= 60) {
     title.textContent = '👍 ผ่านเกณฑ์ได้ดี!';
-    desc.textContent = 'สามารถเลื่อนลงไปดูเฉลยข้อที่ตอบผิดด้านล่าง เพื่อทบทวนความแม่นยำครับ';
+    desc.textContent = `ผ่านเกณฑ์การประเมิน [${levelLabel}] สามารถเลื่อนดูเฉลยข้อที่ตอบผิดด้านล่างเพื่อศึกษาเพิ่มเติม`;
   } else {
     title.textContent = '📚 พยายามอีกนิด สู้ๆ นะครับ!';
-    desc.textContent = 'สามารถเลื่อนดูเฉลยและคำอธิบายข้อที่ตอบผิดด้านล่างเพื่อศึกษาเพิ่มเติมครับ';
+    desc.textContent = `ข้อสอบชุดนี้มีความท้าทาย สามารถเลื่อนดูเฉลยละเอียดและกดทำใหม่อีกครั้งเพื่อทบทวนครับ`;
   }
 
   // Update Review Filter Counters
@@ -418,22 +838,51 @@ function renderReviewList() {
 
 // Setup Event Listeners
 function setupEventListeners() {
-  // Category Cards Click (Home)
-  document.querySelectorAll('.category-card').forEach(card => {
-    card.addEventListener('click', () => {
-      const catKey = card.getAttribute('data-cat');
-      startCategoryQuiz(catKey);
+  // Active Course Card: PRINCIPLE OF SOFTWARE DESIGN AND DEVELOPMENT
+  if (dom.subjectCardPsdd) {
+    dom.subjectCardPsdd.addEventListener('click', () => selectSubject('psdd'));
+    dom.subjectCardPsdd.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') selectSubject('psdd');
     });
+  }
 
-    card.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        const catKey = card.getAttribute('data-cat');
-        startCategoryQuiz(catKey);
-      }
+  // Back to Subject Selection
+  if (dom.btnBackToSubjects) {
+    dom.btnBackToSubjects.addEventListener('click', () => {
+      switchView('subject');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
-  });
+  }
+  if (dom.navSubjectBtn) {
+    dom.navSubjectBtn.addEventListener('click', () => {
+      switchView('subject');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+  if (dom.btnGoSubject) {
+    dom.btnGoSubject.addEventListener('click', () => {
+      switchView('subject');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
 
-  // Return to Home Buttons
+  // Level Switcher Buttons (for active course)
+  if (dom.levelBtnBasic) {
+    dom.levelBtnBasic.addEventListener('click', () => setLevel('basic'));
+  }
+  if (dom.levelBtnAdvanced) {
+    dom.levelBtnAdvanced.addEventListener('click', () => setLevel('advanced'));
+  }
+
+  // Featured Card Click (All Questions)
+  if (dom.featuredCard) {
+    dom.featuredCard.addEventListener('click', () => startCategoryQuiz('all'));
+    dom.featuredCard.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') startCategoryQuiz('all');
+    });
+  }
+
+  // Return to Home (Course Dashboard) Buttons
   if (dom.navHomeBtn) {
     dom.navHomeBtn.addEventListener('click', () => {
       switchView('home');
@@ -443,7 +892,7 @@ function setupEventListeners() {
 
   if (dom.brandHomeBtn) {
     dom.brandHomeBtn.addEventListener('click', () => {
-      switchView('home');
+      switchView('subject');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   }
@@ -518,7 +967,7 @@ function setupEventListeners() {
   }
 
   // Keyboard Shortcuts for Quiz:
-  // 1-4 for ก-ง
+  // 1-4 for ก-ง / A-D
   // Enter for Check or Next
   window.addEventListener('keydown', (e) => {
     if (state.view !== 'quiz') return;
@@ -551,5 +1000,5 @@ function setupEventListeners() {
 // Init App on Load
 document.addEventListener('DOMContentLoaded', () => {
   setupEventListeners();
-  switchView('home');
+  switchView('subject'); // start at Subject selection
 });
