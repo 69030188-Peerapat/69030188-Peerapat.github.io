@@ -1,159 +1,226 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
-  <title>แบบทดสอบประเมินความรู้ 120 ข้อ | Computer Science & Git & Python</title>
-  <meta name="description" content="แบบทดสอบประเมินความรู้ 120 ข้อ พร้อมเฉลยละเอียดและคำอธิบาย จัดทำโดย นายพีรพัฒน์ วิไชยวงค์ (69030188)">
-  
+  <title>ระบบแบบทดสอบประเมินความรู้ | คลังข้อสอบรายวิชา</title>
+  <meta name="description"
+    content="ระบบแบบทดสอบประเมินความรู้รายวิชาต่างๆ พร้อมเฉลยละเอียดและคำอธิบาย จัดทำโดย นายพีรพัฒน์ วิไชยวงค์ (69030188)">
+
   <!-- Google Fonts - Prompt (Thai) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
-  
+  <link
+    href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap"
+    rel="stylesheet">
+
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
   <!-- Clean Minimal Header -->
   <header class="header">
     <div class="header-inner">
-      <div class="brand" id="brand-home-btn" role="button" tabindex="0" title="กลับหน้าแรก">
+      <div class="brand" id="brand-home-btn" role="button" tabindex="0" title="กลับหน้าเลือกวิชา">
         <div class="brand-icon">📝</div>
         <div class="brand-text-group">
-          <h1 class="brand-title">แบบทดสอบประเมินความรู้</h1>
-          <p class="brand-subtitle">120 ข้อ (คอมพิวเตอร์, SDLC, อัลกอริทึม, Python, ตัวแปร, Git)</p>
+          <h1 class="brand-title">ระบบแบบทดสอบประเมินความรู้</h1>
+          <p class="brand-subtitle" id="header-level-subtitle">คลังข้อสอบวัดระดับความรู้รายวิชา</p>
         </div>
       </div>
-      <button id="nav-home-btn" class="btn-nav-home" style="display: none;" type="button">
-        🏠 <span>เลือกหมวด</span>
-      </button>
+      
+      <div class="header-nav-actions">
+        <button id="nav-subject-btn" class="btn-nav-home" style="display: none;" type="button">
+          📚 <span>เปลี่ยนวิชา</span>
+        </button>
+        <button id="nav-home-btn" class="btn-nav-home" style="display: none;" type="button">
+          🏠 <span>เลือกหมวด</span>
+        </button>
+      </div>
     </div>
   </header>
 
   <!-- Main Container -->
   <main class="app-container">
 
-    <!-- 1. HOME / CATEGORY SELECTION SECTION -->
-    <section id="home-section" class="home-section">
+    <!-- 0. SUBJECT / COURSE SELECTION SECTION (หน้าแรก: เลือกรายวิชา) -->
+    <section id="subject-section" class="subject-section">
       
       <!-- Creator & AI Disclaimer Section -->
       <div class="creator-container">
         <div class="creator-card">
-          <img src="profile.jpg" alt="Profile" class="creator-avatar" onerror="this.src='https://media.discordapp.net/attachments/1456978176545652799/1539274241550192640/df028812-8edf-4ddd-91d0-465e1900f0dc.jpg?ex=6a85b859&is=6a8466d9&hm=eea7565aa9c60b3ff09fd67380af8b1d3ca6fc627f231598b49027c54d2798ac&=&format=webp&width=320&height=320'">
+          <img src="profile.jpg" alt="Profile" class="creator-avatar"
+            onerror="this.src='https://media.discordapp.net/attachments/1456978176545652799/1539274241550192640/df028812-8edf-4ddd-91d0-465e1900f0dc.jpg?ex=6a85b859&is=6a8466d9&hm=eea7565aa9c60b3ff09fd67380af8b1d3ca6fc627f231598b49027c54d2798ac&=&format=webp&width=320&height=320'">
           <div class="creator-details">
             <span class="creator-badge-tag">ผู้จัดทำระบบ</span>
             <h2 class="creator-title">นายพีรพัฒน์ วิไชยวงค์</h2>
-            <p class="creator-subtitle"><strong>รหัสนักศึกษา:</strong> 69030188 • ระบบแบบทดสอบประเมินความรู้ 120 ข้อ</p>
+            <p class="creator-subtitle"><strong>รหัสนักศึกษา:</strong> 69030188 • ระบบคลังแบบทดสอบประเมินความรู้
+            </p>
           </div>
         </div>
 
         <!-- AI Content Disclaimer -->
         <div class="ai-disclaimer-card">
           <span class="ai-icon">🤖</span>
-          <span class="ai-disclaimer-text">เนื้อหาและแบบทดสอบนี้ ได้นำมาจาก AI ถ้าเกิดข้อผิดพลาดก็ขออภัยด้วยนะครับ</span>
+          <span class="ai-disclaimer-text">เนื้อหาและแบบทดสอบนี้ ได้นำมาจาก AI
+            ถ้าเกิดข้อผิดพลาดก็ขออภัยด้วยนะครับ</span>
         </div>
       </div>
 
       <div class="home-hero">
-        <h2 class="home-title">เลือกหมวดหมู่เพื่อเริ่มทำแบบทดสอบ</h2>
-        <p class="home-subtitle">คลิกเลือก Session ที่ต้องการฝึกฝน หรือทำข้อสอบครบทั้งหมด 120 ข้อ</p>
+        <h2 class="home-title">เลือกรายวิชาที่ต้องการทดสอบ</h2>
+        <p class="home-subtitle">เลือกรายวิชาเพื่อเข้าสู่การประเมินความรู้ตามหมวดหมู่และระดับความยาก</p>
+      </div>
+
+      <!-- Subjects Grid -->
+      <div class="subject-grid">
+        
+        <!-- 1. Active Subject: PRINCIPLE OF SOFTWARE DESIGN AND DEVELOPMENT -->
+        <div class="subject-card active-subject" id="subject-card-psdd" role="button" tabindex="0">
+          <div class="subject-card-header">
+            <div class="subject-icon-box">💻</div>
+            <span class="subject-status-badge available">เปิดให้ทำแบบทดสอบ (240 ข้อ)</span>
+          </div>
+          <div class="subject-card-body">
+            <h3 class="subject-title">PRINCIPLE OF SOFTWARE DESIGN AND DEVELOPMENT</h3>
+            <p class="subject-subtitle-th">หลักการออกแบบและการพัฒนาซอฟต์แวร์</p>
+            <p class="subject-desc">
+              ครอบคลุม SDLC, Flowcharts, Pseudocode, Programming Concepts, Data Types & Operators, Memory Management (Stack/Heap, Pointers), และ Version Control (Git)
+            </p>
+          </div>
+          <div class="subject-card-footer">
+            <span class="subject-meta-text">🟢 พื้นฐาน 120 ข้อ • 🎓 ระดับยาก 120 ข้อ</span>
+            <span class="subject-action-btn">เข้าสู่รายวิชา ➔</span>
+          </div>
+        </div>
+
+        <!-- 2. Draft Subject: DATABASE (Locked / Coming Soon) -->
+        <div class="subject-card coming-soon-subject" id="subject-card-db">
+          <div class="subject-card-header">
+            <div class="subject-icon-box">🗄️</div>
+            <span class="subject-status-badge pending">เร็วๆ นี้ (Coming Soon)</span>
+          </div>
+          <div class="subject-card-body">
+            <h3 class="subject-title">DATABASE</h3>
+            <p class="subject-subtitle-th">ระบบฐานข้อมูลและการจัดการข้อมูล (Database Systems)</p>
+            <p class="subject-desc">
+              Relational Database Model, SQL Queries (DDL/DML/DCL), ER Diagram & Cardinality, Normalization (1NF - BCNF), Transaction & ACID, Indexing และ NoSQL
+            </p>
+          </div>
+          <div class="subject-card-footer">
+            <span class="subject-meta-text">อยู่ระหว่างจัดเตรียมคลังข้อสอบ</span>
+            <span class="subject-lock-icon">🔒 ปิดชั่วคราว</span>
+          </div>
+        </div>
+
+        <!-- 3. Draft Subject: COMPUTER SYSTEM (Locked / Coming Soon) -->
+        <div class="subject-card coming-soon-subject" id="subject-card-cs">
+          <div class="subject-card-header">
+            <div class="subject-icon-box">⚡</div>
+            <span class="subject-status-badge pending">เร็วๆ นี้ (Coming Soon)</span>
+          </div>
+          <div class="subject-card-body">
+            <h3 class="subject-title">COMPUTER SYSTEM</h3>
+            <p class="subject-subtitle-th">ระบบคอมพิวเตอร์และสถาปัตยกรรม (Computer System Architecture)</p>
+            <p class="subject-desc">
+              Computer Organization, Logic Gates & Boolean Algebra, CPU Architecture, Instruction Cycle & Pipeline, Memory Hierarchy & Cache, I/O Interconnection
+            </p>
+          </div>
+          <div class="subject-card-footer">
+            <span class="subject-meta-text">อยู่ระหว่างจัดเตรียมคลังข้อสอบ</span>
+            <span class="subject-lock-icon">🔒 ปิดชั่วคราว</span>
+          </div>
+        </div>
+
+        <!-- 4. Future Slot / Add More Courses -->
+        <div class="subject-card coming-soon-subject">
+          <div class="subject-card-header">
+            <div class="subject-icon-box">➕</div>
+            <span class="subject-status-badge pending">เร็วๆ นี้ (Coming Soon)</span>
+          </div>
+          <div class="subject-card-body">
+            <h3 class="subject-title">รายวิชาอื่นๆ ในอนาคต</h3>
+            <p class="subject-subtitle-th">Upcoming Subjects & Exam Pools</p>
+            <p class="subject-desc">
+              ช่องสำหรับเพิ่มรายวิชาเพิ่มเติมในหลักสูตร เช่น Web Application Development, Data Structures & Algorithms, Network Systems ฯลฯ
+            </p>
+          </div>
+          <div class="subject-card-footer">
+            <span class="subject-meta-text">จะเปิดให้เข้าถึงในอนาคต</span>
+            <span class="subject-lock-icon">🔒</span>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- 1. COURSE DASHBOARD / CATEGORY SELECTION SECTION (หน้ารายวิชาที่เลือก) -->
+    <section id="home-section" class="home-section" style="display: none;">
+
+      <!-- Course Header Breadcrumb Bar -->
+      <div class="course-header-bar">
+        <button id="btn-back-to-subjects" class="btn-breadcrumb" type="button">
+          ‹ เปลี่ยนรายวิชา
+        </button>
+        <div class="course-badge-group">
+          <span class="course-tag">วิชาปัจจุบัน:</span>
+          <span id="current-course-title" class="course-name">PRINCIPLE OF SOFTWARE DESIGN AND DEVELOPMENT</span>
+        </div>
+      </div>
+
+      <!-- Course Notice for Draft Subjects -->
+      <div id="course-draft-notice" class="course-draft-banner" style="display: none;">
+        <span class="draft-notice-icon">🚧</span>
+        <div class="draft-notice-text">
+          <strong>รายวิชานี้อยู่ระหว่างจัดเตรียมคลังข้อสอบ:</strong> คุณสามารถดูโครงสร้างเนื้อหาและ Session ที่จะใช้ในการออกข้อสอบได้ด้านล่างนี้
+        </div>
+      </div>
+
+      <!-- LEVEL SELECTOR CONTROL -->
+      <div id="level-selector-container" class="level-selector-section">
+        <div class="level-selector-title">เลือกระดับความยากของแบบทดสอบ:</div>
+        <div class="level-switcher">
+          <button id="level-btn-basic" class="level-btn active" type="button">
+            <span class="level-icon">🟢</span>
+            <div class="level-text-group">
+              <span class="level-name">ระดับพื้นฐาน (Basic)</span>
+              <span class="level-sub">120 ข้อ • ความรู้พื้นฐาน & คอนเซปต์หลัก</span>
+            </div>
+          </button>
+          <button id="level-btn-advanced" class="level-btn" type="button">
+            <span class="level-icon">🎓</span>
+            <div class="level-text-group">
+              <span class="level-name">ระดับยาก (Advanced)</span>
+              <span class="level-sub">120 ข้อ • Concepts, Memory, Pointers & Data Structures</span>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <div class="home-hero">
+        <h2 id="home-category-title" class="home-title">หมวดหมู่แบบทดสอบระดับพื้นฐาน</h2>
+        <p id="home-category-desc" class="home-subtitle">คลิกเลือก Session ที่ต้องการฝึกฝน หรือทำข้อสอบครบทั้งหมด 120 ข้อ</p>
       </div>
 
       <!-- Featured "All Questions" Card -->
-      <div class="category-card featured" data-cat="all" role="button" tabindex="0">
-        <div class="card-icon-wrapper featured-icon">📚</div>
+      <div id="featured-card" class="category-card featured" data-cat="all" role="button" tabindex="0">
+        <div class="card-icon-wrapper featured-icon" id="featured-icon">📚</div>
         <div class="card-content">
           <div class="card-title-row">
-            <h3 class="card-title">ข้อสอบทั้งหมด (All In One)</h3>
-            <span class="card-badge featured-badge">120 ข้อ</span>
+            <h3 class="card-title" id="featured-title">ข้อสอบทั้งหมด (All In One)</h3>
+            <span class="card-badge featured-badge" id="featured-badge">120 ข้อ</span>
           </div>
-          <p class="card-desc">ทดสอบความรู้ครบถ้วนทุกหมวดหมู่ (ข้อ 1 - 120) จำลองการสอบจริงแบบครอบคลุม</p>
+          <p class="card-desc" id="featured-desc">ทดสอบความรู้ครบถ้วนทุกหมวดหมู่ (ข้อ 1 - 120) จำลองการสอบจริงแบบครอบคลุม</p>
         </div>
         <div class="card-arrow">➔</div>
       </div>
 
-      <!-- Category Grid (Categories 1 - 6) -->
-      <div class="category-grid">
-        
-        <!-- Session 01 -->
-        <div class="category-card" data-cat="cat1" role="button" tabindex="0">
-          <div class="card-icon-wrapper">💻</div>
-          <div class="card-content">
-            <div class="card-title-row">
-              <h3 class="card-title">Session 01: คอมพิวเตอร์ & SDLC</h3>
-              <span class="card-badge">20 ข้อ</span>
-            </div>
-            <p class="card-desc">ฮาร์ดแวร์, CPU, RAM, ALU, SDLC, Waterfall, Agile และ Big Bang Model (ข้อ 1 - 20)</p>
-          </div>
-          <div class="card-arrow">➔</div>
-        </div>
-
-        <!-- Session 02 -->
-        <div class="category-card" data-cat="cat2" role="button" tabindex="0">
-          <div class="card-icon-wrapper">📐</div>
-          <div class="card-content">
-            <div class="card-title-row">
-              <h3 class="card-title">Session 02: อัลกอริทึม & ผังงาน</h3>
-              <span class="card-badge">20 ข้อ</span>
-            </div>
-            <p class="card-desc">อัลกอริทึม, ซูโดโคด, IPO Cycle, Top-down Design และสัญลักษณ์ Flowchart (ข้อ 21 - 40)</p>
-          </div>
-          <div class="card-arrow">➔</div>
-        </div>
-
-        <!-- Session 03 -->
-        <div class="category-card" data-cat="cat3" role="button" tabindex="0">
-          <div class="card-icon-wrapper">🐍</div>
-          <div class="card-content">
-            <div class="card-title-row">
-              <h3 class="card-title">Session 03: ภาษา Python เบื้องต้น</h3>
-              <span class="card-badge">20 ข้อ</span>
-            </div>
-            <p class="card-desc">ประวัติ Python, Interpreter, print, input, Indentation, if-elif-else, while, break, continue (ข้อ 41 - 60)</p>
-          </div>
-          <div class="card-arrow">➔</div>
-        </div>
-
-        <!-- Session 04 -->
-        <div class="category-card" data-cat="cat4" role="button" tabindex="0">
-          <div class="card-icon-wrapper">🔢</div>
-          <div class="card-content">
-            <div class="card-title-row">
-              <h3 class="card-title">Session 04: ตัวแปร & ตัวดำเนินการ</h3>
-              <span class="card-badge">20 ข้อ</span>
-            </div>
-            <p class="card-desc">การตั้งชื่อตัวแปร, int, float, str, bool, ตัวดำเนินการ %, //, **, ตรรกศาสตร์ and/or/not (ข้อ 61 - 80)</p>
-          </div>
-          <div class="card-arrow">➔</div>
-        </div>
-
-        <!-- Session 05 -->
-        <div class="category-card" data-cat="cat5" role="button" tabindex="0">
-          <div class="card-icon-wrapper">📦</div>
-          <div class="card-content">
-            <div class="card-title-row">
-              <h3 class="card-title">Session 05: Git พื้นฐาน</h3>
-              <span class="card-badge">20 ข้อ</span>
-            </div>
-            <p class="card-desc">ระบบ DVCS, Staging Area, git init, add, commit, log, status, Commit message, .gitignore (ข้อ 81 - 100)</p>
-          </div>
-          <div class="card-arrow">➔</div>
-        </div>
-
-        <!-- Session 06 -->
-        <div class="category-card" data-cat="cat6" role="button" tabindex="0">
-          <div class="card-icon-wrapper">🌿</div>
-          <div class="card-content">
-            <div class="card-title-row">
-              <h3 class="card-title">Session 06: Git Branching & Remote</h3>
-              <span class="card-badge">20 ข้อ</span>
-            </div>
-            <p class="card-desc">Branch, checkout/switch, merge, Merge Conflict, GitHub, clone, push, pull, Vi/Vim (ข้อ 101 - 120)</p>
-          </div>
-          <div class="card-arrow">➔</div>
-        </div>
-
+      <!-- Category Grid (Categories 1 - 6 dynamically rendered/updated) -->
+      <div id="category-grid" class="category-grid">
+        <!-- Injected via JavaScript based on current level -->
       </div>
     </section>
 
@@ -242,7 +309,10 @@
             🔄 ทำชุดนี้ใหม่อีกครั้ง
           </button>
           <button id="btn-go-home" class="btn" type="button">
-            🏠 กลับไปเลือกหมวดอื่น
+            🏠 กลับไปเลือกหมวด
+          </button>
+          <button id="btn-go-subject" class="btn" type="button">
+            📚 กลับหน้าเลือกวิชา
           </button>
         </div>
       </div>
@@ -252,9 +322,12 @@
         <div class="review-header">
           <h3 class="review-title">📋 ตรวจสอบผลคำตอบรายข้อ</h3>
           <div class="review-filters">
-            <button id="filter-all" class="filter-chip active" type="button">ทั้งหมด (<span id="count-all">0</span>)</button>
-            <button id="filter-correct" class="filter-chip correct" type="button">✓ ตอบถูก (<span id="count-correct">0</span>)</button>
-            <button id="filter-wrong" class="filter-chip wrong" type="button">✕ ตอบผิด (<span id="count-wrong">0</span>)</button>
+            <button id="filter-all" class="filter-chip active" type="button">ทั้งหมด (<span
+                id="count-all">0</span>)</button>
+            <button id="filter-correct" class="filter-chip correct" type="button">✓ ตอบถูก (<span
+                id="count-correct">0</span>)</button>
+            <button id="filter-wrong" class="filter-chip wrong" type="button">✕ ตอบผิด (<span
+                id="count-wrong">0</span>)</button>
           </div>
         </div>
 
@@ -276,4 +349,5 @@
   <script src="questions.js"></script>
   <script src="app.js"></script>
 </body>
+
 </html>
