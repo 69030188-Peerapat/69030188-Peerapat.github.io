@@ -33,6 +33,145 @@ function escapeHtml(text) {
     .replace(/'/g, "&#039;");
 }
 
+// Sound Effects Synthesizer Engine (Web Audio API)
+const soundEffects = {
+  enabled: localStorage.getItem('quiz_sound_enabled') !== '0',
+  audioCtx: null,
+
+  init() {
+    if (!this.audioCtx) {
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      if (AudioContext) {
+        this.audioCtx = new AudioContext();
+      }
+    }
+    if (this.audioCtx && this.audioCtx.state === 'suspended') {
+      this.audioCtx.resume();
+    }
+  },
+
+  playCorrect() {
+    if (!this.enabled) return;
+    try {
+      this.init();
+      if (!this.audioCtx) return;
+      const ctx = this.audioCtx;
+      const now = ctx.currentTime;
+
+      // Uplifting arpeggio: C5 (523.25), E5 (659.25), G5 (783.99), C6 (1046.50)
+      const notes = [523.25, 659.25, 783.99, 1046.50];
+      notes.forEach((freq, i) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, now + i * 0.07);
+
+        gain.gain.setValueAtTime(0, now + i * 0.07);
+        gain.gain.linearRampToValueAtTime(0.18, now + i * 0.07 + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.07 + 0.28);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        osc.start(now + i * 0.07);
+        osc.stop(now + i * 0.07 + 0.3);
+      });
+    } catch (e) {
+      console.warn('Audio play error:', e);
+    }
+  },
+
+  playWrong() {
+    if (!this.enabled) return;
+    try {
+      this.init();
+      if (!this.audioCtx) return;
+      const ctx = this.audioCtx;
+      const now = ctx.currentTime;
+
+      // Soft sympathetic double-tone: G3 (196.00), D3 (146.83)
+      const notes = [196.00, 146.83];
+      notes.forEach((freq, i) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(freq, now + i * 0.12);
+
+        gain.gain.setValueAtTime(0, now + i * 0.12);
+        gain.gain.linearRampToValueAtTime(0.14, now + i * 0.12 + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.12 + 0.25);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        osc.start(now + i * 0.12);
+        osc.stop(now + i * 0.12 + 0.28);
+      });
+    } catch (e) {
+      console.warn('Audio play error:', e);
+    }
+  }
+};
+
+// Encouraging Feedback Messages Pool
+const encouragementPool = {
+  correct: [
+    { title: "🎉 ยอดเยี่ยมมากครับ!", msg: "ตอบได้ถูกต้องและแม่นยำมาก ความรู้แน่นปึ้ก ลุยข้อต่อไปเลย!" },
+    { title: "✨ เก่งมากๆ เลยครับ!", msg: "วิเคราะห์โจทย์ได้เฉียบคม ตอบถูกเป๊ะ รักษาความมั่นใจไว้นะครับ" },
+    { title: "🔥 เยี่ยมยอดสุดๆ!", msg: "สมาธิและความจำดีเยี่ยมมาก เก็บแต้มเต็มไปเรื่อยๆ เลยครับ" },
+    { title: "🎯 แม่นยำระดับเซียน!", msg: "จับจุดสำคัญของเนื้อหาได้ดีมาก เดินหน้าต่อสู่คะแนนเต็มเลยครับ" },
+    { title: "🌟 เทพมากครับ!", msg: "ตอบถูกแบบไร้ข้อกังขา เข้าใจทฤษฎีและหลักการอย่างลึกซึ้ง" },
+    { title: "💪 พลังความรู้เต็มเปี่ยม!", msg: "ทำผลงานได้ยอดเยี่ยมมาก ลุยข้อถัดไปกันต่อเลยครับ" },
+    { title: "🚀 สปีดความแม่นยำมาแรง!", msg: "ตอบถูกคล่องแคล่วมาก เป็นกำลังใจให้ทำคะแนนท็อปนะครับ" },
+    { title: "👏 ปรบมือรัวๆ ให้เลย!", msg: "เก่งมากครับ ตอบถูกต่อเนื่อง ลุยข้อต่อไปเพื่อชัยชนะ!" }
+  ],
+  wrong: [
+    { title: "🌱 ไม่เป็นไรเลยครับ สู้ๆ!", msg: "ข้อนี้แอบท้าทาย ผิดเป็นครูยิ่งทำยิ่งจำได้แม่นขึ้นนะ อ่านคำอธิบายแล้วลุยต่อเลย!" },
+    { title: "💡 ข้อนี้เป็นจุดที่หลายคนพลาด!", msg: "ถือเป็นการทบทวนจุดสำคัญและได้เรียนรู้สิ่งใหม่ สู้ๆ นะครับ ทำได้แน่นอน" },
+    { title: "💪 อย่าเพิ่งท้อนะครับ!", msg: "ความสำเร็จมาจากการฝึกฝนและการเรียนรู้จากข้อผิดพลาด เดินหน้าเก็บแต้มข้อถัดไปเลย" },
+    { title: "✨ ผิดเพื่อรู้ถูก!", msg: "อ่านเฉลยและคำอธิบายสั้นๆ ด้านล่าง แล้วข้อนี้จะไม่พลาดอีกแน่นอนครับ สู้ๆ!" },
+    { title: "🎯 ก้าวต่อไปอย่างมั่นใจ!", msg: "อย่าให้ข้อนี้หยุดความตั้งใจ ไฟยังไม่มอด ลุยข้อถัดไปเพื่อดึงคะแนนคืนมาเลย" },
+    { title: "🌈 เป็นกำลังใจให้นะครับ!", msg: "ทุกคนพัฒนาจากการฝึกทำโจทย์ สู้ต่ออีกนิด ความรู้จะยิ่งแน่นขึ้นครับ" },
+    { title: "🔥 อย่ายอมแพ้ ลุยต่อเลย!", msg: "ตั้งสติแล้วอ่านเฉลยให้เข้าใจ ข้อถัดไปรอให้เราพิชิตอยู่ครับ!" },
+    { title: "📖 เก็บเกี่ยวความรู้เพิ่มอีกข้อ!", msg: "ทุกข้อที่ทำคือประสบการณ์อันมีค่า ยิ้มสู้แล้วลุยข้อถัดไปกันต่อเลยครับ" }
+  ]
+};
+
+// Celebration Confetti & Sparkles Trigger
+function triggerConfetti() {
+  const container = dom.confettiContainer || document.getElementById('confetti-container');
+  if (!container) return;
+
+  container.innerHTML = '';
+  const emojis = ['✨', '⭐', '🎉', '🎯', '👏', '💯', '🚀', '🏆', '🔥', '🟢'];
+  const particleCount = 14;
+
+  for (let i = 0; i < particleCount; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'confetti-particle';
+    particle.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+
+    const startX = 40 + (Math.random() * 20); // 40% - 60% center
+    const startY = 45 + (Math.random() * 20);
+    const tx = (Math.random() - 0.5) * 260; // Spread horizontally
+    const ty = -60 - Math.random() * 120; // Fly upward then gravity
+    const rot = (Math.random() - 0.5) * 360;
+
+    particle.style.left = `${startX}%`;
+    particle.style.top = `${startY}%`;
+    particle.style.setProperty('--tx', `${tx}px`);
+    particle.style.setProperty('--ty', `${ty}px`);
+    particle.style.setProperty('--rot', `${rot}deg`);
+    particle.style.animationDelay = `${Math.random() * 0.15}s`;
+
+    container.appendChild(particle);
+  }
+
+  setTimeout(() => {
+    container.innerHTML = '';
+  }, 1400);
+}
+
 // Course Configurations Database
 const coursesData = {
   psdd: {
@@ -154,65 +293,51 @@ const coursesData = {
     }
   },
 
-  // 2. Draft Subject: DATABASE
+  // 2. Active Subject: DATABASE
   db: {
     id: 'db',
     name: 'DATABASE',
     fullName: 'ระบบฐานข้อมูลและการจัดการข้อมูล (DATABASE SYSTEMS)',
-    isReady: false,
+    isReady: true,
     levels: {
       basic: {
-        levelName: 'ระดับพื้นฐาน (Basic)',
-        headerSub: 'เค้าโครง 6 Sessions (อยู่ระหว่างเตรียมข้อสอบ)',
-        homeTitle: 'โครงสร้างหมวดหมู่รายวิชา DATABASE',
-        homeDesc: 'เค้าโครงเนื้อหา 6 Sessions ที่จะใช้ในการจัดทำแบบทดสอบประเมินความรู้',
+        levelName: 'ข้อสอบกลางภาค (Midterm Exam)',
+        headerSub: '90 ข้อ (พื้นฐาน DBMS, Relational Model, ERD, Normalization, SQL, ACID & Concurrency)',
+        homeTitle: 'หมวดหมู่แบบทดสอบวิชา DATABASE (ข้อสอบกลางภาค 90 ข้อ)',
+        homeDesc: 'คลิกเลือกหมวดที่ต้องการฝึกฝน หรือทำข้อสอบครบทั้งหมด 90 ข้อ พร้อมเฉลยละเอียดและคำอธิบาย',
         featured: {
-          title: 'ข้อสอบวิชา DATABASE ทั้งหมด (All In One)',
-          badge: 'เตรียมจัดทำ',
-          desc: 'รวบรวมข้อสอบวิชา Database Systems ครอบคลุมตั้งแต่ Relational Model จนถึง NoSQL'
+          title: 'ข้อสอบกลางภาคทั้งหมด (All In One)',
+          badge: '90 ข้อ',
+          desc: 'ทดสอบความรู้ระบบฐานข้อมูลครบถ้วนทั้ง 4 หมวด (ข้อ 1 - 90) จำลองการสอบจริงพร้อมเฉลยละเอียด'
         },
         categories: [
           {
             key: 'db_cat1',
             icon: '🗄️',
-            title: 'Session 01: Database Fundamentals & Relational Model',
-            badge: 'โครงสร้างร่าง',
-            desc: 'DBMS Architecture, Schema, Instances, Relational Data Model, Primary/Foreign Keys'
+            title: 'หมวดที่ 1: บทที่ 1 & 2 พื้นฐานระบบฐานข้อมูลและแบบจำลองข้อมูล',
+            badge: '25 ข้อ',
+            desc: 'Data/Information, File-based System, 3-Schema Architecture, Relational Model, Keys & Integrity Constraints (ข้อ 1 - 25)'
           },
           {
             key: 'db_cat2',
-            icon: '📝',
-            title: 'Session 02: SQL Queries & DDL / DML / DCL',
-            badge: 'โครงสร้างร่าง',
-            desc: 'CREATE, ALTER, DROP, SELECT, JOIN (Inner/Left/Right), GROUP BY, HAVING, Aggregate Functions'
+            icon: '📊',
+            title: 'หมวดที่ 2: บทที่ 3 การออกแบบฐานข้อมูลด้วย ER Model และ ERD',
+            badge: '25 ข้อ',
+            desc: 'Chen ERD, Crow\'s Foot, Weak Entity, Cardinality, EERD Supertype/Subtype, ER to Relational Mapping (ข้อ 26 - 50)'
           },
           {
             key: 'db_cat3',
-            icon: '📊',
-            title: 'Session 03: Entity Relationship (ER) Modeling',
-            badge: 'โครงสร้างร่าง',
-            desc: 'Entities, Attributes, Relationships, Cardinality Ratio (1:1, 1:N, M:N), ER Diagram to Schema Mapping'
+            icon: '🧹',
+            title: 'หมวดที่ 3: บทที่ 4 Normalization และคำสั่ง SQL',
+            badge: '20 ข้อ',
+            desc: '1NF, 2NF, 3NF, BCNF, Anomalies, DDL, DML, WHERE, GROUP BY, HAVING, INNER/LEFT JOIN (ข้อ 51 - 70)'
           },
           {
             key: 'db_cat4',
-            icon: '🧹',
-            title: 'Session 04: Database Normalization (1NF - BCNF)',
-            badge: 'โครงสร้างร่าง',
-            desc: 'Functional Dependencies, 1NF, 2NF, 3NF, Boyce-Codd Normal Form (BCNF), Anomaly Prevention'
-          },
-          {
-            key: 'db_cat5',
             icon: '🔄',
-            title: 'Session 05: Transaction & Concurrency Control',
-            badge: 'โครงสร้างร่าง',
-            desc: 'ACID Properties, Serializability, Locking Protocols, Deadlock Prevention, Rollback & Commit'
-          },
-          {
-            key: 'db_cat6',
-            icon: '⚡',
-            title: 'Session 06: Indexing, Optimization & NoSQL',
-            badge: 'โครงสร้างร่าง',
-            desc: 'B-Tree/B+ Tree Indexing, Query Optimization, NoSQL Data Models (Document, Key-Value, Graph)'
+            title: 'หมวดที่ 4: หัวข้อพิเศษ Transaction & ความสัมพันธ์เชิงลึก',
+            badge: '20 ข้อ',
+            desc: 'ACID (Atomicity, Consistency, Isolation, Durability), 1:1 Mapping, Surrogate vs Natural Key, DCL/TCL (ข้อ 71 - 90)'
           }
         ]
       }
@@ -334,6 +459,13 @@ const dom = {
   explanationBox: document.getElementById('explanation-box'),
   expHeader: document.getElementById('exp-header'),
   expText: document.getElementById('exp-text'),
+  encouragementBanner: document.getElementById('encouragement-banner'),
+  encourageIcon: document.getElementById('encourage-icon'),
+  encourageTitle: document.getElementById('encourage-title'),
+  encourageMsg: document.getElementById('encourage-msg'),
+  confettiContainer: document.getElementById('confetti-container'),
+  soundToggleBtn: document.getElementById('sound-toggle-btn'),
+  soundIcon: document.getElementById('sound-icon'),
 
   prevBtn: document.getElementById('prev-btn'),
   checkBtn: document.getElementById('check-btn'),
@@ -377,10 +509,14 @@ function selectSubject(subjectKey) {
 
     renderDraftCategories(config.categories);
   } else {
-    // Active PSDD Course:
+    // Active Course:
     if (dom.courseDraftNotice) dom.courseDraftNotice.style.display = 'none';
-    if (dom.levelSelectorContainer) dom.levelSelectorContainer.style.display = 'block';
-    setLevel(state.currentLevel);
+    const hasMultipleLevels = course.levels && Object.keys(course.levels).length > 1;
+    if (dom.levelSelectorContainer) {
+      dom.levelSelectorContainer.style.display = hasMultipleLevels ? 'block' : 'none';
+    }
+    state.currentLevel = 'basic';
+    setLevel('basic');
   }
 
   switchView('home');
@@ -510,7 +646,14 @@ function startCategoryQuiz(catKey) {
   }
 
   state.currentCategory = catKey;
-  const questionPool = quizData[state.currentLevel] || quizData.basic;
+  let questionPool = [];
+  if (state.currentSubject === 'db') {
+    questionPool = quizData.db || [];
+  } else if (state.currentSubject === 'psdd') {
+    questionPool = quizData[state.currentLevel] || quizData.basic;
+  } else {
+    questionPool = quizData[state.currentSubject] || quizData[state.currentLevel] || quizData.basic;
+  }
 
   if (catKey === 'all') {
     state.questions = [...questionPool];
@@ -571,6 +714,14 @@ function renderQuiz() {
     dom.explanationBox.style.display = 'block';
     dom.explanationBox.className = `explanation-box ${currentAnsState.isCorrect ? 'is-correct' : 'is-wrong'}`;
     
+    // Render Encouragement Banner
+    if (dom.encouragementBanner && currentAnsState.encourage) {
+      dom.encouragementBanner.className = `encouragement-banner ${currentAnsState.isCorrect ? 'correct' : 'wrong'}`;
+      if (dom.encourageIcon) dom.encourageIcon.textContent = currentAnsState.isCorrect ? '🎉' : '💪';
+      if (dom.encourageTitle) dom.encourageTitle.textContent = currentAnsState.encourage.title;
+      if (dom.encourageMsg) dom.encourageMsg.textContent = currentAnsState.encourage.msg;
+    }
+
     if (currentAnsState.isCorrect) {
       dom.expHeader.className = 'exp-header is-correct';
       dom.expHeader.innerHTML = '✓ ตอบถูกต้อง!';
@@ -663,11 +814,23 @@ function handleCheckAnswer() {
   if (!ans || !ans.selected || ans.checked) return;
 
   const isCorrect = ans.selected === currentQ.answer;
+  const list = isCorrect ? encouragementPool.correct : encouragementPool.wrong;
+  const encourageItem = list[Math.floor(Math.random() * list.length)];
+
   state.answers[currentQ.id] = {
     selected: ans.selected,
     checked: true,
-    isCorrect: isCorrect
+    isCorrect: isCorrect,
+    encourage: encourageItem
   };
+
+  // Play Sound & Visual Effects
+  if (isCorrect) {
+    soundEffects.playCorrect();
+    triggerConfetti();
+  } else {
+    soundEffects.playWrong();
+  }
 
   renderQuiz();
 }
@@ -838,11 +1001,32 @@ function renderReviewList() {
 
 // Setup Event Listeners
 function setupEventListeners() {
+  // Sound Toggle Button
+  if (dom.soundToggleBtn) {
+    if (dom.soundIcon) dom.soundIcon.textContent = soundEffects.enabled ? '🔊' : '🔇';
+    dom.soundToggleBtn.addEventListener('click', () => {
+      soundEffects.enabled = !soundEffects.enabled;
+      localStorage.setItem('quiz_sound_enabled', soundEffects.enabled ? '1' : '0');
+      if (dom.soundIcon) dom.soundIcon.textContent = soundEffects.enabled ? '🔊' : '🔇';
+      if (soundEffects.enabled) {
+        soundEffects.playCorrect();
+      }
+    });
+  }
+
   // Active Course Card: PRINCIPLE OF SOFTWARE DESIGN AND DEVELOPMENT
   if (dom.subjectCardPsdd) {
     dom.subjectCardPsdd.addEventListener('click', () => selectSubject('psdd'));
     dom.subjectCardPsdd.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') selectSubject('psdd');
+    });
+  }
+
+  // Active Course Card: DATABASE
+  if (dom.subjectCardDb) {
+    dom.subjectCardDb.addEventListener('click', () => selectSubject('db'));
+    dom.subjectCardDb.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') selectSubject('db');
     });
   }
 

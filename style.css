@@ -971,6 +971,117 @@ code, kbd, pre {
   color: var(--danger);
 }
 
+/* Answer Animations & Feedback Effects */
+@keyframes popCorrect {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.025); box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.25); }
+  100% { transform: scale(1); }
+}
+
+@keyframes shakeWrong {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-5px); }
+  40%, 80% { transform: translateX(5px); }
+}
+
+@keyframes bounceEmoji {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-4px) scale(1.2); }
+}
+
+@keyframes floatParticle {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(0.5) rotate(0deg);
+  }
+  50% {
+    opacity: 0.95;
+    transform: translate(var(--tx), var(--ty)) scale(1.2) rotate(var(--rot));
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(var(--tx) * 1.4), calc(var(--ty) * 1.4 + 30px)) scale(0.6) rotate(calc(var(--rot) * 2));
+  }
+}
+
+.choice-item.locked.correct-answer {
+  animation: popCorrect 0.45s ease-out;
+}
+
+.choice-item.locked.wrong-selection {
+  animation: shakeWrong 0.45s ease-in-out;
+}
+
+/* Confetti Container */
+.confetti-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 50;
+  border-radius: var(--radius-lg);
+}
+
+.confetti-particle {
+  position: absolute;
+  font-size: 1.4rem;
+  pointer-events: none;
+  animation: floatParticle 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  will-change: transform, opacity;
+}
+
+/* Encouragement Banner */
+.encouragement-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-sm);
+  margin-bottom: 0.85rem;
+  animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.encouragement-banner.correct {
+  background: rgba(34, 197, 94, 0.12);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  color: #166534;
+}
+
+.encouragement-banner.wrong {
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  color: #92400e;
+}
+
+.encourage-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+  flex-shrink: 0;
+  animation: bounceEmoji 0.6s ease;
+}
+
+.encourage-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.encourage-title {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 0.15rem;
+}
+
+.encourage-msg {
+  font-size: 0.88rem;
+  line-height: 1.45;
+  margin: 0;
+  opacity: 0.95;
+}
+
 /* Explanation Box */
 .explanation-box {
   margin-top: 1.25rem;

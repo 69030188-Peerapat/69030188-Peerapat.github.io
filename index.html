@@ -32,6 +32,9 @@
       </div>
       
       <div class="header-nav-actions">
+        <button id="sound-toggle-btn" class="btn-nav-home" type="button" title="เปิด/ปิดเสียงเอฟเฟกต์">
+          <span id="sound-icon">🔊</span> <span id="sound-label">เสียง</span>
+        </button>
         <button id="nav-subject-btn" class="btn-nav-home" style="display: none;" type="button">
           📚 <span>เปลี่ยนวิชา</span>
         </button>
@@ -96,22 +99,22 @@
           </div>
         </div>
 
-        <!-- 2. Draft Subject: DATABASE (Locked / Coming Soon) -->
-        <div class="subject-card coming-soon-subject" id="subject-card-db">
+        <!-- 2. Active Subject: DATABASE -->
+        <div class="subject-card active-subject" id="subject-card-db" role="button" tabindex="0">
           <div class="subject-card-header">
             <div class="subject-icon-box">🗄️</div>
-            <span class="subject-status-badge pending">เร็วๆ นี้ (Coming Soon)</span>
+            <span class="subject-status-badge available">เปิดให้ทำแบบทดสอบ (90 ข้อ)</span>
           </div>
           <div class="subject-card-body">
             <h3 class="subject-title">DATABASE</h3>
             <p class="subject-subtitle-th">ระบบฐานข้อมูลและการจัดการข้อมูล (Database Systems)</p>
             <p class="subject-desc">
-              Relational Database Model, SQL Queries (DDL/DML/DCL), ER Diagram & Cardinality, Normalization (1NF - BCNF), Transaction & ACID, Indexing และ NoSQL
+              แบบทดสอบข้อสอบกลางภาค 90 ข้อ: Relational Model, 3-Schema Architecture, Keys, ER Diagram, Normalization (1NF-BCNF), SQL Queries, Transaction &amp; ACID
             </p>
           </div>
           <div class="subject-card-footer">
-            <span class="subject-meta-text">อยู่ระหว่างจัดเตรียมคลังข้อสอบ</span>
-            <span class="subject-lock-icon">🔒 ปิดชั่วคราว</span>
+            <span class="subject-meta-text">📝 ข้อสอบกลางภาค 90 ข้อ (4 หมวด)</span>
+            <span class="subject-action-btn">เข้าสู่รายวิชา ➔</span>
           </div>
         </div>
 
@@ -248,6 +251,9 @@
           <h2 id="question-text" class="question-text">กำลังโหลดโจทย์คำถาม...</h2>
         </div>
 
+        <!-- Confetti & Celebration Particle Container -->
+        <div id="confetti-container" class="confetti-container"></div>
+
         <!-- 4 Choices List -->
         <div id="choices-container" class="choices-list">
           <!-- Dynamic options rendered here -->
@@ -255,6 +261,13 @@
 
         <!-- Explanation Card (Visible after check) -->
         <div id="explanation-box" class="explanation-box" style="display: none;">
+          <div id="encouragement-banner" class="encouragement-banner correct">
+            <span id="encourage-icon" class="encourage-icon">🎉</span>
+            <div class="encourage-content">
+              <strong id="encourage-title" class="encourage-title">ยอดเยี่ยมมาก!</strong>
+              <p id="encourage-msg" class="encourage-msg">ตอบได้ถูกต้องและแม่นยำมาก ลุยข้อต่อไปเลย!</p>
+            </div>
+          </div>
           <div id="exp-header" class="exp-header">✓ ตอบถูกต้อง!</div>
           <div id="exp-text" class="exp-text"></div>
         </div>

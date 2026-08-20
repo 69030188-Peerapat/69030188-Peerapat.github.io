@@ -6245,6 +6245,2348 @@ const quizData = {
     "answer": "ข",
     "explanation": "sizeof(arr) (ขนาดทั้งหมด) หารด้วย sizeof(arr[0]) (ขนาด 1 element) ได้ผลลัพธ์เป็นจำนวน Element ใน Array"
   }
+],
+  "db": [
+  {
+    "id": 1,
+    "category": "หมวดที่ 1: พื้นฐานระบบฐานข้อมูลและแบบจำลองข้อมูล (ข้อ 1 - 25)",
+    "categoryKey": "db_cat1",
+    "question": "ข้อใดอธิบายความหมายของ \"ข้อมูล (Data)\" และ \"สารสนเทศ (Information)\" ได้ถูกต้องที่สุด?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "Data คือข้อมูลที่ผ่านการประมวลผลแล้ว, Information คือข้อเท็จจริงดิบ"
+      },
+      {
+        "key": "ข",
+        "text": "Data คือข้อเท็จจริงดิบที่ยังไม่ผ่านการประมวลผล, Information คือข้อมูลที่ผ่านการประมวลผลและมีความหมายแล้ว"
+      },
+      {
+        "key": "ค",
+        "text": "ทั้ง Data และ Information มีความหมายเหมือนกันทุกประการ"
+      },
+      {
+        "key": "ง",
+        "text": "Data ใช้เฉพาะในคอมพิวเตอร์, Information ใช้ในเอกสารกระดาษ"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "Data คือข้อเท็จจริงดิบ (Raw facts) ส่วน Information คือข้อมูลที่ผ่านกระบวนการจัดการหรือประมวลผลเพื่อให้เกิดความหมายและคุณค่าต่อการใช้งาน"
+  },
+  {
+    "id": 2,
+    "category": "หมวดที่ 1: พื้นฐานระบบฐานข้อมูลและแบบจำลองข้อมูล (ข้อ 1 - 25)",
+    "categoryKey": "db_cat1",
+    "question": "ปัญหาใดที่เกิดขึ้นในระบบแฟ้มข้อมูลแบบเดิม (File-based System) เมื่อมีการเก็บข้อมูลเรื่องเดียวกันไว้หลายๆ แห่ง?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "Data Integrity"
+      },
+      {
+        "key": "ข",
+        "text": "Data Redundancy"
+      },
+      {
+        "key": "ค",
+        "text": "Data Security"
+      },
+      {
+        "key": "ง",
+        "text": "Data Independence"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "Data Redundancy (ความซ้ำซ้อนของข้อมูล) เกิดจากการเก็บข้อมูลเดียวกันไว้หลายไฟล์ ซึ่งส่งผลให้เกิด Data Inconsistency (ความขัดแย้งของข้อมูล) ตามมา"
+  },
+  {
+    "id": 3,
+    "category": "หมวดที่ 1: พื้นฐานระบบฐานข้อมูลและแบบจำลองข้อมูล (ข้อ 1 - 25)",
+    "categoryKey": "db_cat1",
+    "question": "ข้อใด **ไม่ใช่** หน้าที่หลักของ ระบบจัดการฐานข้อมูล (DBMS)?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "การจัดการคลังข้อมูลและการจัดเก็บ (Data Storage Management)"
+      },
+      {
+        "key": "ข",
+        "text": "การซ่อมแซมและเปลี่ยนฮาร์ดดิสก์ที่เสียโดยอัตโนมัติ"
+      },
+      {
+        "key": "ค",
+        "text": "การควบคุมการเข้าถึงและระบบรักษาความปลอดภัย (Security Management)"
+      },
+      {
+        "key": "ง",
+        "text": "การจัดการความยินยอมของการทำธุรกรรม (Transaction Management)"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "การซ่อมแซมและเปลี่ยนฮาร์ดดิสก์เป็นหน้าที่ทางกายภาพของเจ้าหน้าที่ hardware/system administrator ไม่ใช่หน้าที่ของซอฟต์แวร์ DBMS"
+  },
+  {
+    "id": 4,
+    "category": "หมวดที่ 1: พื้นฐานระบบฐานข้อมูลและแบบจำลองข้อมูล (ข้อ 1 - 25)",
+    "categoryKey": "db_cat1",
+    "question": "โครงสร้าง สถาปัตยกรรม 3 ระดับ (Three-Schema Architecture) มีวัตถุประสงค์หลักเพื่ออะไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "เพื่อเพิ่มความเร็วในการส่งข้อมูลผ่านเครือข่าย"
+      },
+      {
+        "key": "ข",
+        "text": "เพื่อแยกมุมมองของผู้ใช้ (User View) ออกจากโครงสร้างการจัดเก็บข้อมูลจริง (Physical Storage)"
+      },
+      {
+        "key": "ค",
+        "text": "เพื่อลดขนาดไฟล์ฐานข้อมูล"
+      },
+      {
+        "key": "ง",
+        "text": "เพื่อให้ใช้ภาษา SQL ได้ง่ายขึ้น"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "วัตถุประสงค์หลักของ Three-Schema Architecture (External, Conceptual, Internal Level) คือการให้เกิด Data Independence โดยแยก User View ออกจาก Physical Storage"
+  },
+  {
+    "id": 5,
+    "category": "หมวดที่ 1: พื้นฐานระบบฐานข้อมูลและแบบจำลองข้อมูล (ข้อ 1 - 25)",
+    "categoryKey": "db_cat1",
+    "question": "ความเป็นอิสระของข้อมูลเชิงตรรกะ (Logical Data Independence) หมายถึงข้อใด?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "การเปลี่ยนแปลง Conceptual Schema โดยไม่กระทบต่อ External Schema (User Views)"
+      },
+      {
+        "key": "ข",
+        "text": "การเปลี่ยน Internal Schema โดยไม่กระทบต่อ Conceptual Schema"
+      },
+      {
+        "key": "ค",
+        "text": "การเปลี่ยน ฮาร์ดดิสก์ โดยไม่ต้องเปลี่ยนระบบปฏิบัติการ"
+      },
+      {
+        "key": "ง",
+        "text": "การเขียนโปรแกรมใหม่โดยไม่ต้องใช้ภาษา SQL"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "Logical Data Independence คือความสามารถในการปรับเปลี่ยนโครงสร้างระดับ Conceptual (เช่น เพิ่ม Entity/Attribute) โดยไม่ส่งผลกระทบต่อ External Schema หรือโปรแกรมประยุกต์ของผู้ใช้"
+  },
+  {
+    "id": 6,
+    "category": "หมวดที่ 1: พื้นฐานระบบฐานข้อมูลและแบบจำลองข้อมูล (ข้อ 1 - 25)",
+    "categoryKey": "db_cat1",
+    "question": "บุคคลใดมีหน้าที่รับผิดชอบในการออกแบบโครงสร้างฐานข้อมูล ดูแลประสิทธิภาพ และกำหนดสิทธิ์การใช้งานของผู้ใช้?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "Application Programmer"
+      },
+      {
+        "key": "ข",
+        "text": "Database Administrator (DBA)"
+      },
+      {
+        "key": "ค",
+        "text": "End User"
+      },
+      {
+        "key": "ง",
+        "text": "System Analyst"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "Database Administrator (DBA) คือผู้ดูแลระบบฐานข้อมูล มีหน้าที่ตั้งค่า ออกแบบ กำหนดสิทธิ์ และดูแลประสิทธิภาพของระบบ"
+  },
+  {
+    "id": 7,
+    "category": "หมวดที่ 1: พื้นฐานระบบฐานข้อมูลและแบบจำลองข้อมูล (ข้อ 1 - 25)",
+    "categoryKey": "db_cat1",
+    "question": "แบบจำลองข้อมูลประเภทใดที่จัดเก็บข้อมูลในลักษณะโครงสร้างต้นไม้ (Tree Structure) มีความสัมพันธ์แบบ Parent-Child?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "Relational Model"
+      },
+      {
+        "key": "ข",
+        "text": "Network Model"
+      },
+      {
+        "key": "ค",
+        "text": "Hierarchical Model"
+      },
+      {
+        "key": "ง",
+        "text": "Object-Oriented Model"
+      }
+    ],
+    "answer": "ค",
+    "explanation": "Hierarchical Model (แบบจำลองลำดับชั้น) จัดเก็บข้อมูลในรูปแบบ Parent-Child Relationship ซึ่งโหนดลูกจะมีโหนดพ่อแม่ได้เพียงโหนดเดียว"
+  },
+  {
+    "id": 8,
+    "category": "หมวดที่ 1: พื้นฐานระบบฐานข้อมูลและแบบจำลองข้อมูล (ข้อ 1 - 25)",
+    "categoryKey": "db_cat1",
+    "question": "ข้อจำกัดสำคัญของ Network Data Model ที่ต่างจาก Hierarchical Model คืออะไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "Network Model สามารถมี Child ที่มี Parent ได้มากกว่า 1 โหนด (M:N)"
+      },
+      {
+        "key": "ข",
+        "text": "Network Model ไม่รองรับ Pointer"
+      },
+      {
+        "key": "ค",
+        "text": "Network Model ใช้งานได้เฉพาะกับข้อมูลตัวเลขเท่านั้น"
+      },
+      {
+        "key": "ง",
+        "text": "Network Model มีความยืดหยุ่นน้อยกว่า Hierarchical Model"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "Network Model แก้ข้อจำกัดของ Hierarchical Model โดยยินยอมให้ Child Record มี Parent Record ได้มากกว่า 1 โหนด (รองรับความสัมพันธ์แบบ Complex M:N)"
+  },
+  {
+    "id": 9,
+    "category": "หมวดที่ 1: พื้นฐานระบบฐานข้อมูลและแบบจำลองข้อมูล (ข้อ 1 - 25)",
+    "categoryKey": "db_cat1",
+    "question": "ใน Relational Data Model ข้อมูลจะถูกจัดเก็บอยู่ในรูปแบบใด?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "กราฟ (Graph)"
+      },
+      {
+        "key": "ข",
+        "text": "ตารางสองมิติ (Two-dimensional Tables)"
+      },
+      {
+        "key": "ค",
+        "text": "ต้นไม้ (Trees)"
+      },
+      {
+        "key": "ง",
+        "text": "ข้อความธรรมดา (Plain Text)"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "Relational Data Model จัดเก็บข้อมูลในรูปแบบตารางสองมิติ (Tables หรือ Relations) ประกอบด้วย แถว (Rows/Tuples) และ คอลัมน์ (Columns/Attributes)"
+  },
+  {
+    "id": 10,
+    "category": "หมวดที่ 1: พื้นฐานระบบฐานข้อมูลและแบบจำลองข้อมูล (ข้อ 1 - 25)",
+    "categoryKey": "db_cat1",
+    "question": "ข้อใดคือความหมายของคำว่า \"Tuple\" ในระบบฐานข้อมูลเชิงสัมพันธ์?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "แถวข้อมูล (Row)"
+      },
+      {
+        "key": "ข",
+        "text": "คอลัมน์ (Column)"
+      },
+      {
+        "key": "ค",
+        "text": "ชื่อตาราง (Table Name)"
+      },
+      {
+        "key": "ง",
+        "text": "ชนิดของข้อมูล (Data Type)"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "คำศัพท์ใน Relational Model: Tuple = Row (แถว/เรคคอร์ด), Attribute = Column (คอลัมน์/ฟีลด์), Relation = Table (ตาราง)"
+  },
+  {
+    "id": 11,
+    "category": "หมวดที่ 1: พื้นฐานระบบฐานข้อมูลและแบบจำลองข้อมูล (ข้อ 1 - 25)",
+    "categoryKey": "db_cat1",
+    "question": "ข้อใดคือความหมายของคำว่า \"Attribute\"?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "แถวข้อมูลในตาราง"
+      },
+      {
+        "key": "ข",
+        "text": "คุณลักษณะ หรือ คอลัมน์ ในตาราง"
+      },
+      {
+        "key": "ค",
+        "text": "จำนวนเรคคอร์ดทั้งหมด"
+      },
+      {
+        "key": "ง",
+        "text": "การระบุคีย์หลัก"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "Attribute หมายถึง คุณลักษณะ หรือ คอลัมน์ (Column) ที่ใช้อธิบายรายละเอียดของ Entity"
+  },
+  {
+    "id": 12,
+    "category": "หมวดที่ 1: พื้นฐานระบบฐานข้อมูลและแบบจำลองข้อมูล (ข้อ 1 - 25)",
+    "categoryKey": "db_cat1",
+    "question": "โดเมน (Domain) ในแบบจำลองเชิงสัมพันธ์หมายถึงอะไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "ขอบเขตของเครื่องเซิร์ฟเวอร์ที่ใช้"
+      },
+      {
+        "key": "ข",
+        "text": "ขอบเขตของค่าที่เป็นไปได้ทั้งหมดของ Attribute นั้นๆ (Set of allowable values)"
+      },
+      {
+        "key": "ค",
+        "text": "ชื่อของฐานข้อมูล"
+      },
+      {
+        "key": "ง",
+        "text": "จำนวนตารางทั้งหมดในฐานข้อมูล"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "Domain คือ เซตของค่าที่เป็นไปได้ทั้งหมด (Permissible Values) และชนิดข้อมูลที่กำหนดไว้สำหรับ Attribute นั้นๆ"
+  },
+  {
+    "id": 13,
+    "category": "หมวดที่ 1: พื้นฐานระบบฐานข้อมูลและแบบจำลองข้อมูล (ข้อ 1 - 25)",
+    "categoryKey": "db_cat1",
+    "question": "ข้อใดอธิบายศัพท์ \"Cardinality\" ของ Relation ได้ถูกต้อง?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "จำนวน Attributes (คอลัมน์) ใน Relation"
+      },
+      {
+        "key": "ข",
+        "text": "จำนวน Tuples (แถว) ใน Relation"
+      },
+      {
+        "key": "ค",
+        "text": "จำนวน Foreign Keys ใน Relation"
+      },
+      {
+        "key": "ง",
+        "text": "ขนาดไฟล์ของ Relation"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "Cardinality ของ Relation คือ จำนวนแถว (Tuples) ทั้งหมดในตาราง ส่วน Degree คือ จำนวนคอลัมน์ (Attributes)"
+  },
+  {
+    "id": 14,
+    "category": "หมวดที่ 1: พื้นฐานระบบฐานข้อมูลและแบบจำลองข้อมูล (ข้อ 1 - 25)",
+    "categoryKey": "db_cat1",
+    "question": "ข้อใดอธิบายศัพท์ \"Degree\" ของ Relation ได้ถูกต้อง?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "จำนวน Attributes (คอลัมน์) ใน Relation"
+      },
+      {
+        "key": "ข",
+        "text": "จำนวน Tuples (แถว) ใน Relation"
+      },
+      {
+        "key": "ค",
+        "text": "ระดับความปลอดภัยของ Relation"
+      },
+      {
+        "key": "ง",
+        "text": "จำนวนตารางที่เชื่อมโยงกัน"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "Degree หมายถึง จำนวน Attributes (คอลัมน์) ที่มีอยู่ในตารางนั้นๆ"
+  },
+  {
+    "id": 15,
+    "category": "หมวดที่ 1: พื้นฐานระบบฐานข้อมูลและแบบจำลองข้อมูล (ข้อ 1 - 25)",
+    "categoryKey": "db_cat1",
+    "question": "คุณสมบัติของ Relation ในระบบฐานข้อมูลเชิงสัมพันธ์ ข้อใดกล่าว **ไม่ถูกต้อง**?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "ข้อมูลในแต่ละช่อง (Cell) ต้องเป็น Atomic Value (ค่าเดี่ยว)"
+      },
+      {
+        "key": "ข",
+        "text": "ลำดับของคอลัมน์ไม่มีความสำคัญ"
+      },
+      {
+        "key": "ค",
+        "text": "ลำดับของแถวมีความสำคัญมาก ต้องเรียงลำดับตาม PK เสมอ"
+      },
+      {
+        "key": "ง",
+        "text": "แต่ละ Attribute ต้องมีชื่อไม่ซ้ำกันใน Relation เดียวกัน"
+      }
+    ],
+    "answer": "ค",
+    "explanation": "ใน Relational Model ลำดับของแถว (Tuples) และลำดับของคอลัมน์ (Attributes) **ไม่มีความสำคัญ** (Unordered)"
+  },
+  {
+    "id": 16,
+    "category": "หมวดที่ 1: พื้นฐานระบบฐานข้อมูลและแบบจำลองข้อมูล (ข้อ 1 - 25)",
+    "categoryKey": "db_cat1",
+    "question": "คีย์คู่แข่ง (Candidate Key) คืออะไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "คีย์ที่ถูกเลือกเป็น Primary Key เท่านั้น"
+      },
+      {
+        "key": "ข",
+        "text": "Super Key ขั้นต่ำ (Minimal Super Key) ที่สามารถระบุแถวข้อมูลได้ unique โดยไม่มี Attribute ส่วนเกิน"
+      },
+      {
+        "key": "ค",
+        "text": "คีย์ที่อ้างอิงไปตารางอื่น"
+      },
+      {
+        "key": "ง",
+        "text": "คีย์ที่ซ้ำกันได้"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "Candidate Key คือ Super Key ที่มีจำนวน Attribute น้อยที่สุด (Minimal) ซึ่งสามารถระบุแถวข้อมูลได้อย่างโดดเด่นไม่ซ้ำกัน"
+  },
+  {
+    "id": 17,
+    "category": "หมวดที่ 1: พื้นฐานระบบฐานข้อมูลและแบบจำลองข้อมูล (ข้อ 1 - 25)",
+    "categoryKey": "db_cat1",
+    "question": "คีย์หลัก (Primary Key) คืออะไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "Candidate Key ที่ถูกเลือกมาเพื่อใช้ระบุแถวข้อมูลในตารางอย่างเป็นเอกลักษณ์"
+      },
+      {
+        "key": "ข",
+        "text": "คีย์ใดก็ได้ที่มีข้อมูลเป็นข้อความ"
+      },
+      {
+        "key": "ค",
+        "text": "คีย์ที่ยอมให้มีค่าเป็น NULL ได้"
+      },
+      {
+        "key": "ง",
+        "text": "คีย์ที่สร้างขึ้นมาจาก 5 Attributes ขึ้นไปเสมอ"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "Primary Key คือ Candidate Key ที่ออกแบบหรือเลือกมาใช้งานจริงในการระบุความโดดเด่นของแต่ละ Tuple ใน Relation"
+  },
+  {
+    "id": 18,
+    "category": "หมวดที่ 1: พื้นฐานระบบฐานข้อมูลและแบบจำลองข้อมูล (ข้อ 1 - 25)",
+    "categoryKey": "db_cat1",
+    "question": "กฎความสมบูรณ์ของเอนทิตี (Entity Integrity Rule) ระบุไว้ว่าอย่างไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "Foreign Key ห้ามมีค่าเป็น NULL"
+      },
+      {
+        "key": "ข",
+        "text": "Primary Key ห้ามมีค่าเป็น NULL และห้ามซ้ำกัน"
+      },
+      {
+        "key": "ค",
+        "text": "ข้อมูลในตารางห้ามเกิน 1,000 แถว"
+      },
+      {
+        "key": "ง",
+        "text": "ทุก Attribute ต้องเป็นตัวเลข"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "Entity Integrity ระบุว่า Attribute ที่ทำหน้าที่เป็น Primary Key จะต้องมีค่า และ **ห้ามเป็นค่าว่าง (NULL)** โดยเด็ดขาด"
+  },
+  {
+    "id": 19,
+    "category": "หมวดที่ 1: พื้นฐานระบบฐานข้อมูลและแบบจำลองข้อมูล (ข้อ 1 - 25)",
+    "categoryKey": "db_cat1",
+    "question": "กฎความสมบูรณ์ของการอ้างอิง (Referential Integrity Rule) กำหนดไว้ว่าอย่างไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "ค่าของ Foreign Key ต้องไปตรงกับค่าของ Primary Key ในตารางที่อ้างอิงถึง หรือเป็น NULL (หากไม่ได้กำหนดว่าต้องมี)"
+      },
+      {
+        "key": "ข",
+        "text": "Primary Key ของตารางหลักต้องตรงกับทุกคอลัมน์"
+      },
+      {
+        "key": "ค",
+        "text": "ห้ามลบข้อมูลในตารางใดๆ ทั้งสิ้น"
+      },
+      {
+        "key": "ง",
+        "text": "Foreign Key ต้องไม่เป็นตัวเลข"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "Referential Integrity กำหนดว่าค่า Foreign Key จะต้องอ้างอิงตรงกับค่า Primary Key ใน Relation ที่เชื่อมโยง หรือมีค่าเป็น NULL (ถ้าความสัมพันธ์นั้นไม่บังคับ)"
+  },
+  {
+    "id": 20,
+    "category": "หมวดที่ 1: พื้นฐานระบบฐานข้อมูลและแบบจำลองข้อมูล (ข้อ 1 - 25)",
+    "categoryKey": "db_cat1",
+    "question": "คำว่า \"Foreign Key\" คืออะไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "คีย์ที่มาจากต่างประเทศ"
+      },
+      {
+        "key": "ข",
+        "text": "Attribute ในตารางหนึ่งที่ทำหน้าที่อ้างอิงไปยัง Primary Key ของอีกตารางหนึ่ง"
+      },
+      {
+        "key": "ค",
+        "text": "คีย์ที่ใช้สำหรับสร้างดัชนีเท่านั้น"
+      },
+      {
+        "key": "ง",
+        "text": "คีย์ที่ไม่สามารถทำการ Join ตารางได้"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "Foreign Key (คีย์นอก) คือ Attribute (หรือกลุ่มของ Attribute) ใน Relation หนึ่ง ซึ่งไปตรงกับ Primary Key ในอีก Relation หนึ่ง เพื่อสร้างความสัมพันธ์ระหว่างตาราง"
+  },
+  {
+    "id": 21,
+    "category": "หมวดที่ 1: พื้นฐานระบบฐานข้อมูลและแบบจำลองข้อมูล (ข้อ 1 - 25)",
+    "categoryKey": "db_cat1",
+    "question": "ค่า \"NULL\" ในระบบฐานข้อมูลมีความหมายตรงกับข้อใด?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "ค่าตัวเลข 0"
+      },
+      {
+        "key": "ข",
+        "text": "ข้อความว่างเปล่า (Empty String \"\")"
+      },
+      {
+        "key": "ค",
+        "text": "การไม่มีอยู่ของข้อมูล / ไม่ทราบค่า (Missing / Unknown / Inapplicable)"
+      },
+      {
+        "key": "ง",
+        "text": "ค่าเท็จ (False)"
+      }
+    ],
+    "answer": "ค",
+    "explanation": "NULL หมายถึง การไม่รู้ค่า (Unknown) หรือยังไม่ได้กรอกข้อมูล หรือไม่มีข้อมูลนั้น ไม่เท่ากับเลข 0 หรือ String ว่างเปล่า"
+  },
+  {
+    "id": 22,
+    "category": "หมวดที่ 1: พื้นฐานระบบฐานข้อมูลและแบบจำลองข้อมูล (ข้อ 1 - 25)",
+    "categoryKey": "db_cat1",
+    "question": "คีย์ผสม (Composite Key) หมายถึงอะไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "คีย์ที่ประกอบด้วยคีย์หลักและคีย์นอกรวมกัน"
+      },
+      {
+        "key": "ข",
+        "text": "คีย์ที่เกิดจากการนำเอา Attributes ตั้งแต่ 2 อันขึ้นไปมารวมกันเป็น Primary Key"
+      },
+      {
+        "key": "ค",
+        "text": "คีย์ที่เปลี่ยนชนิดข้อมูลได้"
+      },
+      {
+        "key": "ง",
+        "text": "คีย์ที่สร้างโดยซอฟต์แวร์อัตโนมัติ"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "Composite Key คือ Primary Key หรือ Candidate Key ที่ต้องใช้ร่วมกันมากกว่า 1 Attribute เพื่อระบุความโดดเด่นของเรคคอร์ด"
+  },
+  {
+    "id": 23,
+    "category": "หมวดที่ 1: พื้นฐานระบบฐานข้อมูลและแบบจำลองข้อมูล (ข้อ 1 - 25)",
+    "categoryKey": "db_cat1",
+    "question": "ข้อใดคือข้อดีของการใช้ข้อกำหนด Integrity Constraints ในระบบฐานข้อมูล?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "เพื่อให้ข้อมูลมีความถูกต้อง แม่นยำ และน่าเชื่อถือ (Data Accuracy & Consistency)"
+      },
+      {
+        "key": "ข",
+        "text": "เพื่อให้ฐานข้อมูลมีขนาดเล็กลง"
+      },
+      {
+        "key": "ค",
+        "text": "เพื่อเพิ่มความเร็วในการพิมพ์รายงาน"
+      },
+      {
+        "key": "ง",
+        "text": "เพื่อไม่ต้องใช้รหัสผ่านในการเข้าสู่ระบบ"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "Integrity Constraints ช่วยป้องกันไม่ให้ข้อมูลที่ไม่ถูกต้อง ขัดแย้ง หรือไม่มีอยู่จริงหลุดเข้าไปในฐานข้อมูล"
+  },
+  {
+    "id": 24,
+    "category": "หมวดที่ 1: พื้นฐานระบบฐานข้อมูลและแบบจำลองข้อมูล (ข้อ 1 - 25)",
+    "categoryKey": "db_cat1",
+    "question": "คีย์ตัวแทน (Surrogate Key) คืออะไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "คีย์ที่ได้จากข้อมูลจริงในธรรมชาติ เช่น เลขบัตรประชาชน"
+      },
+      {
+        "key": "ข",
+        "text": "คีย์ที่ระบบสร้างขึ้นมาเอง (System-generated) ไม่มี ความหมายทางธุรกิจ เพื่อใช้เป็น Primary Key"
+      },
+      {
+        "key": "ค",
+        "text": "คีย์ที่ใช้ชั่วคราวขณะประมวลผลแล้วถูกลบ"
+      },
+      {
+        "key": "ง",
+        "text": "คีย์ที่เป็นข้อความขนาดยาว"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "Surrogate Key คือคีย์ที่ถูกประดิษฐ์ขึ้นมา (เช่น Auto-increment ID, Running Number) ไม่มี ความหมายในเชิงธุรกิจจริง แต่ใช้เพื่อเป็น PK ที่มีประสิทธิภาพ"
+  },
+  {
+    "id": 25,
+    "category": "หมวดที่ 1: พื้นฐานระบบฐานข้อมูลและแบบจำลองข้อมูล (ข้อ 1 - 25)",
+    "categoryKey": "db_cat1",
+    "question": "หากต้องการยกเลิกตารางและข้อมูลทั้งหมดในตารางออกไปจากระบบ ควรใช้คำสั่ง DDL ใด?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "DELETE TABLE"
+      },
+      {
+        "key": "ข",
+        "text": "REMOVE TABLE"
+      },
+      {
+        "key": "ค",
+        "text": "DROP TABLE"
+      },
+      {
+        "key": "ง",
+        "text": "CLEAR TABLE"
+      }
+    ],
+    "answer": "ค",
+    "explanation": "คำสั่ง DDL ในการลบตารางพร้อมโครงสร้างออกไปคือ `DROP TABLE` (ขณะที่ DELETE ใช้ลบเรคคอร์ดข้อมูลภายในตาราง)"
+  },
+  {
+    "id": 26,
+    "category": "หมวดที่ 2: การออกแบบฐานข้อมูลด้วย ER Model และ ERD (ข้อ 26 - 50)",
+    "categoryKey": "db_cat2",
+    "question": "ในสัญลักษณ์ ER-Diagram แบบมาตรฐาน (Chen ERD) รูปสี่เหลี่ยมผืนผ้า (Rectangle) ใช้แทนสิ่งใด?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "Attribute"
+      },
+      {
+        "key": "ข",
+        "text": "Entity"
+      },
+      {
+        "key": "ค",
+        "text": "Relationship"
+      },
+      {
+        "key": "ง",
+        "text": "Key"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "รูปสี่เหลี่ยมผืนผ้า (Rectangle) แทน Entity Type"
+  },
+  {
+    "id": 27,
+    "category": "หมวดที่ 2: การออกแบบฐานข้อมูลด้วย ER Model และ ERD (ข้อ 26 - 50)",
+    "categoryKey": "db_cat2",
+    "question": "สัญลักษณ์รูปวงรี (Ellipse/Oval) ใน ER-Diagram แบบ Chen ใช้แทนอะไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "Entity"
+      },
+      {
+        "key": "ข",
+        "text": "Relationship"
+      },
+      {
+        "key": "ค",
+        "text": "Attribute"
+      },
+      {
+        "key": "ง",
+        "text": "Cardinality"
+      }
+    ],
+    "answer": "ค",
+    "explanation": "รูปวงรี (Oval / Ellipse) ใช้แทน Attribute (คุณลักษณะของ Entity)"
+  },
+  {
+    "id": 28,
+    "category": "หมวดที่ 2: การออกแบบฐานข้อมูลด้วย ER Model และ ERD (ข้อ 26 - 50)",
+    "categoryKey": "db_cat2",
+    "question": "สัญลักษณ์รูปข้าวหลามตัด (Diamond) ใน ERD ใช้แทนอะไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "Entity"
+      },
+      {
+        "key": "ข",
+        "text": "Relationship"
+      },
+      {
+        "key": "ค",
+        "text": "Attribute"
+      },
+      {
+        "key": "ง",
+        "text": "Weak Entity"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "รูปสี่เหลี่ยมขนมเปียกปูน หรือ ข้าวหลามตัด (Diamond) ใช้แทน Relationship (ความสัมพันธ์)"
+  },
+  {
+    "id": 29,
+    "category": "หมวดที่ 2: การออกแบบฐานข้อมูลด้วย ER Model และ ERD (ข้อ 26 - 50)",
+    "categoryKey": "db_cat2",
+    "question": "ข้อใดคือลักษณะของ Multi-valued Attribute ใน ERD?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "Attribute ที่มีได้เพียงค่าเดียว"
+      },
+      {
+        "key": "ข",
+        "text": "Attribute ที่สามารถมีได้หลายๆ ค่าในเวลาเดียวกัน สำหรับ 1 Entity Instance (สัญลักษณ์วงรีคู่)"
+      },
+      {
+        "key": "ค",
+        "text": "Attribute ที่คำนวณมาจาก Attribute อื่น"
+      },
+      {
+        "key": "ง",
+        "text": "Attribute ที่เป็น Primary Key"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "Multi-valued Attribute คือ คุณลักษณะที่มีได้หลายค่า (เช่น เบอร์โทรศัพท์หลายเบอร์) สัญลักษณ์คือ รูปวงรีซ้อนกันสองชั้น (Double Ellipse)"
+  },
+  {
+    "id": 30,
+    "category": "หมวดที่ 2: การออกแบบฐานข้อมูลด้วย ER Model และ ERD (ข้อ 26 - 50)",
+    "categoryKey": "db_cat2",
+    "question": "Attribute ใดต่อไปนี้จัดเป็น Derived Attribute (คุณลักษณะที่ได้จากการคำนวณ)?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "เลขบัตรประชาชน"
+      },
+      {
+        "key": "ข",
+        "text": "วันเดือนปีเกิด"
+      },
+      {
+        "key": "ค",
+        "text": "อายุ (Age) คำนวณจาก วันเกิด"
+      },
+      {
+        "key": "ง",
+        "text": "ชื่อ-นามสกุล"
+      }
+    ],
+    "answer": "ค",
+    "explanation": "อายุ (Age) เป็น Derived Attribute เพราะเปลี่ยนไปตามเวลา และสามารถคำนวณได้จาก วันเกิด (Date of Birth) ซึ่งเป็น Stored Attribute (สัญลักษณ์วงรีเส้นประ)"
+  },
+  {
+    "id": 31,
+    "category": "หมวดที่ 2: การออกแบบฐานข้อมูลด้วย ER Model และ ERD (ข้อ 26 - 50)",
+    "categoryKey": "db_cat2",
+    "question": "Composite Attribute หมายถึงอะไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "Attribute ที่ประกอบด้วย Attribute ย่อยๆ รวมกัน เช่น Name ประกอบด้วย FirstName และ LastName"
+      },
+      {
+        "key": "ข",
+        "text": "Attribute ที่เก็บค่าหลายค่า"
+      },
+      {
+        "key": "ค",
+        "text": "Attribute ที่เป็น Primary Key"
+      },
+      {
+        "key": "ง",
+        "text": "Attribute ที่ไม่มีค่า"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "Composite Attribute คือ Attribute ที่สามารถแตกย่อยออกเป็นส่วนๆ ได้อีก เช่น Address แตกเป็น Street, City, ZipCode"
+  },
+  {
+    "id": 32,
+    "category": "หมวดที่ 2: การออกแบบฐานข้อมูลด้วย ER Model และ ERD (ข้อ 26 - 50)",
+    "categoryKey": "db_cat2",
+    "question": "Weak Entity มีลักษณะอย่างไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "Entity ที่ไม่มี Primary Key ของตัวเอง ต้องอาศัย Primary Key จาก Strong Entity อื่นในการระบุตัวตน"
+      },
+      {
+        "key": "ข",
+        "text": "Entity ที่ไม่มี Attribute เลย"
+      },
+      {
+        "key": "ค",
+        "text": "Entity ที่เชื่อมโยงกับ Entity อื่นไม่ได้"
+      },
+      {
+        "key": "ง",
+        "text": "Entity ที่ถูกลบไปแล้ว"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "Weak Entity คือ Entity ที่ไม่สามารถดำรงอยู่ได้หากไม่มี Strong Entity (Owner Entity) และไม่มี PK ของตนเอง มีเพียง Partial Key (Discriminator)"
+  },
+  {
+    "id": 33,
+    "category": "หมวดที่ 2: การออกแบบฐานข้อมูลด้วย ER Model และ ERD (ข้อ 26 - 50)",
+    "categoryKey": "db_cat2",
+    "question": "ใน ERD สัญลักษณ์ใดใช้แทน Weak Entity?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "สี่เหลี่ยมผืนผ้าเส้นซ้อน (Double Rectangle)"
+      },
+      {
+        "key": "ข",
+        "text": "วงรีเส้นซ้อน (Double Ellipse)"
+      },
+      {
+        "key": "ค",
+        "text": "ข้าวหลามตัดเส้นซ้อน (Double Diamond)"
+      },
+      {
+        "key": "ง",
+        "text": "สี่เหลี่ยมคางหมู"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "Weak Entity จะใช้สี่เหลี่ยมผืนผ้าเส้นซ้อน (Double Rectangle) ส่วนความสัมพันธ์ของมันจะใช้ Identifying Relationship (Double Diamond)"
+  },
+  {
+    "id": 34,
+    "category": "หมวดที่ 2: การออกแบบฐานข้อมูลด้วย ER Model และ ERD (ข้อ 26 - 50)",
+    "categoryKey": "db_cat2",
+    "question": "เส้นขีดใต้ข้อความใน Attribute ของ ERD มีความหมายว่าอย่างไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "Attribute นั้นเป็น Multi-valued Attribute"
+      },
+      {
+        "key": "ข",
+        "text": "Attribute นั้นเป็น Primary Key (หรือ Key Attribute)"
+      },
+      {
+        "key": "ค",
+        "text": "Attribute นั้นเป็น Foreign Key"
+      },
+      {
+        "key": "ง",
+        "text": "Attribute นั้นห้ามกรอกข้อมูล"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "ข้อความในวงรีที่มีเส้นขีดใต้ (Underline) หมายถึง Key Attribute (Primary Key)"
+  },
+  {
+    "id": 35,
+    "category": "หมวดที่ 2: การออกแบบฐานข้อมูลด้วย ER Model และ ERD (ข้อ 26 - 50)",
+    "categoryKey": "db_cat2",
+    "question": "ความสัมพันธ์แบบ Binary Relationship คืออะไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "ความสัมพันธ์ระหว่าง 1 Entity"
+      },
+      {
+        "key": "ข",
+        "text": "ความสัมพันธ์ระหว่าง 2 Entities"
+      },
+      {
+        "key": "ค",
+        "text": "ความสัมพันธ์ระหว่าง 3 Entities"
+      },
+      {
+        "key": "ง",
+        "text": "ความสัมพันธ์ที่ไม่มี่ Attribute"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "Binary Relationship คือความสัมพันธ์ที่เกิดขึ้นระหว่าง 2 Entity Types (เป็นประเภทความสัมพันธ์ที่พบได้บ่อยที่สุด)"
+  },
+  {
+    "id": 36,
+    "category": "หมวดที่ 2: การออกแบบฐานข้อมูลด้วย ER Model และ ERD (ข้อ 26 - 50)",
+    "categoryKey": "db_cat2",
+    "question": "ความสัมพันธ์ที่ Entity เชื่อมโยงกับตนเองเรียกว่าอะไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "Binary Relationship"
+      },
+      {
+        "key": "ข",
+        "text": "Ternary Relationship"
+      },
+      {
+        "key": "ค",
+        "text": "Recursive / Unary Relationship"
+      },
+      {
+        "key": "ง",
+        "text": "Complex Relationship"
+      }
+    ],
+    "answer": "ค",
+    "explanation": "Unary / Recursive Relationship คือ ความสัมพันธ์ที่ Entity มีความสัมพันธ์กับตัวมันเอง (เช่น พนักงาน 1 คน เป็นผู้จัดการดูแล พนักงาน คนอื่นๆ)"
+  },
+  {
+    "id": 37,
+    "category": "หมวดที่ 2: การออกแบบฐานข้อมูลด้วย ER Model และ ERD (ข้อ 26 - 50)",
+    "categoryKey": "db_cat2",
+    "question": "ความสัมพันธ์ระหว่าง พนักงาน (Employee) กับ ใบเสร็จ (Receipt) โดยพนักงาน 1 คน ออกใบเสร็จได้หลายใบ และใบเสร็จแต่ละใบออกโดยพนักงาน 1 คน เป็นความสัมพันธ์แบบใด?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "1:1"
+      },
+      {
+        "key": "ข",
+        "text": "1:N"
+      },
+      {
+        "key": "ค",
+        "text": "M:N"
+      },
+      {
+        "key": "ง",
+        "text": "N:1"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "เป็นความสัมพันธ์แบบ 1:N (One-to-Many) จาก Employee ไปยัง Receipt"
+  },
+  {
+    "id": 38,
+    "category": "หมวดที่ 2: การออกแบบฐานข้อมูลด้วย ER Model และ ERD (ข้อ 26 - 50)",
+    "categoryKey": "db_cat2",
+    "question": "ความสัมพันธ์ระหว่าง นักศึกษา (Student) กับ วิชาที่ลงทะเบียน (Subject) โดยนักศึกษาลงทะเบียนได้หลายวิชา และแต่ละวิชามีนายทะเบียนนักศึกษาเข้าเรียนได้หลายคน จัดเป็นความสัมพันธ์แบบใด?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "1:1"
+      },
+      {
+        "key": "ข",
+        "text": "1:N"
+      },
+      {
+        "key": "ค",
+        "text": "M:N"
+      },
+      {
+        "key": "ง",
+        "text": "N:1"
+      }
+    ],
+    "answer": "ค",
+    "explanation": "เป็นความสัมพันธ์แบบ M:N (Many-to-Many) ซึ่งในการแปลงเป็น Relational Model จะต้องสร้างตารางกลาง (Associative Entity) ขึ้นมา"
+  },
+  {
+    "id": 39,
+    "category": "หมวดที่ 2: การออกแบบฐานข้อมูลด้วย ER Model และ ERD (ข้อ 26 - 50)",
+    "categoryKey": "db_cat2",
+    "question": "ใน ERD สัญลักษณ์ Crow's Foot (ตีนกา) ใช้แทน Cardinality แบบใด?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "One (1)"
+      },
+      {
+        "key": "ข",
+        "text": "Many (N)"
+      },
+      {
+        "key": "ค",
+        "text": "Zero (0)"
+      },
+      {
+        "key": "ง",
+        "text": "Mandatory"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "ใน Crow's Foot Notation สัญลักษณ์ตีนกา (สามแฉก) ใช้แทน \"Many\""
+  },
+  {
+    "id": 40,
+    "category": "หมวดที่ 2: การออกแบบฐานข้อมูลด้วย ER Model และ ERD (ข้อ 26 - 50)",
+    "categoryKey": "db_cat2",
+    "question": "สัญลักษณ์วงกลม (O) บนเส้นความสัมพันธ์ใน Crow's Foot Notation แสดงถึงอะไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "Mandatory (ต้องมี)"
+      },
+      {
+        "key": "ข",
+        "text": "Optional / Zero participation (จะมีหรือไม่มีก็ได้)"
+      },
+      {
+        "key": "ค",
+        "text": "Primary Key"
+      },
+      {
+        "key": "ง",
+        "text": "Many"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "วงกลม (O) แทนค่า 0 หรือ Optional (ขอบเขตขั้นต่ำคือ 0)"
+  },
+  {
+    "id": 41,
+    "category": "หมวดที่ 2: การออกแบบฐานข้อมูลด้วย ER Model และ ERD (ข้อ 26 - 50)",
+    "categoryKey": "db_cat2",
+    "question": "หากความสัมพันธ์ระหว่าง DEPT และ EMP มี Cardinality เป็น (1,1) ฝั่ง EMP และ (0,N) ฝั่ง DEPT หมายความว่าอย่างไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "EMP ทุกคนต้องสังกัด 1 DEPT เท่านั้น และ DEPT หนึ่งแห่งมี EMP ได้ตั้งแต่ 0 ถึงหลายคน"
+      },
+      {
+        "key": "ข",
+        "text": "EMP ไม่ต้องสังกัด DEPT ก็ได้"
+      },
+      {
+        "key": "ค",
+        "text": "DEPT หนึ่งแห่งมี EMP ได้คนเดียว"
+      },
+      {
+        "key": "ง",
+        "text": "EMP 1 คนสังกัดได้หลาย DEPT"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "ฝั่ง EMP มี Min=1, Max=1 แปลว่าต้องสังกัด 1 แผนกเท่านั้น ฝั่ง DEPT มี Min=0, Max=N แปลว่าแผนกจะมีพนักงาน 0 คนหรือหลายคนก็ได้"
+  },
+  {
+    "id": 42,
+    "category": "หมวดที่ 2: การออกแบบฐานข้อมูลด้วย ER Model และ ERD (ข้อ 26 - 50)",
+    "categoryKey": "db_cat2",
+    "question": "การแปลง Multi-valued Attribute ใน ERD ไปเป็น Relational Schema ต้องทำอย่างไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "ยุบรวมเข้ากับ Primary Key เดิม"
+      },
+      {
+        "key": "ข",
+        "text": "แยกออกไปสร้างเป็น ตารางใหม่ (Relation ใหม่) โดยนำ Primary Key ของ Entity เดิมไปเป็น Foreign Key"
+      },
+      {
+        "key": "ค",
+        "text": "ลบทิ้งไปเลย"
+      },
+      {
+        "key": "ง",
+        "text": "สร้างคอลัมน์ใหม่เพิ่มในตารางเดิมไปเรื่อยๆ"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "Multi-valued Attribute ต้องแปลงเป็นตารางใหม่ โดยเก็บค่า Attributes นั้นพร้อมกับ FK ที่อ้างกลับมายัง PK ของตารางหลัก"
+  },
+  {
+    "id": 43,
+    "category": "หมวดที่ 2: การออกแบบฐานข้อมูลด้วย ER Model และ ERD (ข้อ 26 - 50)",
+    "categoryKey": "db_cat2",
+    "question": "การแปลงความสัมพันธ์แบบ M:N (Many-to-Many) ไปเป็น Relational Schema ต้องทำอย่างไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "นำ Primary Key ของฝั่ง M ไปใส่ฝั่ง N"
+      },
+      {
+        "key": "ข",
+        "text": "สร้าง \"ตารางกลาง (Associative / Composite Table)\" โดยนำ Primary Key ของทั้งสองฝั่งมาเป็น Foreign Key (และรวมกันเป็น Composite PK)"
+      },
+      {
+        "key": "ค",
+        "text": "รวมสอง Entity เข้าเป็นตารางเดียว"
+      },
+      {
+        "key": "ง",
+        "text": "ทำไม่ได้ในระบบ Relational Database"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "ความสัมพันธ์ M:N ไม่สามารถแสดงใน relational model ตรงๆ ได้ ต้องแตกเป็น 2 ความสัมพันธ์แบบ 1:N โดยมี \"ตารางกลาง (Linking Table)\" มารองรับ"
+  },
+  {
+    "id": 44,
+    "category": "หมวดที่ 2: การออกแบบฐานข้อมูลด้วย ER Model และ ERD (ข้อ 26 - 50)",
+    "categoryKey": "db_cat2",
+    "question": "ในการแปลงความสัมพันธ์แบบ 1:N เป็น Relational Schema ควรนำ Primary Key ไปวางไว้ที่ใดเป็น Foreign Key?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "นำ PK จากฝั่ง 1 ไปวางเป็น FK ที่ฝั่ง N"
+      },
+      {
+        "key": "ข",
+        "text": "นำ PK จากฝั่ง N ไปวางเป็น FK ที่ฝั่ง 1"
+      },
+      {
+        "key": "ค",
+        "text": "สร้างตารางใหม่เสมอ"
+      },
+      {
+        "key": "ง",
+        "text": "สลับฝั่งอย่างไรก็ได้"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "หลักการแปลง 1:N คือ ต้องนำ Primary Key จากฝั่ง 1 (Parent) ไปใส่เป็น Foreign Key ในตารางฝั่ง N (Child)"
+  },
+  {
+    "id": 45,
+    "category": "หมวดที่ 2: การออกแบบฐานข้อมูลด้วย ER Model และ ERD (ข้อ 26 - 50)",
+    "categoryKey": "db_cat2",
+    "question": "หากความสัมพันธ์เป็นแบบ 1:1 แบบ Mandatory ทั้งสองฝั่ง (Total-Total Participation) ควรแปลงเป็น Relational Schema อย่างไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "รวมทั้งสอง Entity เข้าเป็น ตารางเดียวกัน (Single Relation) ได้เลย"
+      },
+      {
+        "key": "ข",
+        "text": "สร้างตารางแยกกัน 3 ตาราง"
+      },
+      {
+        "key": "ค",
+        "text": "ทำเป็น M:N"
+      },
+      {
+        "key": "ง",
+        "text": "ห้ามสร้างความสัมพันธ์"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "เมื่อความสัมพันธ์เป็น 1:1 และทั้งสองฝั่งเข้าร่วมแบบ Mandatory (Total) การรวมสองตารางเข้าเป็นตารางเดียวกันจะประหยัดเวลาและไม่มีปัญหาเรื่อง NULL"
+  },
+  {
+    "id": 46,
+    "category": "หมวดที่ 2: การออกแบบฐานข้อมูลด้วย ER Model และ ERD (ข้อ 26 - 50)",
+    "categoryKey": "db_cat2",
+    "question": "ข้อใดกล่าวถูกต้องเกี่ยวกับ Generalization / Specialization ใน Enhanced ERD (EERD)?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "เป็นการจัดกลุ่ม Supertype และ Subtype โดย Subtype จะสืบทอด (Inherit) Attributes จาก Supertype"
+      },
+      {
+        "key": "ข",
+        "text": "เป็นการลบ Entity ที่ไม่จำเป็นออก"
+      },
+      {
+        "key": "ค",
+        "text": "เป็นการแปลงตาราง 1:N เป็น M:N"
+      },
+      {
+        "key": "ง",
+        "text": "เป็นการสุ่มสร้าง Primary Key"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "Supertype/Subtype คือแนวคิดของการสืบทอดคุณลักษณะ (Inheritance) โดย Subtype จะได้ Attributes และ Relationships ของ Supertype ไปโดยอัตโนมัติ"
+  },
+  {
+    "id": 47,
+    "category": "หมวดที่ 2: การออกแบบฐานข้อมูลด้วย ER Model และ ERD (ข้อ 26 - 50)",
+    "categoryKey": "db_cat2",
+    "question": "ใน EERD ข้อจำกัดแบบ Disjoint Constraint (d) หมายถึงอะไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "Member ของ Supertype สามารถเป็นสมาชิกร่วมใน Subtypes หลายอันได้พร้อมกัน"
+      },
+      {
+        "key": "ข",
+        "text": "Member ของ Supertype สามารถเป็นสมาชิกได้ใน Subtype เพียงแห่งเดียวเท่านั้น (ไม่ซ้อนทับกัน)"
+      },
+      {
+        "key": "ค",
+        "text": "ห้ามมี Subtype"
+      },
+      {
+        "key": "ง",
+        "text": "ทุก Entity ต้องเป็น Subtype"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "Disjoint Constraint (สัญลักษณ์ d) หมายถึง Instance หนึ่งของ Supertype จะต้องเป็น Subtype ได้เพียงชนิดเดียวเท่านั้น (ไม่สามารถเป็นพร้อมกันหลายอันเหมือน Overlapping)"
+  },
+  {
+    "id": 48,
+    "category": "หมวดที่ 2: การออกแบบฐานข้อมูลด้วย ER Model และ ERD (ข้อ 26 - 50)",
+    "categoryKey": "db_cat2",
+    "question": "ข้อจำกัดแบบ Overlapping Constraint (o) ใน EERD หมายความว่าอย่างไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "Instance หนึ่งของ Supertype สามารถจัดอยู่ใน Subtype ได้มากกว่า 1 Subtype ในเวลาเดียวกัน"
+      },
+      {
+        "key": "ข",
+        "text": "ห้ามมีข้อมูลซ้ำ"
+      },
+      {
+        "key": "ค",
+        "text": "Entity สองอันต้องแยกจากกันเด็ดขาด"
+      },
+      {
+        "key": "ง",
+        "text": "ตารางถูกเชื่อมโยงด้วย Foreign Key แบบบังคับ"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "Overlapping (สัญลักษณ์ o) ยินยอมให้ Entity หนึ่งๆ เป็นสมาชิกของ Subtype ได้หลาย Subtype พร้อมๆ กัน (เช่น พนักงาน เป็นทั้ง อาจารย์ และ นักวิจัย)"
+  },
+  {
+    "id": 49,
+    "category": "หมวดที่ 2: การออกแบบฐานข้อมูลด้วย ER Model และ ERD (ข้อ 26 - 50)",
+    "categoryKey": "db_cat2",
+    "question": "Total Completeness Constraint (แสดงด้วยเส้นคู่ใต้ Supertype) หมายความว่าอย่างไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "ทุกๆ Instance ใน Supertype **ต้อง** สังกัดอยู่ใน Subtype ใด Subtype หนึ่งเสมอ"
+      },
+      {
+        "key": "ข",
+        "text": "Instance ใน Supertype ไม่จำเป็นต้องสังกัด Subtype ใดๆ ก็ได้"
+      },
+      {
+        "key": "ค",
+        "text": "ห้ามสร้าง Subtype เพิ่ม"
+      },
+      {
+        "key": "ง",
+        "text": "มีข้อมูลเต็มตารางแล้ว"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "Total Completeness (เส้นคู่) หมายถึง ทุกๆ Entity ใน Supertype จะต้องเป็นสมาชิกร่วมใน Subtype อย่างน้อยหนึ่งแห่ง (Optional/Partial จะเป็นเส้นเดี่ยว)"
+  },
+  {
+    "id": 50,
+    "category": "หมวดที่ 2: การออกแบบฐานข้อมูลด้วย ER Model และ ERD (ข้อ 26 - 50)",
+    "categoryKey": "db_cat2",
+    "question": "ข้อใดคือตัวอย่างของ Associative Entity?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "Entity ที่เกิดขึ้นเพื่อเชื่อมความสัมพันธ์ M:N และอาจมี Attributes ของความสัมพันธ์นั้นเองด้วย"
+      },
+      {
+        "key": "ข",
+        "text": "Entity ที่ไม่มี Primary Key"
+      },
+      {
+        "key": "ค",
+        "text": "Entity ที่เป็น Supertype"
+      },
+      {
+        "key": "ง",
+        "text": "Entity ที่เก็บข้อมูลชั่วคราว"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "Associative Entity คือ Entity ที่ใช้แปลงความสัมพันธ์ M:N ให้กลายเป็น 1:N สองเส้น โดยตัวมันอาจเก็บ Attribute เพิ่มเติมของการทำรายการนั้นๆ (เช่น ตาราง การสั่งซื้อ สินค้า)"
+  },
+  {
+    "id": 51,
+    "category": "หมวดที่ 3: Normalization และภาษาสอบถาม SQL (ข้อ 51 - 70)",
+    "categoryKey": "db_cat3",
+    "question": "จุดประสงค์หลักของการทำ นอร์มัลไลเซชัน (Normalization) คืออะไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "ลดความซ้ำซ้อนของข้อมูล (Data Redundancy) และป้องกันปัญหา Anomalies ในการปรับปรุงข้อมูล"
+      },
+      {
+        "key": "ข",
+        "text": "เพื่อให้เขียนโปรแกรมได้เร็วขึ้น"
+      },
+      {
+        "key": "ค",
+        "text": "เพื่อเพิ่มขนาดของฐานข้อมูล"
+      },
+      {
+        "key": "ง",
+        "text": "เพื่อให้ตารางมีจำนวนน้อยที่สุด"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "Normalization เป็นกระบวนการทางคณิตศาสตร์ในการจัดโครงสร้างตารางเพื่อลดความซ้ำซ้อน และป้องกัน Update/Insert/Delete Anomalies"
+  },
+  {
+    "id": 52,
+    "category": "หมวดที่ 3: Normalization และภาษาสอบถาม SQL (ข้อ 51 - 70)",
+    "categoryKey": "db_cat3",
+    "question": "รูปแบบบรรทัดฐานระดับที่ 1 (1NF - First Normal Form) มีเงื่อนไขสำคัญอย่างไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "ไม่มี Partial Dependency"
+      },
+      {
+        "key": "ข",
+        "text": "ทุก Attribute ในตารางต้องเป็น Atomic Value (ค่าเดี่ยว ไม่เป็น Repeating Group หรือ Multi-valued)"
+      },
+      {
+        "key": "ค",
+        "text": "ไม่มี Transitive Dependency"
+      },
+      {
+        "key": "ง",
+        "text": "ทุกคอลัมน์ต้องเป็นตัวเลข"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "เงื่อนไขของ 1NF คือ ข้อมูลในแต่ละ Cell ต้องเป็น Atomic Value และต้องไม่มี Repeating Group (กลุ่มข้อมูลที่ซ้ำซ้อนกันในแถว)"
+  },
+  {
+    "id": 53,
+    "category": "หมวดที่ 3: Normalization และภาษาสอบถาม SQL (ข้อ 51 - 70)",
+    "categoryKey": "db_cat3",
+    "question": "ปัญหา Partial Functional Dependency คืออะไร และต้องแก้ไขใน NF ระดับใด?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "Non-key attribute ขึ้นอยู่กับส่วนใดส่วนหนึ่งของ Composite Primary Key; แก้ไขเพื่อทำ 2NF"
+      },
+      {
+        "key": "ข",
+        "text": "Non-key attribute ขึ้นอยู่กับ Non-key attribute อื่น; แก้ไขเพื่อทำ 3NF"
+      },
+      {
+        "key": "ค",
+        "text": "การมี repeating group; แก้ไขเพื่อทำ 1NF"
+      },
+      {
+        "key": "ง",
+        "text": "การอ้างอิง Foreign Key ไม่ถูกต้อง; แก้ไขเพื่อทำ BCNF"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "Partial Dependency คือ การที่ Non-key Attribute ขึ้นอยู่กับ \"บางส่วน\" ของ Composite Primary Key การกำจัด Partial Dependency จะทำให้ตารางอยู่ในระดับ 2NF"
+  },
+  {
+    "id": 54,
+    "category": "หมวดที่ 3: Normalization และภาษาสอบถาม SQL (ข้อ 51 - 70)",
+    "categoryKey": "db_cat3",
+    "question": "ตารางจะอยู่ในรูปแบบบรรทัดฐานระดับที่ 2 (2NF) ได้ ก็ต่อเมื่อมีคุณสมบัติตามข้อใด?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "อยู่ใน 1NF แล้ว และไม่มี Partial Dependency (ทุก Non-key attribute ต้องขึ้นกับ PK แบบ Full Functional Dependency)"
+      },
+      {
+        "key": "ข",
+        "text": "อยู่ใน 3NF แล้ว"
+      },
+      {
+        "key": "ค",
+        "text": "ไม่มี Foreign Key"
+      },
+      {
+        "key": "ง",
+        "text": "มีจำนวนคอลัมน์ไม่เกิน 5 คอลัมน์"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "นิยามของ 2NF คือ ต้องเป็น 1NF ก่อน และทุก Non-key Attribute ต้องขึ้นตรงกับ \"ทุกส่วน\" ของ Primary Key (Full Functional Dependency) ไม่ขึ้นกับแค่บางส่วน"
+  },
+  {
+    "id": 55,
+    "category": "หมวดที่ 3: Normalization และภาษาสอบถาม SQL (ข้อ 51 - 70)",
+    "categoryKey": "db_cat3",
+    "question": "ปัญหา Transitive Dependency คืออะไร และถูกขจัดไปใน NF ระดับใด?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "Non-key attribute ขึ้นอยู่กับ Non-key attribute อื่น (A -> B และ B -> C); ถูกกำจัดเมื่อทำ 3NF"
+      },
+      {
+        "key": "ข",
+        "text": "Non-key attribute ขึ้นกับ Primary Key; ถูกกำจัดใน 1NF"
+      },
+      {
+        "key": "ค",
+        "text": "Primary Key ขึ้นกับ Foreign Key; ถูกกำจัดใน 2NF"
+      },
+      {
+        "key": "ง",
+        "text": "Repeating Group; ถูกกำจัดใน 2NF"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "Transitive Dependency คือ ความสัมพันธ์แบบส่งผ่านระหว่าง Non-key attributes (A -> B -> C) ซึ่งจะต้องถูกกำจัดออกเพื่อย้ายไปตารางใหม่ในขั้นตอน 3NF"
+  },
+  {
+    "id": 56,
+    "category": "หมวดที่ 3: Normalization และภาษาสอบถาม SQL (ข้อ 51 - 70)",
+    "categoryKey": "db_cat3",
+    "question": "ตารางจะอยู่ในรูปแบบบรรทัดฐานระดับที่ 3 (3NF) ได้ ก็ต่อเมื่อมีคุณสมบัติตามข้อใด?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "อยู่ใน 2NF แล้ว และไม่มี Transitive Dependency"
+      },
+      {
+        "key": "ข",
+        "text": "อยู่ใน 1NF เท่านั้น"
+      },
+      {
+        "key": "ค",
+        "text": "เป็นแบบจำลองระดับ Physical เท่านั้น"
+      },
+      {
+        "key": "ง",
+        "text": "มีการสร้าง Index ครบทุกคอลัมน์"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "นิยามของ 3NF คือ ต้องอยู่ในระดับ 2NF เรียบร้อยแล้ว และต้องไม่มี Transitive Dependency (Non-key Attributes ต้องไม่ขึ้นต่อกันเอง)"
+  },
+  {
+    "id": 57,
+    "category": "หมวดที่ 3: Normalization และภาษาสอบถาม SQL (ข้อ 51 - 70)",
+    "categoryKey": "db_cat3",
+    "question": "ข้อความที่ว่า \"Every determinant must be a candidate key\" เป็นนิยามของ Normal Form ระดับใด?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "1NF"
+      },
+      {
+        "key": "ข",
+        "text": "2NF"
+      },
+      {
+        "key": "ค",
+        "text": "3NF"
+      },
+      {
+        "key": "ง",
+        "text": "BCNF (Boyce-Codd Normal Form)"
+      }
+    ],
+    "answer": "ง",
+    "explanation": "Boyce-Codd Normal Form (BCNF) เป็นเวอร์ชันที่เข้มงวดกว่า 3NF โดยกำหนดว่า ทุกๆ ตัวกำหนด (Determinant X ใน X -> Y) จะต้องเป็น Candidate Key เท่านั้น"
+  },
+  {
+    "id": 58,
+    "category": "หมวดที่ 3: Normalization และภาษาสอบถาม SQL (ข้อ 51 - 70)",
+    "categoryKey": "db_cat3",
+    "question": "Insertion Anomaly คืออะไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "ความไม่สามารถเพิ่มข้อมูลใหม่ลงในฐานข้อมูลได้ หากขาดข้อมูลบางส่วนที่ไม่ควรจะเกี่ยวข้องกัน"
+      },
+      {
+        "key": "ข",
+        "text": "การลบข้อมูลแล้วทำให้ข้อมูลอื่นหายไปด้วยโดยไม่ตั้งใจ"
+      },
+      {
+        "key": "ค",
+        "text": "การแก้ไขข้อมูลจุดเดียวแต่ต้องไปแก้หลายแถว"
+      },
+      {
+        "key": "ง",
+        "text": "การที่ตารางทำงานช้าลง"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "Insertion Anomaly คือ ปัญหาที่ไม่สามารถเพิ่มเรคคอร์ดใหม่ได้เนื่องจากขาดข้อมูลส่วนอื่น (เช่น ไม่สามารถเพิ่มวิชาใหม่ได้ ถ้ายังไม่มีนักศึกษามาลงทะเบียน เพราะวิชาเป็นส่วนหนึ่งของ PK)"
+  },
+  {
+    "id": 59,
+    "category": "หมวดที่ 3: Normalization และภาษาสอบถาม SQL (ข้อ 51 - 70)",
+    "categoryKey": "db_cat3",
+    "question": "Deletion Anomaly คืออะไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "การลบข้อมูลแถวหนึ่ง แล้วส่งผลให้ข้อมูลสำคัญอื่นที่ไม่ได้ตั้งใจจะลบ สูญหายไปด้วย"
+      },
+      {
+        "key": "ข",
+        "text": "ลบข้อมูลแล้วเครื่องแฮงก์"
+      },
+      {
+        "key": "ค",
+        "text": "การที่ไม่สามารถลบข้อมูลที่มีค่า NULL ได้"
+      },
+      {
+        "key": "ง",
+        "text": "การลบข้อมูลที่มี Foreign Key"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "Deletion Anomaly คือ ปัญหาที่เมื่อลบเรคคอร์ดหนึ่งทิ้ง จะทำให้ข้อมูลอื่นที่ต้องการรักษาไว้หลุดหายไปด้วยโดยไม่ตั้งใจ"
+  },
+  {
+    "id": 60,
+    "category": "หมวดที่ 3: Normalization และภาษาสอบถาม SQL (ข้อ 51 - 70)",
+    "categoryKey": "db_cat3",
+    "question": "Modification/Update Anomaly เกิดจากสาเหตุใดเป็นหลัก?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "ข้อมูลมีความซ้ำซ้อนกันหลายแห่ง เมื่อแก้ไขข้อมูลที่หนึ่งแต่ไม่ได้ตามแก้ไขให้ครบทุกแห่ง ทำให้ข้อมูลขัดแย้งกัน"
+      },
+      {
+        "key": "ข",
+        "text": "ฮาร์ดดิสก์เต็ม"
+      },
+      {
+        "key": "ค",
+        "text": "รหัสผ่านหมดอายุ"
+      },
+      {
+        "key": "ง",
+        "text": "คำสั่ง SQL ผิดโครงสร้าง"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "Update Anomaly เกิดจาก Data Redundancy เมื่อมีการแก้ไขข้อมูลเรื่องเดียวกัน ต้องไล่ปรับปรุงหลายๆ แถว หากปรับไม่ครบ จะเกิด Data Inconsistency"
+  },
+  {
+    "id": 61,
+    "category": "หมวดที่ 3: Normalization และภาษาสอบถาม SQL (ข้อ 51 - 70)",
+    "categoryKey": "db_cat3",
+    "question": "คำสั่ง SQL ใดจัดอยู่ในประเภท DDL (Data Definition Language)?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "SELECT, INSERT, UPDATE, DELETE"
+      },
+      {
+        "key": "ข",
+        "text": "CREATE, ALTER, DROP, TRUNCATE"
+      },
+      {
+        "key": "ค",
+        "text": "GRANT, REVOKE"
+      },
+      {
+        "key": "ง",
+        "text": "COMMIT, ROLLBACK"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "DDL ใช้สำหรับการนิยามและจัดการโครงสร้างฐานข้อมูล ได้แก่ `CREATE`, `ALTER`, `DROP`, `TRUNCATE`"
+  },
+  {
+    "id": 62,
+    "category": "หมวดที่ 3: Normalization และภาษาสอบถาม SQL (ข้อ 51 - 70)",
+    "categoryKey": "db_cat3",
+    "question": "คำสั่ง SQL ใดจัดอยู่ในประเภท DML (Data Manipulation Language)?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "CREATE TABLE"
+      },
+      {
+        "key": "ข",
+        "text": "ALTER TABLE"
+      },
+      {
+        "key": "ค",
+        "text": "SELECT, INSERT, UPDATE, DELETE"
+      },
+      {
+        "key": "ง",
+        "text": "GRANT, REVOKE"
+      }
+    ],
+    "answer": "ค",
+    "explanation": "DML ใช้สำหรับการจัดการตัวข้อมูลภายในตาราง ได้แก่ `SELECT`, `INSERT`, `UPDATE`, `DELETE`"
+  },
+  {
+    "id": 63,
+    "category": "หมวดที่ 3: Normalization และภาษาสอบถาม SQL (ข้อ 51 - 70)",
+    "categoryKey": "db_cat3",
+    "question": "หากต้องการดึงข้อมูลจากตาราง EMP โดยเลือกเฉพาะพนักงานที่มี Salary มากกว่า 30000 และเรียงลำดับจากมากไปน้อย ต้องใช้คำสั่งใด?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "`SELECT * FROM EMP WHERE Salary > 30000 ORDER BY Salary DESC;`"
+      },
+      {
+        "key": "ข",
+        "text": "`SELECT * FROM EMP WHERE Salary > 30000 ORDER BY Salary ASC;`"
+      },
+      {
+        "key": "ค",
+        "text": "`SELECT * FROM EMP HAVING Salary > 30000 ORDER BY DESC;`"
+      },
+      {
+        "key": "ง",
+        "text": "`SELECT * FROM EMP GROUP BY Salary > 30000;`"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "ใช้เงื่อนไข `WHERE Salary > 30000` และเรียงลำดับจากมากไปน้อยด้วย `ORDER BY Salary DESC`"
+  },
+  {
+    "id": 64,
+    "category": "หมวดที่ 3: Normalization และภาษาสอบถาม SQL (ข้อ 51 - 70)",
+    "categoryKey": "db_cat3",
+    "question": "การใช้งาน Aggregate Function เช่น `SUM()`, `AVG()`, `COUNT()` ร่วมกับกลุ่มข้อมูล จะต้องใช้ Mause คำสั่งใดควบคู่กัน?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "WHERE"
+      },
+      {
+        "key": "ข",
+        "text": "ORDER BY"
+      },
+      {
+        "key": "ค",
+        "text": "GROUP BY"
+      },
+      {
+        "key": "ง",
+        "text": "LIKE"
+      }
+    ],
+    "answer": "ค",
+    "explanation": "คำสั่ง `GROUP BY` ใช้จัดกลุ่มข้อมูลเพื่อคำนวณผลสรุปด้วย Aggregate Functions"
+  },
+  {
+    "id": 65,
+    "category": "หมวดที่ 3: Normalization และภาษาสอบถาม SQL (ข้อ 51 - 70)",
+    "categoryKey": "db_cat3",
+    "question": "เงื่อนไขในการกรองข้อมูลหลังจากการจัดกลุ่มด้วย `GROUP BY` จะต้องใช้ Clause ใด?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "WHERE"
+      },
+      {
+        "key": "ข",
+        "text": "HAVING"
+      },
+      {
+        "key": "ค",
+        "text": "LIKE"
+      },
+      {
+        "key": "ง",
+        "text": "ORDER BY"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "`WHERE` ใช้กรองข้อมูลระดับแถวก่อนการจัดกลุ่ม ส่วน `HAVING` ใช้กรองผลลัพธ์ระดับกลุ่มหลังจากการจัดกลุ่มด้วย `GROUP BY`"
+  },
+  {
+    "id": 66,
+    "category": "หมวดที่ 3: Normalization และภาษาสอบถาม SQL (ข้อ 51 - 70)",
+    "categoryKey": "db_cat3",
+    "question": "การดึงข้อมูลโดยเชื่อมโยงตารางด้วย INNER JOIN หมายถึงอะไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "คืนค่าเฉพาะแถวที่มีข้อมูลแมตช์กันทั้งสองตารางเท่านั้น"
+      },
+      {
+        "key": "ข",
+        "text": "คืนค่าทุกแถวจากตารางซ้าย แม้จะไม่แมตช์กับตารางขวา"
+      },
+      {
+        "key": "ค",
+        "text": "คืนค่าทุกแถวจากตารางขวา แม้จะไม่แมตช์กับตารางซ้าย"
+      },
+      {
+        "key": "ง",
+        "text": "คืนค่าทุกแถวจากทั้งสองตารางโดยไม่พิจารณาเงื่อนไข"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "`INNER JOIN` จะส่งคืนเฉพาะเรคคอร์ดที่มีค่าคีย์ตรงกันทั้งในตารางซ้ายและตารางขวา"
+  },
+  {
+    "id": 67,
+    "category": "หมวดที่ 3: Normalization และภาษาสอบถาม SQL (ข้อ 51 - 70)",
+    "categoryKey": "db_cat3",
+    "question": "คำสั่ง LEFT JOIN จะให้ผลลัพธ์อย่างไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "แสดงเฉพาะข้อมูลที่ตรงกันทั้งสองตาราง"
+      },
+      {
+        "key": "ข",
+        "text": "แสดงข้อมูลทั้งหมดจากตารางด้านซ้าย และข้อมูลที่ตรงกันจากตารางด้านขวา (หากไม่ตรงกันด้านขวาจะเป็น NULL)"
+      },
+      {
+        "key": "ค",
+        "text": "แสดงข้อมูลทั้งหมดจากตารางด้านขวาเท่านั้น"
+      },
+      {
+        "key": "ง",
+        "text": "แสดงข้อมูลสลับกัน"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "`LEFT OUTER JOIN` จะเอาข้อมูลทุกเรคคอร์ดจากตารางซ้ายเป็นหลัก แม้ไม่มีคู่เชื่อมในตารางขวา ก็จะแสดงผลโดยให้ฝั่งขวาเป็น NULL"
+  },
+  {
+    "id": 68,
+    "category": "หมวดที่ 3: Normalization และภาษาสอบถาม SQL (ข้อ 51 - 70)",
+    "categoryKey": "db_cat3",
+    "question": "คำสั่ง SQL ใดใช้สำหรับลบเรคคอร์ดทั้งหมดในตารางโดยไม่ลบโครงสร้างตาราง และไม่บันทึก Rollback Log ทำให้ทำงานเร็วมาก?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "DELETE"
+      },
+      {
+        "key": "ข",
+        "text": "DROP"
+      },
+      {
+        "key": "ค",
+        "text": "TRUNCATE"
+      },
+      {
+        "key": "ง",
+        "text": "REMOVE"
+      }
+    ],
+    "answer": "ค",
+    "explanation": "`TRUNCATE TABLE` เป็นคำสั่ง DDL ที่ใช้ลบข้อมูลทั้งหมดในตารางเพื่อคืนพื้นที่ โดยทำงานไวกว่า `DELETE` และไม่สามารถ Rollback ในบาง DBMS"
+  },
+  {
+    "id": 69,
+    "category": "หมวดที่ 3: Normalization และภาษาสอบถาม SQL (ข้อ 51 - 70)",
+    "categoryKey": "db_cat3",
+    "question": "สัญลักษณ์ wildcards `%` ในคำสั่ง `LIKE '%computer%'` มีความหมายว่าอย่างไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "แทนตัวอักษรใดก็ได้จำนวนกี่ตัวก็ได้ (0 ตัวขึ้นไป)"
+      },
+      {
+        "key": "ข",
+        "text": "แทนตัวอักษรตัวเดียวเท่านั้น"
+      },
+      {
+        "key": "ค",
+        "text": "แทนตัวเลขเท่านั้น"
+      },
+      {
+        "key": "ง",
+        "text": "แทนค่า NULL"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "`%` ใน SQL wildcard แทนกลุ่มตัวอักษรความยาวเท่าใดก็ได้ (หรือไม่มีเลย) ส่วน `_` (Underscore) ใช้แทนตัวอักษรตัวเดียว"
+  },
+  {
+    "id": 70,
+    "category": "หมวดที่ 3: Normalization และภาษาสอบถาม SQL (ข้อ 51 - 70)",
+    "categoryKey": "db_cat3",
+    "question": "คำสั่ง `SELECT DISTINCT DeptID FROM EMP;` ให้ผลลัพธ์อย่างไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "แสดง DeptID ของพนักงานทุกคนตามลำดับ"
+      },
+      {
+        "key": "ข",
+        "text": "แสดง DeptID ที่ไม่ซ้ำกันเลย (ตัดค่าซ้ำออก)"
+      },
+      {
+        "key": "ค",
+        "text": "นับจำนวน DeptID ทั้งหมด"
+      },
+      {
+        "key": "ง",
+        "text": "แสดงพนักงานที่ไม่มี DeptID"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "คีย์เวิร์ด `DISTINCT` ใช้ในการตัดค่าที่ซ้ำซ้อนออก ให้เหลือเพียงค่าที่ไม่ซ้ำกันในผลลัพธ์"
+  },
+  {
+    "id": 71,
+    "category": "หมวดที่ 4: หัวข้อพิเศษ Transaction & ความสัมพันธ์เชิงลึก (ข้อ 71 - 90)",
+    "categoryKey": "db_cat4",
+    "question": "\"Connectivity\" ใน ER Diagram หมายถึงอะไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "ประเภทของความสัมพันธ์ระหว่าง Entity เช่น 1:1, 1:N, หรือ M:N"
+      },
+      {
+        "key": "ข",
+        "text": "ชนิดของสายเคเบิลที่ใช้เชื่อมต่อเซิร์ฟเวอร์"
+      },
+      {
+        "key": "ค",
+        "text": "จำนวน Attribute ใน Entity"
+      },
+      {
+        "key": "ง",
+        "text": "ค่าความเร็วของเครือข่ายฐานข้อมูล"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "Connectivity คือการระบุประเภทความสัมพันธ์เชิงปริมาณระหว่าง Entity เช่น One-to-One (1:1), One-to-Many (1:N), หรือ Many-to-Many (M:N)"
+  },
+  {
+    "id": 72,
+    "category": "หมวดที่ 4: หัวข้อพิเศษ Transaction & ความสัมพันธ์เชิงลึก (ข้อ 71 - 90)",
+    "categoryKey": "db_cat4",
+    "question": "\"Cardinality\" ในบริบทของความสัมพันธ์ระหว่าง Entity (ER Modeling) หมายถึงอะไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "การระบุจำนวนตัวเลข **ขั้นต่ำ (Minimum)** และ **ขั้นสูง (Maximum)** ของ Entity Instance ที่สามารถเข้าร่วมในความสัมพันธ์ได้"
+      },
+      {
+        "key": "ข",
+        "text": "การระบุชนิดข้อมูลของ Primary Key"
+      },
+      {
+        "key": "ค",
+        "text": "จำนวน Index ที่สร้างบนตาราง"
+      },
+      {
+        "key": "ง",
+        "text": "การวัดความเร็วในการคิวรี"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "Cardinality (หรือ Cardinality Limits) ใน ERD บ่งบอกขอบเขตจำนวน Instance ที่เข้าร่วมความสัมพันธ์ เขียนในรูปแบบ (Min, Max) เช่น (0,1), (1,N)"
+  },
+  {
+    "id": 73,
+    "category": "หมวดที่ 4: หัวข้อพิเศษ Transaction & ความสัมพันธ์เชิงลึก (ข้อ 71 - 90)",
+    "categoryKey": "db_cat4",
+    "question": "\"Participation Constraint\" แบบ Mandatory (Total Participation) หมายถึงข้อใด?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "ทุก Instance ของ Entity ต้องมีส่วนร่วมในความสัมพันธ์นั้นๆ อย่างน้อย 1 Instance (Min = 1)"
+      },
+      {
+        "key": "ข",
+        "text": "Instance ของ Entity จะมีหรือไม่มีส่วนร่วมในความสัมพันธ์ก็ได้ (Min = 0)"
+      },
+      {
+        "key": "ค",
+        "text": "ห้ามมีข้อมูลใน Entity นั้น"
+      },
+      {
+        "key": "ง",
+        "text": "มีการใช้ Foreign Key แบบสุ่ม"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "Total Participation (หรือ Mandatory) หมายความว่า ทุกๆ เรคคอร์ดใน Entity นั้น **จำต้อง** เข้าร่วมในความสัมพันธ์ (ค่า Minimum Cardinality เป็น 1) แสดงด้วยเส้นคู่ใน Chen ERD"
+  },
+  {
+    "id": 74,
+    "category": "หมวดที่ 4: หัวข้อพิเศษ Transaction & ความสัมพันธ์เชิงลึก (ข้อ 71 - 90)",
+    "categoryKey": "db_cat4",
+    "question": "\"Participation Constraint\" แบบ Optional (Partial Participation) หมายถึงข้อใด?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "Instance ใน Entity ไม่จำเป็นต้องเข้าร่วมในความสัมพันธ์ก็ได้ (Min = 0)"
+      },
+      {
+        "key": "ข",
+        "text": "ทุก Instance ต้องเข้าร่วมในความสัมพันธ์เสมอ (Min = 1)"
+      },
+      {
+        "key": "ค",
+        "text": "มี Cardinality เป็น M:N เท่านั้น"
+      },
+      {
+        "key": "ง",
+        "text": "ต้องเป็น Weak Entity เท่านั้น"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "Partial Participation (หรือ Optional) หมายความว่า Instance ใน Entity อาจจะไม่ได้เข้าร่วมในความสัมพันธ์ก็ได้ (ค่า Minimum Cardinality เป็น 0) แสดงด้วยเส้นเดี่ยว"
+  },
+  {
+    "id": 75,
+    "category": "หมวดที่ 4: หัวข้อพิเศษ Transaction & ความสัมพันธ์เชิงลึก (ข้อ 71 - 90)",
+    "categoryKey": "db_cat4",
+    "question": "ในคุณสมบัติ ACID ของการทำ Transaction คำว่า \"Atomicity\" (ความเป็นหนึ่งเดียว) หมายถึงอะไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "งานใน Transaction ต้องทำสำเร็จทั้งหมดทุกขั้นตอน (All) หรือถ้าผิดพลาดแม้แต่ขั้นตอนเดียวต้องยกเลิกทั้งหมด (Nothing)"
+      },
+      {
+        "key": "ข",
+        "text": "ข้อมูลต้องมีความถูกต้องตามกฎเกณฑ์เสมอ"
+      },
+      {
+        "key": "ค",
+        "text": "การประมวลผลพร้อมกันต้องแยกขาดจากกัน"
+      },
+      {
+        "key": "ง",
+        "text": "ข้อมูลที่บันทึกแล้วต้องคงอยู่ถาวร"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "Atomicity (All or Nothing) คือคุณสมบัติที่มอง Transaction เป็นหน่วยย่อยที่สุด หากมีขั้นตอนใดล้มเหลว ระบบต้อง Rollback กลับสู่สภาพเดิมทั้งหมด"
+  },
+  {
+    "id": 76,
+    "category": "หมวดที่ 4: หัวข้อพิเศษ Transaction & ความสัมพันธ์เชิงลึก (ข้อ 71 - 90)",
+    "categoryKey": "db_cat4",
+    "question": "คุณสมบัติ ACID ข้อใดที่ระบุว่า \"เมื่อ Transaction ทำการ COMMIT สำเร็จแล้ว ข้อมูลจะถูกบันทึกอย่างถาวร ไม่สูญหายแม้ระบบจะล่ม\"?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "Atomicity"
+      },
+      {
+        "key": "ข",
+        "text": "Consistency"
+      },
+      {
+        "key": "ค",
+        "text": "Isolation"
+      },
+      {
+        "key": "ง",
+        "text": "Durability"
+      }
+    ],
+    "answer": "ง",
+    "explanation": "Durability (ความคงทน) รับประกันว่าเมื่อธุรกรรมถูก COMMIT เรียบร้อยแล้ว ผลลัพธ์จะถูกบันทึกลงในสื่อจัดเก็บข้อมูลถาวร และจะไม่สูญหายแม้ระบบไฟดับหรือ Crash"
+  },
+  {
+    "id": 77,
+    "category": "หมวดที่ 4: หัวข้อพิเศษ Transaction & ความสัมพันธ์เชิงลึก (ข้อ 71 - 90)",
+    "categoryKey": "db_cat4",
+    "question": "คุณสมบัติ \"Isolation\" ใน ACID มีวัตถุประสงค์เพื่ออะไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "ป้องกันไม่ให้การทำงานของหลายๆ Transaction ที่ดำเนินการพร้อมกัน (Concurrent Transactions) เข้ามารบกวนหรือเห็นข้อมูลกึ่งกลางของกันและกัน"
+      },
+      {
+        "key": "ข",
+        "text": "เพื่อให้ข้อมูลอยู่ในตารางเดียวกัน"
+      },
+      {
+        "key": "ค",
+        "text": "เพื่อให้แน่ใจว่าฮาร์ดดิสก์ทำงานได้ดี"
+      },
+      {
+        "key": "ง",
+        "text": "เพื่อลดความซ้ำซ้อนของ Primary Key"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "Isolation (ความโดดเดี่ยว) ป้องกันปัญหาที่เกิดจากการประมวลผลพร้อมกัน โดยทำให้ผลลัพธ์เสมือนว่า Transaction ทำงานเรียงลำดับทีละอัน (Serializability)"
+  },
+  {
+    "id": 78,
+    "category": "หมวดที่ 4: หัวข้อพิเศษ Transaction & ความสัมพันธ์เชิงลึก (ข้อ 71 - 90)",
+    "categoryKey": "db_cat4",
+    "question": "คุณสมบัติ \"Consistency\" ใน ACID หมายถึงข้อใด?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "การนำพาฐานข้อมูลจากสถานะที่ถูกต้องหนึ่ง (Valid State) ไปสู่อีกสถานะที่ถูกต้องหนึ่ง โดยไม่ละเมิดกฎ Integrity Constraints"
+      },
+      {
+        "key": "ข",
+        "text": "การประมวลผลได้เร็วที่สุด"
+      },
+      {
+        "key": "ค",
+        "text": "การไม่มีค่า NULL ในฐานข้อมูล"
+      },
+      {
+        "key": "ง",
+        "text": "การสำรองข้อมูลทุกวัน"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "Consistency รับประกันว่า Transaction ต้องรักษาความถูกต้องของข้อมูลตามกฎเกณฑ์ (Integrity Rules) ทั้งก่อนและหลังการทำธุรกรรม"
+  },
+  {
+    "id": 79,
+    "category": "หมวดที่ 4: หัวข้อพิเศษ Transaction & ความสัมพันธ์เชิงลึก (ข้อ 71 - 90)",
+    "categoryKey": "db_cat4",
+    "question": "ในการจัดการความสัมพันธ์แบบ 1:1 ระหว่าง Entity A และ Entity B ในกรณีที่ Entity A เป็น Mandatory (ต้องมี) แต่ Entity B เป็น Optional (จะมีหรือไม่มีก็ได้) ควรนำ Primary Key ไปวางไว้ที่ใดเป็น Foreign Key เพื่อหลีกเลี่ยงค่า NULL?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "นำ PK ของ Entity A ไปวางไว้เป็น FK ใน Entity B (ฝั่ง Optional)"
+      },
+      {
+        "key": "ข",
+        "text": "นำ PK ของ Entity B ไปวางไว้เป็น FK ใน Entity A (ฝั่ง Mandatory)"
+      },
+      {
+        "key": "ค",
+        "text": "นำ FK ไปไว้ทั้งสองฝั่ง"
+      },
+      {
+        "key": "ง",
+        "text": "สร้างตารางกลางขึ้นมาใหม่เสมอ"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "ในความสัมพันธ์ 1:1 เพื่อหลีกเลี่ยงค่า NULL ให้ย้าย Primary Key ของฝั่งที่เป็น Optional ( B ) มาใส่เป็น Foreign Key ในฝั่งที่เป็น Mandatory ( A ) หรือย้าย PK ฝั่ง Mandatory ไปไว้ฝั่ง Optional แล้วแต่บริบท แต่การวาง FK ไว้ฝั่ง Optional (ที่มีเรคคอร์ดเกิดทีหลัง) มักทำให้ FK เป็น NULL เมื่อยังไม่มีคู่ จึงควรวาง FK ในฝั่งที่ต้องมีคู่เสมอ (หรือวาง FK ไว้ในฝั่ง Optional หากมองว่าฝั่ง Optional เกิดทีหลังแล้วอ้างกลับมาฝั่ง Mandatory) **หลักการมาตรฐาน:** เพื่อป้องกัน NULL ใน FK ให้นำ PK จากฝั่ง Mandatory ไปใส่เป็น FK ในฝั่ง Optional"
+  },
+  {
+    "id": 80,
+    "category": "หมวดที่ 4: หัวข้อพิเศษ Transaction & ความสัมพันธ์เชิงลึก (ข้อ 71 - 90)",
+    "categoryKey": "db_cat4",
+    "question": "การจัดการความสัมพันธ์แบบ 1:1 ในกรณีที่เป็น Optional ทั้งสองฝั่ง (Optional-Optional 1:1) มีแนวทางที่เหมาะสมอย่างไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "นำ Primary Key ของฝั่งใดฝั่งหนึ่งไปเป็น Foreign Key ในอีกฝั่งหนึ่ง หรือสร้างตารางกลางถ้าเกิดค่า NULL จำนวนมาก"
+      },
+      {
+        "key": "ข",
+        "text": "บังคับยุบรวมตารางทันที"
+      },
+      {
+        "key": "ค",
+        "text": "ไม่สามารถสร้างความสัมพันธ์ได้"
+      },
+      {
+        "key": "ง",
+        "text": "แปลงเป็นความสัมพันธ์แบบ M:N"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "ในกรณี Optional-Optional 1:1 สามารถเลือกนำ PK ฝั่งใดฝั่งหนึ่งไปเป็น FK อีกฝั่งหนึ่งได้ แต่มักเลือกฝั่งที่มีการทำธุรกรรมบ่อยกว่า หรือแยกตารางกลางหากต้องการหลีกเลี่ยง NULL 100%"
+  },
+  {
+    "id": 81,
+    "category": "หมวดที่ 4: หัวข้อพิเศษ Transaction & ความสัมพันธ์เชิงลึก (ข้อ 71 - 90)",
+    "categoryKey": "db_cat4",
+    "question": "ข้อใด **ไม่ใช่** เหตุผลในการเลือกใช้ Surrogate Key (คีย์ตัวแทน) แทน Natural Key (คีย์ธรรมชาติ)?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "Natural Key มีขนาดใหญ่เกินไป หรือเป็น Composite Key ที่ซับซ้อนหลาย Attributes"
+      },
+      {
+        "key": "ข",
+        "text": "Natural Key อาจมีการเปลี่ยนแปลงค่าได้ในอนาคต (เช่น เลขพาสปอร์ต, ชื่อ-นามสกุล)"
+      },
+      {
+        "key": "ค",
+        "text": "เพื่อให้ Primary Key มีขนาดเล็ก (เช่น Auto Integer) ซึ่งช่วยเพิ่มประสิทธิภาพในการ Indexing และ Join"
+      },
+      {
+        "key": "ง",
+        "text": "เพื่อให้ผู้ใช้สามารถคาดเดาความหมายทางธุรกิจของคีย์ได้ง่ายจากตัวเลขคีย์"
+      }
+    ],
+    "answer": "ง",
+    "explanation": "Surrogate Key **ไม่มีความหมายทางธุรกิจ (No Business Meaning)** จึงไม่สามารถคาดเดาความหมายเชิงธุรกิจได้ เหตุผลในการใช้คือ ประสิทธิภาพ เสถียรภาพ และขนาดที่เล็ก"
+  },
+  {
+    "id": 82,
+    "category": "หมวดที่ 4: หัวข้อพิเศษ Transaction & ความสัมพันธ์เชิงลึก (ข้อ 71 - 90)",
+    "categoryKey": "db_cat4",
+    "question": "ข้อเสียของการใช้ Surrogate Key คือข้อใด?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "ต้องทำการ Join ตารางเพื่อดูข้อมูลจริง และต้องการ Unique Constraint เพิ่มเติมบน Natural Key เพื่อป้องกันข้อมูลซ้ำเชิงธุรกิจ"
+      },
+      {
+        "key": "ข",
+        "text": "ไม่สามารถใช้เป็น Primary Key ได้"
+      },
+      {
+        "key": "ค",
+        "text": "ทำให้ตารางมีขนาดเล็กลงมากเกินไป"
+      },
+      {
+        "key": "ง",
+        "text": "DBMS ส่วนใหญ่ไม่รองรับ"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "แม้จะใช้ Surrogate Key เป็น PK แต่ข้อมูล Natural Key (เช่น เลขบัตรประชาชน) ก็ยังคงอยู่ในตาราง ซึ่งต้องใส่ `UNIQUE` Constraint กำกับไว้เพื่อป้องกันข้อมูลซ้ำ ทำให้ต้องจัดการทั้งสองคีย์"
+  },
+  {
+    "id": 83,
+    "category": "หมวดที่ 4: หัวข้อพิเศษ Transaction & ความสัมพันธ์เชิงลึก (ข้อ 71 - 90)",
+    "categoryKey": "db_cat4",
+    "question": "ในการแปลง ERD เป็น Relational Schema หากพบความสัมพันธ์แบบ 1:1 ที่เป็น Total Participation ทั้งสองฝั่ง (Mandatory-Mandatory 1:1) วิธีการที่กะทัดรัดและมีประสิทธิภาพที่สุดคืออะไร?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "รวม Attributes ของทั้งสอง Entities เข้าเป็น ตารางเดียว (Combine into Single Relation)"
+      },
+      {
+        "key": "ข",
+        "text": "แตกเป็น 3 ตาราง"
+      },
+      {
+        "key": "ค",
+        "text": "สร้างตารางแบบ M:N"
+      },
+      {
+        "key": "ง",
+        "text": "ใส่ Foreign Key แบบวนลูปทั้งสองฝั่ง"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "เมื่อทั้งสองฝั่งเป็น 1:1 และเป็น Mandatory ทั้งคู่ นั่นหมายความว่า Entities ทั้งสองมีวงจรชีวิตพร้อมกัน 1 ต่อ 1 เสมอ การยุบรวมเป็นตารางเดียวจะช่วยลดการ Join และขจัดค่า NULL"
+  },
+  {
+    "id": 84,
+    "category": "หมวดที่ 4: หัวข้อพิเศษ Transaction & ความสัมพันธ์เชิงลึก (ข้อ 71 - 90)",
+    "categoryKey": "db_cat4",
+    "question": "คำสั่ง SQL DCL (Data Control Language) ในข้อใดใช้สำหรับให้สิทธิ์การใช้งานแก่ผู้ใช้?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "GRANT"
+      },
+      {
+        "key": "ข",
+        "text": "REVOKE"
+      },
+      {
+        "key": "ค",
+        "text": "COMMIT"
+      },
+      {
+        "key": "ง",
+        "text": "ALLOW"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "`GRANT` เป็นคำสั่งในกลุ่ม DCL ที่ใช้ในการมอบสิทธิ์ (Permissions) การเข้าถึงหรือจัดการข้อมูลแก่ User/Role"
+  },
+  {
+    "id": 85,
+    "category": "หมวดที่ 4: หัวข้อพิเศษ Transaction & ความสัมพันธ์เชิงลึก (ข้อ 71 - 90)",
+    "categoryKey": "db_cat4",
+    "question": "คำสั่ง SQL ใดใช้สำหรับยกเลิกสิทธิ์การใช้งานที่เคยให้อย่างเป็นทางการ?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "REMOVE"
+      },
+      {
+        "key": "ข",
+        "text": "REVOKE"
+      },
+      {
+        "key": "ค",
+        "text": "CANCEL"
+      },
+      {
+        "key": "ง",
+        "text": "DENY"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "`REVOKE` ใช้สำหรับดึงสิทธิ์ หรือยกเลิกสิทธิ์การใช้งานที่เคยให้ไว้ผ่านคำสั่ง GRANT"
+  },
+  {
+    "id": 86,
+    "category": "หมวดที่ 4: หัวข้อพิเศษ Transaction & ความสัมพันธ์เชิงลึก (ข้อ 71 - 90)",
+    "categoryKey": "db_cat4",
+    "question": "การสืบทอดคุณลักษณะ (Attribute Inheritance) ใน Extended ERD เกิดขึ้นในโครงสร้างรูปแบบใด?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "Supertype และ Subtype"
+      },
+      {
+        "key": "ข",
+        "text": "Weak Entity และ Owner Entity"
+      },
+      {
+        "key": "ค",
+        "text": "Binary Relationship"
+      },
+      {
+        "key": "ง",
+        "text": "Recursive Relationship"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "ในความสัมพันธ์แบบ Supertype / Subtype ตัว Subtype จะทำการสืบทอด (Inherit) Attributes และ Relationships ทั้งหมดมาจาก Supertype"
+  },
+  {
+    "id": 87,
+    "category": "หมวดที่ 4: หัวข้อพิเศษ Transaction & ความสัมพันธ์เชิงลึก (ข้อ 71 - 90)",
+    "categoryKey": "db_cat4",
+    "question": "ตัวอย่างใดแสดงถึง Recursive Relationship (ความสัมพันธ์ย้อนกลับในตัวเอง)?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "พนักงาน (Employee) เป็นผู้จัดการดูแล พนักงาน (Employee) คนอื่นๆ"
+      },
+      {
+        "key": "ข",
+        "text": "พนักงาน ทำงานใน แผนก"
+      },
+      {
+        "key": "ค",
+        "text": "นักศึกษา ลงทะเบียน วิชา"
+      },
+      {
+        "key": "ง",
+        "text": "ลูกค้า สั่งซื้อ สินค้า"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "การที่เรคคอร์ดในตาราง Employee เชื่อมโยงกับเรคคอร์ดอื่นในตาราง Employee เดียวกัน (เช่น ManagerID อ้างอิงกลับไปยัง EmployeeID) คือ Recursive Relationship"
+  },
+  {
+    "id": 88,
+    "category": "หมวดที่ 4: หัวข้อพิเศษ Transaction & ความสัมพันธ์เชิงลึก (ข้อ 71 - 90)",
+    "categoryKey": "db_cat4",
+    "question": "หากต้องการคืนค่าการทำธุรกรรมกลับสู่สถานะก่อนหน้าในกรณีที่เกิดข้อผิดพลาดในการประมวลผล ต้องใช้คำสั่ง TCL ใด?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "COMMIT"
+      },
+      {
+        "key": "ข",
+        "text": "ROLLBACK"
+      },
+      {
+        "key": "ค",
+        "text": "SAVEPOINT"
+      },
+      {
+        "key": "ง",
+        "text": "UNDO"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "`ROLLBACK` เป็นคำสั่ง Transaction Control Language (TCL) ที่ใช้ในการยกเลิกการเปลี่ยนแปลงทั้งหมดใน Transaction นั้น และย้อนกลับไปยังจุดล่าสุดที่มีการ COMMIT หรือ SAVEPOINT"
+  },
+  {
+    "id": 89,
+    "category": "หมวดที่ 4: หัวข้อพิเศษ Transaction & ความสัมพันธ์เชิงลึก (ข้อ 71 - 90)",
+    "categoryKey": "db_cat4",
+    "question": "คำสั่ง `SAVEPOINT` มีประโยชน์อย่างไรในการจัดการ Transaction?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "กำหนดจุดบันทึกชั่วคราวภายใน Transaction เพื่อให้สามารถ Rollback กลับมาเฉพาะจุดนี้ได้ โดยไม่ต้องยกเลิกทั้ง Transaction"
+      },
+      {
+        "key": "ข",
+        "text": "บันทึกข้อมูลลงดิสก์ถาวร"
+      },
+      {
+        "key": "ค",
+        "text": "ลบ Log File"
+      },
+      {
+        "key": "ง",
+        "text": "ปิดการทำงานของฐานข้อมูล"
+      }
+    ],
+    "answer": "ก",
+    "explanation": "`SAVEPOINT` ใช้ตั้งจุดตรวจชั่วคราว ทำให้พัฒนาโปรแกรมสามารถเลือก `ROLLBACK TO <savepoint_name>` ย้อนกลับมาแค่บางส่วนของ Transaction ได้"
+  },
+  {
+    "id": 90,
+    "category": "หมวดที่ 4: หัวข้อพิเศษ Transaction & ความสัมพันธ์เชิงลึก (ข้อ 71 - 90)",
+    "categoryKey": "db_cat4",
+    "question": "ข้อใดสรุปบทบาทของ \"Candidate Key\" กับ \"Primary Key\" ได้ถูกต้องที่สุด?",
+    "options": [
+      {
+        "key": "ก",
+        "text": "ทุก Candidate Key คือ Primary Key"
+      },
+      {
+        "key": "ข",
+        "text": "Candidate Key คือคีย์ทั้งหมดที่มีคุณสมบัติโดดเด่นไม่ซ้ำและไม่เป็น NULL ซึ่งมีสิทธิ์ถูกเลือกเป็น Primary Key ได้ และคีย์ที่ไม่ถูกเลือกจะเรียกว่า Alternate Key"
+      },
+      {
+        "key": "ค",
+        "text": "Primary Key ไม่จำเป็นต้องเป็น Candidate Key"
+      },
+      {
+        "key": "ง",
+        "text": "ตารางหนึ่งมี Candidate Key ได้เพียงคีย์เดียวเสมอ"
+      }
+    ],
+    "answer": "ข",
+    "explanation": "Candidate Key คือกลุ่มคีย์ผู้ท้าชิงทั้งหมดที่ระบุเรคคอร์ดได้โดดเด่น เมื่อ DBA เลือกตัวใดตัวหนึ่งมาเป็น Primary Key ส่วนที่เหลือจะกลายเป็น Alternate Keys (คีย์สำรอง)"
+  }
 ]
 };
 
