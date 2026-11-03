@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>คลังข้อสอบ</title>
+  
+  <!-- Google Fonts: Prompt & Sarabun & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Prompt:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            prompt: ['Prompt', 'sans-serif'],
+            sarabun: ['Sarabun', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'Consolas', 'monospace'],
+          },
+          colors: {
+            page: '#FAFAFA',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-stone-50 text-slate-700 font-sarabun min-h-screen flex flex-col antialiased selection:bg-orange-100 selection:text-orange-900 overflow-x-hidden">
+
+  <!-- ========================================================================
+       TOP NAVBAR: Responsive, Sticky, Mobile-First
+       ======================================================================== -->
+  <header class="sticky top-0 z-30 bg-white/95 backdrop-blur-sm border-b border-stone-200">
+    <div class="max-w-5xl mx-auto px-3 sm:px-6 md:px-8 h-14 sm:h-16 flex items-center justify-between">
+      <!-- Brand Logo & Name -->
+      <div class="flex items-center gap-2 sm:gap-3 cursor-pointer select-none" onclick="app.showHome()">
+        <span class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-orange-600 text-white font-prompt font-bold flex items-center justify-center text-xs sm:text-sm shadow-sm">
+          ค
+        </span>
+        <span class="font-prompt font-semibold text-base sm:text-lg text-slate-800 tracking-tight">
+          คลังข้อสอบ
+        </span>
+      </div>
+
+      <!-- Navigation Tabs (Compact on mobile) -->
+      <nav class="flex items-center gap-1 sm:gap-2 font-prompt text-xs sm:text-sm font-medium">
+        <button id="nav-btn-home" onclick="app.showHome()" class="px-2.5 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-orange-700 bg-orange-50 transition-colors duration-150 flex items-center gap-1 sm:gap-1.5">
+          <svg width="14" height="14" class="sm:w-4 sm:h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+          <span class="hidden xs:inline">หน้าหลัก</span>
+        </button>
+        <button id="nav-btn-summary" onclick="app.showSummary('PY101')" class="px-2.5 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-stone-100 transition-colors duration-150 flex items-center gap-1 sm:gap-1.5">
+          <svg width="14" height="14" class="sm:w-4 sm:h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+          <span>สรุป</span>
+        </button>
+        <button id="nav-btn-quiz" onclick="app.startQuiz('PY101')" class="px-2.5 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-stone-100 transition-colors duration-150 flex items-center gap-1 sm:gap-1.5">
+          <svg width="14" height="14" class="sm:w-4 sm:h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          <span>ข้อสอบ</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ========================================================================
+       MAIN APP CONTAINER: Responsive Padding & Max Width Constraints
+       ======================================================================== -->
+  <main class="flex-1 w-full">
+
+    <!-- ----------------------------------------------------------------------
+         VIEW 1: HOME (Subject Selection)
+         ---------------------------------------------------------------------- -->
+    <section id="view-home" class="max-w-4xl mx-auto px-4 py-6 sm:px-6 md:px-8 md:py-8 lg:px-12">
+      <!-- Minimal Editorial Intro Banner -->
+      <div class="bg-white border border-stone-200/90 rounded-xl p-5 sm:p-8 md:p-10 mb-6 sm:mb-8 shadow-sm">
+        <span class="inline-block text-xs font-prompt font-semibold uppercase tracking-wider text-orange-700 bg-orange-50 border border-orange-200/70 px-2.5 py-1 rounded mb-3 sm:mb-4">
+          ระบบทบทวนและฝึกทำข้อสอบออนไลน์
+        </span>
+        <h1 class="text-xl sm:text-2xl md:text-3xl font-prompt font-bold text-slate-800 tracking-tight mb-2.5 sm:mb-3">
+          ทบทวนเนื้อหาและเตรียมพร้อมก่อนสอบ
+        </h1>
+        <p class="text-slate-600 text-sm sm:text-base md:text-lg leading-relaxed max-w-2xl">
+          รวบรวมสรุปประเด็นสำคัญครอบคลุมทุกบทเรียน จัดวางในรูปแบบคู่มือที่อ่านง่าย สบายตา 
+          พร้อมคลังข้อสอบปรนัยสุ่มลำดับข้อและตัวเลือกแบบไม่ซ้ำเดิม ตรวจคำตอบทันทีพร้อมเฉลยละเอียด
+        </p>
+      </div>
+
+      <!-- Section Title -->
+      <div class="mb-4 flex items-center justify-between">
+        <div>
+          <h2 class="font-prompt font-semibold text-base sm:text-lg text-slate-800">รายวิชาในระบบ</h2>
+          <p class="text-xs sm:text-sm text-slate-500">เลือกอ่านสรุปหรือเริ่มทำแบบทดสอบความรู้</p>
+        </div>
+      </div>
+
+      <!-- Subject Card Grid -->
+      <div id="subject-list" class="grid grid-cols-1 gap-6">
+        <!-- Rendered by JS -->
+      </div>
+    </section>
+
+
+    <!-- ----------------------------------------------------------------------
+         VIEW 2: SUMMARY VIEW (Documentation / Editorial Style)
+         ---------------------------------------------------------------------- -->
+    <section id="view-summary" class="hidden max-w-3xl mx-auto px-4 py-6 sm:px-6 md:px-8 md:py-8 lg:px-12 w-full">
+      <!-- Top Action Bar -->
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 mb-6 pb-4 border-b border-stone-200">
+        <button onclick="app.showHome()" class="font-prompt text-xs sm:text-sm font-medium text-slate-600 hover:text-slate-900 bg-white hover:bg-stone-100 border border-stone-200 px-3.5 py-2.5 sm:py-2 rounded-lg transition-colors duration-150 flex items-center justify-center gap-1.5 w-full sm:w-auto">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+          กลับหน้าหลัก
+        </button>
+        <button onclick="app.startQuiz('PY101')" class="font-prompt text-xs sm:text-sm font-medium text-white bg-orange-600 hover:bg-orange-700 px-4 py-2.5 sm:py-2 rounded-lg transition-colors duration-150 flex items-center justify-center gap-1.5 shadow-sm w-full sm:w-auto">
+          ไปทำข้อสอบ (150 ข้อ)
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </button>
+      </div>
+
+      <!-- Course Header Block -->
+      <div class="mb-6 sm:mb-8">
+        <span id="summary-code-badge" class="font-prompt font-semibold text-xs text-orange-800 bg-orange-50 border border-orange-200 px-2 py-0.5 rounded">PY101</span>
+        <h1 id="summary-title" class="text-xl sm:text-2xl md:text-3xl font-prompt font-bold text-slate-800 tracking-tight mt-2 mb-2">ชื่อวิชา</h1>
+        <p id="summary-desc" class="text-slate-600 text-xs sm:text-sm md:text-base leading-relaxed">คำอธิบายรายวิชา</p>
+      </div>
+
+      <!-- Chapter Articles Body -->
+      <div id="summary-body" class="w-full">
+        <!-- Rendered from JSON -->
+      </div>
+
+      <!-- Bottom CTA Box -->
+      <div class="mt-6 sm:mt-8 p-5 sm:p-6 bg-white border border-stone-200 rounded-xl flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 shadow-sm">
+        <div>
+          <h3 class="font-prompt font-semibold text-slate-800 text-sm sm:text-base mb-1">อ่านสรุปครบทั้ง 6 บทแล้ว?</h3>
+          <p class="text-slate-600 text-xs sm:text-sm">ทดสอบความเข้าใจของคุณด้วยคลังข้อสอบ 150 ข้อ พร้อมระบบสุ่มลำดับข้อและตัวเลือกแบบ Derangement</p>
+        </div>
+        <button onclick="app.startQuiz('PY101')" class="font-prompt text-xs sm:text-sm font-medium text-white bg-orange-600 hover:bg-orange-700 px-4 py-3 sm:py-2.5 rounded-lg transition-colors duration-150 text-center shrink-0 shadow-sm w-full sm:w-auto">
+          เริ่มทำข้อสอบทันที
+        </button>
+      </div>
+    </section>
+
+
+    <!-- ----------------------------------------------------------------------
+         VIEW 3: QUIZ VIEW (Distraction-free, Eye-care Testing UI)
+         ---------------------------------------------------------------------- -->
+    <section id="view-quiz" class="hidden max-w-3xl mx-auto px-4 py-5 sm:px-6 md:px-8 md:py-6 lg:px-12 w-full">
+
+      <!-- Header Row: Exit Button & Quick Tools -->
+      <div class="flex items-center justify-between gap-2 sm:gap-3 mb-4">
+        <button onclick="app.confirmExitQuiz()" class="font-prompt text-xs sm:text-sm font-medium text-slate-600 hover:text-slate-900 bg-white hover:bg-stone-100 border border-stone-200 px-2.5 py-1.5 sm:px-3 sm:py-1.5 rounded-lg transition-colors duration-150 flex items-center gap-1.5">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+          <span class="hidden xs:inline">ออก</span><span class="inline xs:hidden">ออก</span>
+        </button>
+
+        <div class="flex items-center gap-1.5 sm:gap-2">
+          <button onclick="app.showSummary('PY101')" class="font-prompt text-xs sm:text-sm font-medium text-slate-600 hover:text-slate-900 bg-white hover:bg-stone-100 border border-stone-200 px-2.5 py-1.5 sm:px-3 sm:py-1.5 rounded-lg transition-colors duration-150 flex items-center gap-1">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+            <span class="hidden sm:inline">อ่านสรุปเนื้อหา</span><span class="inline sm:hidden">สรุป</span>
+          </button>
+          <button onclick="app.toggleDrawer(true)" class="font-prompt text-xs sm:text-sm font-medium text-orange-700 bg-orange-50 hover:bg-orange-100 border border-orange-200 px-2.5 py-1.5 sm:px-3 sm:py-1.5 rounded-lg transition-colors duration-150 flex items-center gap-1">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+            <span>ผังข้อ (1-150)</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Category Tabs (Filter) -->
+      <div class="overflow-x-auto pb-2 mb-3 scrollbar-none w-full -mx-4 px-4 sm:mx-0 sm:px-0">
+        <div id="quiz-cat-tabs" class="flex gap-1.5 min-w-max">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+
+      <!-- Minimal Status & Controls Toolbar -->
+      <div class="bg-white border border-stone-200 rounded-lg p-3 sm:p-4 mb-4 flex flex-wrap items-center justify-between gap-2.5 text-xs sm:text-sm font-prompt">
+        <div class="flex items-center gap-2 sm:gap-3 flex-wrap">
+          <span id="pill-progress" class="bg-stone-100 text-slate-700 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded border border-stone-200 text-xs sm:text-sm">
+            ข้อที่ <strong class="text-slate-900">1 / 150</strong>
+          </span>
+          <span id="pill-score" class="bg-stone-100 text-slate-700 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded border border-stone-200 text-xs sm:text-sm">
+            คะแนน: <strong class="text-orange-600">0</strong>
+          </span>
+          <span id="pill-answered" class="bg-stone-100 text-slate-700 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded border border-stone-200 text-xs sm:text-sm">
+            ตอบแล้ว: <strong class="text-slate-900">0 / 150</strong>
+          </span>
+        </div>
+
+        <div class="flex items-center gap-1.5 ml-auto sm:ml-0">
+          <button id="btn-mode-single" onclick="app.switchQuizMode('single')" class="px-2.5 py-1 rounded text-xs font-medium bg-orange-600 text-white transition-colors duration-150">
+            ทีละข้อ
+          </button>
+          <button id="btn-mode-page" onclick="app.switchQuizMode('page')" class="px-2.5 py-1 rounded text-xs font-medium bg-white text-slate-600 border border-stone-200 hover:bg-stone-50 transition-colors duration-150">
+            ชุด 10 ข้อ
+          </button>
+        </div>
+      </div>
+
+      <!-- Slim Progress Bar (Eye-friendly) -->
+      <div class="w-full bg-stone-200 h-1.5 rounded-full overflow-hidden mb-5 sm:mb-6">
+        <div id="quiz-progress-fill" class="bg-orange-600 h-full transition-all duration-200" style="width: 0%;"></div>
+      </div>
+
+      <!-- Active Questions Container -->
+      <div id="quiz-container" class="space-y-5 sm:space-y-6 w-full">
+        <!-- Rendered question cards -->
+      </div>
+
+      <!-- Bottom Nav Controls (Single Mode) -->
+      <div id="single-nav-row" class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 sm:gap-3 mt-6 pt-4 border-t border-stone-200 font-prompt">
+        <button id="btn-prev-q" onclick="app.prevQuestion()" class="order-2 sm:order-1 px-4 py-2.5 sm:py-2 rounded-lg border border-stone-200 bg-white hover:bg-stone-100 text-slate-700 text-xs sm:text-sm font-medium transition-colors duration-150 flex items-center justify-center gap-1.5 disabled:opacity-40 disabled:cursor-not-allowed">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+          ข้อย้อนหลัง
+        </button>
+
+        <div class="order-1 sm:order-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+          <button onclick="app.finishQuiz()" class="px-4 py-2.5 sm:py-2 rounded-lg border border-stone-200 bg-white hover:bg-stone-100 text-slate-700 text-xs sm:text-sm font-medium transition-colors duration-150 text-center">
+            ส่งข้อสอบ &amp; ดูผลคะแนน
+          </button>
+          <button id="btn-next-q" onclick="app.nextQuestion()" class="px-4 py-2.5 sm:py-2 rounded-lg bg-orange-600 hover:bg-orange-700 text-white text-xs sm:text-sm font-medium transition-colors duration-150 flex items-center justify-center gap-1.5 disabled:opacity-40 disabled:cursor-not-allowed shadow-sm">
+            ข้อถัดไป
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Pagination Controls (Page Mode) -->
+      <div id="page-nav-bar" class="hidden flex items-center justify-center gap-1 mt-6 sm:mt-8 flex-wrap font-prompt text-xs sm:text-sm">
+        <!-- Page navigation buttons -->
+      </div>
+
+      <!-- Results Board (Hidden until finished) -->
+      <div id="quiz-result-view" class="hidden bg-white border border-stone-200 rounded-xl p-5 sm:p-8 md:p-10 text-center shadow-sm max-w-xl mx-auto my-4 w-full">
+        <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-orange-50 border-2 border-orange-500 flex flex-col items-center justify-center mb-4">
+          <span id="res-score-num" class="text-2xl sm:text-3xl font-prompt font-bold text-orange-600 leading-none">0</span>
+          <span class="text-[11px] sm:text-xs text-slate-500 font-prompt mt-0.5 sm:mt-1">คะแนน</span>
+        </div>
+        <span id="res-score-sub" class="inline-block text-xs font-prompt text-slate-500 mb-2">จาก 150 ข้อ (0%)</span>
+        <h2 id="res-heading" class="text-lg sm:text-2xl font-prompt font-bold text-slate-800 mb-2">สรุปผลการทดสอบ</h2>
+        <p id="res-message" class="text-slate-600 text-xs sm:text-sm leading-relaxed mb-6">คำประเมินผลการเรียนรู้</p>
+
+        <!-- Category Breakdown Table -->
+        <div class="border border-stone-200 rounded-lg overflow-x-auto mb-6 text-left w-full">
+          <table class="w-full text-xs sm:text-sm border-collapse min-w-[320px]">
+            <thead>
+              <tr class="bg-stone-50 border-b border-stone-200 text-slate-700 font-prompt">
+                <th class="p-2.5 sm:p-3">หมวดบทเรียน</th>
+                <th class="p-2.5 sm:p-3 text-center">ถูก / ทั้งหมด</th>
+                <th class="p-2.5 sm:p-3 text-right">ความแม่นยำ</th>
+              </tr>
+            </thead>
+            <tbody id="res-breakdown-body" class="divide-y divide-stone-100 text-slate-600">
+              <!-- Breakdown rows -->
+            </tbody>
+          </table>
+        </div>
+
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-2.5 font-prompt text-xs sm:text-sm">
+          <button onclick="app.restartQuiz(false)" class="w-full sm:w-auto px-4 py-2.5 rounded-lg bg-orange-600 hover:bg-orange-700 text-white font-medium transition-colors duration-150">
+            สุ่มทำข้อสอบใหม่อีกครั้ง
+          </button>
+          <button id="btn-review-mistakes" onclick="app.reviewMistakes()" class="w-full sm:w-auto px-4 py-2.5 rounded-lg bg-white hover:bg-stone-50 border border-stone-200 text-slate-700 font-medium transition-colors duration-150">
+            ทบทวนข้อที่ตอบผิด
+          </button>
+          <button onclick="app.showSummary('PY101')" class="w-full sm:w-auto px-4 py-2.5 rounded-lg text-slate-500 hover:text-slate-800 transition-colors duration-150 text-center">
+            อ่านสรุปเนื้อหา
+          </button>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ========================================================================
+       QUESTION GRID DRAWER / MODAL (1 - 150)
+       ======================================================================== -->
+  <div id="drawer-grid" class="hidden fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-3 sm:p-4" onclick="if(event.target === this) app.toggleDrawer(false)">
+    <div class="bg-white border border-stone-200 rounded-xl max-w-xl w-full max-h-[85vh] flex flex-col shadow-lg overflow-hidden">
+      <!-- Modal Header -->
+      <div class="px-4 sm:px-5 py-3.5 sm:py-4 border-b border-stone-200 flex items-center justify-between">
+        <h3 class="font-prompt font-semibold text-sm sm:text-base text-slate-800">ผังข้อสอบทั้งหมด (1 - 150)</h3>
+        <button onclick="app.toggleDrawer(false)" class="p-1 rounded text-slate-400 hover:text-slate-700 hover:bg-stone-100 transition-colors">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+
+      <!-- Legend -->
+      <div class="px-4 sm:px-5 py-2.5 bg-stone-50 border-b border-stone-200 flex flex-wrap gap-3 sm:gap-4 text-[11px] sm:text-xs font-prompt text-slate-600">
+        <div class="flex items-center gap-1.5">
+          <span class="w-3.5 h-3.5 rounded border border-stone-300 bg-white"></span> ยังไม่ตอบ
+        </div>
+        <div class="flex items-center gap-1.5">
+          <span class="w-3.5 h-3.5 rounded border border-emerald-400 bg-emerald-100"></span> ตอบถูก
+        </div>
+        <div class="flex items-center gap-1.5">
+          <span class="w-3.5 h-3.5 rounded border border-rose-300 bg-rose-100"></span> ตอบผิด
+        </div>
+        <div class="flex items-center gap-1.5">
+          <span class="w-3.5 h-3.5 rounded border-2 border-orange-500 bg-white"></span> ข้อปัจจุบัน
+        </div>
+      </div>
+
+      <!-- Badges Grid -->
+      <div id="drawer-jump-grid" class="p-4 sm:p-5 overflow-y-auto grid grid-cols-6 sm:grid-cols-10 gap-1.5 sm:gap-2 font-prompt text-xs">
+        <!-- 150 Question Badges -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       FOOTER: Clean, quiet, single-tone
+       ======================================================================== -->
+  <footer class="bg-white border-t border-stone-200 mt-auto py-5 sm:py-6 text-center text-xs text-slate-500 font-prompt px-4">
+    <p><strong class="font-semibold text-slate-700">คลังข้อสอบ</strong> &bull; สรุปบทเรียนและแบบทดสอบออนไลน์</p>
+    <p class="text-slate-400 mt-1">ออกแบบเพื่อความสบายตาและอ่านต่อเนื่องได้นาน รองรับทุกขนาดหน้าจอ</p>
+  </footer>
+
+  <!-- ========================================================================
+       JAVASCRIPT: Application Controller & Shuffling Engine
+       ======================================================================== -->
+  <script>
+    // Master Database (Immutable Single Source of Truth)
+    const masterSubjectsData = [{"id": "PY101", "code": "PY101", "title": "การเขียนโปรแกรมภาษาไพธอน (Python Programming)", "description": "เงื่อนไขการตัดสินใจ การทำซ้ำ ข้อมูลชนิดสตริง ลิสต์ ดิกชันนารี การจัดการไฟล์ และการใช้งานฟังก์ชัน", "summaryContent": "\n<div class=\"bg-white border border-stone-200 rounded-xl p-4 sm:p-6 mb-6 sm:mb-8 shadow-sm\">\n  <div class=\"font-prompt font-semibold text-xs sm:text-sm text-slate-800 mb-3 flex items-center gap-2\">\n    <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" class=\"text-orange-600\"><line x1=\"8\" y1=\"6\" x2=\"21\" y2=\"6\"></line><line x1=\"8\" y1=\"12\" x2=\"21\" y2=\"12\"></line><line x1=\"8\" y1=\"18\" x2=\"21\" y2=\"18\"></line><line x1=\"3\" y1=\"6\" x2=\"3.01\" y2=\"6\"></line><line x1=\"3\" y1=\"12\" x2=\"3.01\" y2=\"12\"></line><line x1=\"3\" y1=\"18\" x2=\"3.01\" y2=\"18\"></line></svg>\n    สารบัญบทเรียน (Course Outline)\n  </div>\n  <div class=\"grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm font-prompt\">\n    <a href=\"#ch1\" class=\"p-2 sm:p-2.5 rounded-lg border border-transparent hover:border-stone-200 hover:bg-stone-50 text-slate-600 hover:text-orange-700 transition-colors flex items-center gap-2\">\n      <span class=\"w-5 h-5 rounded bg-orange-100 text-orange-800 text-xs font-semibold flex items-center justify-center shrink-0\">1</span>\n      <span class=\"truncate\">การควบคุมลำดับการทำงาน และลูป</span>\n    </a>\n    <a href=\"#ch2\" class=\"p-2 sm:p-2.5 rounded-lg border border-transparent hover:border-stone-200 hover:bg-stone-50 text-slate-600 hover:text-orange-700 transition-colors flex items-center gap-2\">\n      <span class=\"w-5 h-5 rounded bg-orange-100 text-orange-800 text-xs font-semibold flex items-center justify-center shrink-0\">2</span>\n      <span class=\"truncate\">ข้อมูลชนิดสตริง (String)</span>\n    </a>\n    <a href=\"#ch3\" class=\"p-2 sm:p-2.5 rounded-lg border border-transparent hover:border-stone-200 hover:bg-stone-50 text-slate-600 hover:text-orange-700 transition-colors flex items-center gap-2\">\n      <span class=\"w-5 h-5 rounded bg-orange-100 text-orange-800 text-xs font-semibold flex items-center justify-center shrink-0\">3</span>\n      <span class=\"truncate\">ข้อมูลชนิดลิสต์ (List)</span>\n    </a>\n    <a href=\"#ch4\" class=\"p-2 sm:p-2.5 rounded-lg border border-transparent hover:border-stone-200 hover:bg-stone-50 text-slate-600 hover:text-orange-700 transition-colors flex items-center gap-2\">\n      <span class=\"w-5 h-5 rounded bg-orange-100 text-orange-800 text-xs font-semibold flex items-center justify-center shrink-0\">4</span>\n      <span class=\"truncate\">ดิกชันนารี และ Collection อื่นๆ</span>\n    </a>\n    <a href=\"#ch5\" class=\"p-2 sm:p-2.5 rounded-lg border border-transparent hover:border-stone-200 hover:bg-stone-50 text-slate-600 hover:text-orange-700 transition-colors flex items-center gap-2\">\n      <span class=\"w-5 h-5 rounded bg-orange-100 text-orange-800 text-xs font-semibold flex items-center justify-center shrink-0\">5</span>\n      <span class=\"truncate\">การจัดการไฟล์ และ JSON</span>\n    </a>\n    <a href=\"#ch6\" class=\"p-2 sm:p-2.5 rounded-lg border border-transparent hover:border-stone-200 hover:bg-stone-50 text-slate-600 hover:text-orange-700 transition-colors flex items-center gap-2\">\n      <span class=\"w-5 h-5 rounded bg-orange-100 text-orange-800 text-xs font-semibold flex items-center justify-center shrink-0\">6</span>\n      <span class=\"truncate\">การใช้งานฟังก์ชัน (Functions)</span>\n    </a>\n  </div>\n</div>\n\n<article id=\"ch1\" class=\"bg-white border border-stone-200/90 rounded-xl p-5 sm:p-8 md:p-8 mb-6 sm:mb-8 shadow-sm\">\n  <div class=\"mb-5 sm:mb-6 pb-3 sm:pb-4 border-b border-stone-100\">\n    <span class=\"text-xs font-prompt font-semibold tracking-wide uppercase px-2.5 py-1 rounded bg-orange-50 text-orange-800 border border-orange-200 inline-block mb-2\">บทที่ 1</span>\n    <h2 class=\"text-lg sm:text-2xl font-prompt font-semibold text-slate-800\">การควบคุมลำดับการทำงาน และการทำซ้ำ (Control Flow & Loops)</h2>\n  </div>\n\n  <div class=\"space-y-5 sm:space-y-6 text-slate-600 text-sm sm:text-[15.5px] leading-relaxed break-words\">\n    <section>\n      <h3 class=\"text-base sm:text-lg font-prompt font-semibold text-slate-800 mb-2.5\">1. การใช้ if, elif, else</h3>\n      <ul class=\"list-disc list-inside space-y-2 mb-3 pl-1\">\n        <li>ใช้กำหนดเงื่อนไขควบคุมลำดับการทำงาน ต้องมีเครื่องหมายโคลอน <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">:</code> ท้ายเงื่อนไข และต้อง<strong>ย่อหน้า (Indentation)</strong> ในบรรทัดคำสั่งถัดไปเสมอเพื่อกำหนดบล็อกคำสั่ง</li>\n        <li><strong>Short Hand if:</strong> เขียนคำสั่งในบรรทัดเดียวกับ if เช่น <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">if a &gt; 5: print(\"a &gt; 5\")</code></li>\n        <li><strong>Short Hand if...else (Ternary Operator):</strong> ไวยากรณ์ <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">[จริง] if [เงื่อนไข] else [เท็จ]</code> เช่น <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">print(\"a &lt; b\") if a &lt; b else print(\"a &gt; b\")</code> หรือซ้อนกันหลายเงื่อนไขได้</li>\n        <li><strong>ตัวดำเนินการลอจิก:</strong> ใช้ <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">and</code> (จริงทั้งคู่) เช่น <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">if a &gt;= 20 and a &lt;= 30:</code> และใช้ <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">or</code> (จริงอย่างน้อยหนึ่งเงื่อนไข) เช่น <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">if a &lt; 20 or a &gt; 30:</code></li>\n        <li><strong>Nested if:</strong> การเขียนประโยค if ซ้อนอยู่ภายในบล็อกของ if อีกชั้นหนึ่ง</li>\n      </ul>\n\n      <div class=\"mt-4 p-3.5 sm:p-4 rounded-lg bg-orange-50/70 border-l-4 border-orange-500 border border-orange-200/60 text-slate-700 text-xs sm:text-sm leading-relaxed\">\n        <strong class=\"font-prompt text-orange-900 block mb-1\">กลไกการทำงานของ elif และ else</strong>\n        <code class=\"font-mono text-xs bg-white text-orange-900 px-1.5 py-0.5 rounded border border-orange-200 break-words\">elif</code> จะถูกตรวจสอบเมื่อเงื่อนไขก่อนหน้าเป็นเท็จเท่านั้น ส่วนบล็อกคำสั่ง <code class=\"font-mono text-xs bg-white text-orange-900 px-1.5 py-0.5 rounded border border-orange-200 break-words\">else</code> จะทำงานเป็นลำดับสุดท้ายเมื่อไม่มีเงื่อนไขใดก่อนหน้าตรงเลย\n      </div>\n    </section>\n\n    <section class=\"pt-4 border-t border-stone-100\">\n      <h3 class=\"text-base sm:text-lg font-prompt font-semibold text-slate-800 mb-2.5\">2. การวนรอบ (Loops)</h3>\n      <ul class=\"list-disc list-inside space-y-2 mb-3 pl-1\">\n        <li><code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">while</code> loop: ทำงานซ้ำตราบใดที่เงื่อนไขเป็นจริง (True) หากไม่มีการปรับปรุงค่าตัวแปรเงื่อนไข จะเกิด Infinite Loop</li>\n        <li><code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">for</code> loop: ใช้วนซ้ำตามลำดับข้อมูลที่มีจำนวนรอบแน่นอน เช่น ข้อความ (String), ลิสต์ (List) หรือช่วงตัวเลขจากฟังก์ชัน <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">range()</code></li>\n        <li><strong>ฟังก์ชัน range(start, stop, step):</strong>\n          <ul class=\"list-none space-y-1.5 my-2 pl-2 sm:pl-4 text-xs sm:text-sm font-mono\">\n            <li>&bull; <code class=\"bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">range(5)</code> &rarr; 0, 1, 2, 3, 4 (รวม 5 ค่า)</li>\n            <li>&bull; <code class=\"bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">range(2, 5)</code> &rarr; 2, 3, 4 (เริ่มที่ 2 ถึงก่อน 5)</li>\n            <li>&bull; <code class=\"bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">range(2, 9, 3)</code> &rarr; 2, 5, 8 (เริ่มที่ 2 ก้าวทีละ 3)</li>\n          </ul>\n        </li>\n        <li><code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">break</code>: สั่งหยุดการวนรอบและออกจากลูปทันที</li>\n        <li><code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">continue</code>: ข้ามการทำงานที่เหลือในรอบปัจจุบัน แล้วไปตรวจสอบเงื่อนไขเพื่อเริ่มรอบถัดไปทันที</li>\n        <li><code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">else</code> ในลูป: บล็อกคำสั่งหลัง else จะทำงานเมื่อการวนรอบสิ้นสุดลงตามปกติ (เงื่อนไข while เป็นเท็จ หรือ for วนครบ) แต่<strong>ถ้าออกจากลูปด้วยคำสั่ง break จะไม่ทำบล็อก else</strong></li>\n      </ul>\n    </section>\n  </div>\n</article>\n\n<article id=\"ch2\" class=\"bg-white border border-stone-200/90 rounded-xl p-5 sm:p-8 md:p-8 mb-6 sm:mb-8 shadow-sm\">\n  <div class=\"mb-5 sm:mb-6 pb-3 sm:pb-4 border-b border-stone-100\">\n    <span class=\"text-xs font-prompt font-semibold tracking-wide uppercase px-2.5 py-1 rounded bg-orange-50 text-orange-800 border border-orange-200 inline-block mb-2\">บทที่ 2</span>\n    <h2 class=\"text-lg sm:text-2xl font-prompt font-semibold text-slate-800\">ข้อมูลชนิดสตริง (String)</h2>\n  </div>\n\n  <div class=\"space-y-5 sm:space-y-6 text-slate-600 text-sm sm:text-[15.5px] leading-relaxed break-words\">\n    <section>\n      <h3 class=\"text-base sm:text-lg font-prompt font-semibold text-slate-800 mb-2.5\">1. ลักษณะและอักขระพิเศษ (Escape Characters)</h3>\n      <ul class=\"list-disc list-inside space-y-2 mb-3 pl-1\">\n        <li>สตริงอยู่ในเครื่องหมาย <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">\"...\"</code> หรือ <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">'...'</code> เก็บเป็น <strong>Unicode</strong> รองรับภาษาต่างๆ ได้ทั่วโลก สตริงหลายบรรทัดใช้ <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">\"\"\"...\"\"\"</code> หรือใช้ <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">\\</code> ท้ายบรรทัดในโค้ดเพื่อพิมพ์ต่อกันเป็นบรรทัดเดียว</li>\n        <li>อักขระพิเศษ: <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">\\\\</code> (แสดง \\), <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">\\'</code> (แสดง '), <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">\\\"</code> (แสดง \"), <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">\\t</code> (แท็บ), <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">\\n</code> (ขึ้นบรรทัดใหม่)</li>\n        <li><code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">\\ooo</code> (เลขฐาน 8 เช่น <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">\\101</code> คือ 'A') และ <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">\\xhh</code> (เลขฐาน 16 เช่น <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">\\x41</code> คือ 'A')</li>\n      </ul>\n    </section>\n\n    <section class=\"pt-4 border-t border-stone-100\">\n      <h3 class=\"text-base sm:text-lg font-prompt font-semibold text-slate-800 mb-2.5\">2. การดำเนินการ การเข้าถึง และตัดสตริง</h3>\n      <ul class=\"list-disc list-inside space-y-2 mb-3 pl-1\">\n        <li>ใช้ <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">+</code> เชื่อมต่อข้อความ, ใช้ <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">*</code> ทำซ้ำสตริง, <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">str()</code> แปลงเป็นสตริง, <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">len()</code> นับจำนวนอักขระ (รวมช่องว่าง)</li>\n        <li><code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">in</code> และ <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">not in</code>: ตรวจสอบข้อความย่อย (Case-sensitive)</li>\n        <li><strong>Indexing:</strong> เริ่มที่ <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">0</code> จากซ้ายไปขวา และเริ่มที่ <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">-1</code> จากขวาไปซ้าย (ตัวสุดท้าย) การอ้างดัชนีเดียวเกินช่วงจะเกิด <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">IndexError</code></li>\n        <li><strong>Slicing [start:stop:step]:</strong> ตัดคำตั้งแต่ตำแหน่ง start จนถึง stop - 1</li>\n      </ul>\n    </section>\n\n    <section class=\"pt-4 border-t border-stone-100\">\n      <h3 class=\"text-base sm:text-lg font-prompt font-semibold text-slate-800 mb-2.5\">3. การจัดรูปแบบสตริง (Formatting) & เมธอดสำคัญ</h3>\n      \n      <!-- Responsive Table with horizontal swipe on mobile -->\n      <div class=\"w-full overflow-x-auto my-3 border border-stone-200 rounded-lg\">\n        <table class=\"w-full text-left text-xs sm:text-sm border-collapse min-w-[460px]\">\n          <thead>\n            <tr class=\"bg-stone-50 border-b border-stone-200 text-slate-700 font-prompt\">\n              <th class=\"p-2.5 sm:p-3\">รูปแบบ</th>\n              <th class=\"p-2.5 sm:p-3\">ตัวอย่างการใช้งาน</th>\n              <th class=\"p-2.5 sm:p-3\">คำอธิบาย</th>\n            </tr>\n          </thead>\n          <tbody class=\"divide-y divide-stone-100 font-mono text-xs\">\n            <tr>\n              <td class=\"p-2.5 sm:p-3 font-semibold text-slate-700 font-prompt text-xs sm:text-sm\">Modulo (%)</td>\n              <td class=\"p-2.5 sm:p-3 text-orange-700 break-words\">\"DEC = %d HEX = %X\" % (10, 10)</td>\n              <td class=\"p-2.5 sm:p-3 font-sans text-xs text-slate-600\">%d ฐานสิบ, %X ฐานสิบหกพิมพ์ใหญ่, %o ฐานแปด, %.2f ทศนิยม 2 ตำแหน่ง</td>\n            </tr>\n            <tr>\n              <td class=\"p-2.5 sm:p-3 font-semibold text-slate-700 font-prompt text-xs sm:text-sm\">.format()</td>\n              <td class=\"p-2.5 sm:p-3 text-orange-700 break-words\">\"{:.2f}\".format(12.889)</td>\n              <td class=\"p-2.5 sm:p-3 font-sans text-xs text-slate-600\">ต้องมี : นำหน้าเสมอ เช่น {:.4f} (หากไม่มีจะเกิด AttributeError)</td>\n            </tr>\n            <tr>\n              <td class=\"p-2.5 sm:p-3 font-semibold text-slate-700 font-prompt text-xs sm:text-sm\">f-string</td>\n              <td class=\"p-2.5 sm:p-3 text-orange-700 break-words\">f\"{a} / {b} = {a/b:.2f}\"</td>\n              <td class=\"p-2.5 sm:p-3 font-sans text-xs text-slate-600\">ใส่ f หน้าสตริง คำนวณนิพจน์ในวงเล็บปีกกาได้ทันที หรือ f\"{s1=}\" พิมพ์ชื่อตัวแปรพร้อมค่า</td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n\n      <ul class=\"list-disc list-inside space-y-1.5 mt-3 pl-1 text-xs sm:text-sm\">\n        <li><code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">find()</code> คืนค่าตำแหน่งเริ่มต้น หากไม่พบจะคืนค่า <strong>-1</strong></li>\n        <li><code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">index()</code> คืนค่าตำแหน่งเริ่มต้น หากไม่พบจะเกิดข้อผิดพลาด <strong>ValueError</strong></li>\n        <li><code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">replace(old, new, count)</code> แทนที่ข้อความ โดยสามารถระบุ count เพื่อจำกัดจำนวนการแทนที่ได้</li>\n        <li><code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">split()</code> แยกข้อความออกเป็น List และ <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">strip()</code> ตัดช่องว่างด้านหน้าและหลังข้อความออก</li>\n        <li><code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">isalnum()</code> คืนค่า True หากเป็นตัวอักษรหรือตัวเลขล้วน (ไม่มีช่องว่างหรือสัญลักษณ์พิเศษ)</li>\n        <li><code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">ord('A')</code> &rarr; 65 (หาค่า Unicode) และ <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">chr(65)</code> &rarr; 'A' (แปลง Unicode เป็นอักขระ)</li>\n      </ul>\n    </section>\n  </div>\n</article>\n\n<article id=\"ch3\" class=\"bg-white border border-stone-200/90 rounded-xl p-5 sm:p-8 md:p-8 mb-6 sm:mb-8 shadow-sm\">\n  <div class=\"mb-5 sm:mb-6 pb-3 sm:pb-4 border-b border-stone-100\">\n    <span class=\"text-xs font-prompt font-semibold tracking-wide uppercase px-2.5 py-1 rounded bg-orange-50 text-orange-800 border border-orange-200 inline-block mb-2\">บทที่ 3</span>\n    <h2 class=\"text-lg sm:text-2xl font-prompt font-semibold text-slate-800\">ข้อมูลชนิดลิสต์ (List)</h2>\n  </div>\n\n  <div class=\"space-y-5 sm:space-y-6 text-slate-600 text-sm sm:text-[15.5px] leading-relaxed break-words\">\n    <section>\n      <h3 class=\"text-base sm:text-lg font-prompt font-semibold text-slate-800 mb-2.5\">1. คุณสมบัติและการเข้าถึง</h3>\n      <ul class=\"list-disc list-inside space-y-2 mb-3 pl-1\">\n        <li>จัดเก็บข้อมูลเป็นลำดับ (Ordered), แก้ไขค่าได้ (Changeable / Mutable), สมาชิกซ้ำกันได้ และเก็บข้อมูลต่างชนิดกันได้</li>\n        <li>สร้างด้วย <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">[]</code> หรือคอนสตรัคเตอร์ <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">list()</code> เช่น <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">list(\"hello\")</code> จะได้ <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">['h', 'e', 'l', 'l', 'o']</code></li>\n        <li>การตัดช่วงดัชนี <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">myList[1:2]</code> จะคืนค่ากลับมาเป็น<strong>ลิสต์ใหม่เสมอ</strong> เช่น <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">['banana']</code></li>\n        <li>หากเขียน <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">myList[1, 10]</code> จะเกิดข้อผิดพลาด <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">TypeError</code> (เพราะมองเป็น Tuple)</li>\n      </ul>\n    </section>\n\n    <section class=\"pt-4 border-t border-stone-100\">\n      <h3 class=\"text-base sm:text-lg font-prompt font-semibold text-slate-800 mb-2.5\">2. การจัดการสมาชิก (เพิ่ม, ลบ, จัดเรียง, คัดลอก)</h3>\n      <ul class=\"list-disc list-inside space-y-2 mb-3 pl-1\">\n        <li><strong>การเพิ่ม:</strong> <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">append(x)</code> ต่อท้ายสุด, <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">insert(index, x)</code> แทรกตามดัชนี, <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">extend(iterable)</code> นำสมาชิกจากคอลเลกชันอื่นมาต่อท้าย หรือใช้เครื่องหมาย <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">+</code></li>\n        <li><strong>การลบ:</strong> <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">remove(val)</code> ลบค่าที่ระบุ (ถ้าไม่มีเกิด ValueError), <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">pop(index)</code> ดึงข้อมูลออกตามตำแหน่ง (ถ้าไม่ระบุจะดึงตัวท้ายสุดออก), <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">del myList[0]</code> ลบตำแหน่งที่ระบุ, <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">del myList</code> ลบตัวแปรทิ้ง, <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">clear()</code> ล้างข้อมูลเหลือลิสต์ว่าง <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">[]</code></li>\n        <li><strong>การจัดเรียง:</strong> <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">sort()</code> เรียงน้อยไปมาก (A-Z), <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">sort(reverse=True)</code> เรียงมากไปน้อย</li>\n        <li><strong>การคัดลอก:</strong> ต้องใช้ <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">myList.copy()</code> หรือ <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">list(myList)</code> ห้ามใช้ <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">=</code> เพราะเป็นการอ้างอิงตำแหน่งหน่วยความจำเดียวกัน</li>\n        <li><strong>Stack vs Queue:</strong>\n          <p class=\"text-xs sm:text-sm mt-1 text-slate-600\">Stack ทำงานแบบ <strong>LIFO (Last In, First Out)</strong> ใช้ <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">append()</code> ดันเข้า และ <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">pop()</code> ดึงออก ส่วน Queue ทำงานแบบ <strong>FIFO (First In, First Out)</strong> เข้าก่อนออกก่อน</p>\n        </li>\n      </ul>\n    </section>\n  </div>\n</article>\n\n<article id=\"ch4\" class=\"bg-white border border-stone-200/90 rounded-xl p-5 sm:p-8 md:p-8 mb-6 sm:mb-8 shadow-sm\">\n  <div class=\"mb-5 sm:mb-6 pb-3 sm:pb-4 border-b border-stone-100\">\n    <span class=\"text-xs font-prompt font-semibold tracking-wide uppercase px-2.5 py-1 rounded bg-orange-50 text-orange-800 border border-orange-200 inline-block mb-2\">บทที่ 4</span>\n    <h2 class=\"text-lg sm:text-2xl font-prompt font-semibold text-slate-800\">ข้อมูลชนิดดิกชันนารี (Dictionary) และ Collection อื่นๆ</h2>\n  </div>\n\n  <div class=\"space-y-5 sm:space-y-6 text-slate-600 text-sm sm:text-[15.5px] leading-relaxed break-words\">\n    <section>\n      <h3 class=\"text-base sm:text-lg font-prompt font-semibold text-slate-800 mb-2.5\">1. เปรียบเทียบ Collection ทั้ง 4 ชนิด</h3>\n      \n      <!-- Responsive Table with horizontal swipe on mobile -->\n      <div class=\"w-full overflow-x-auto my-3 border border-stone-200 rounded-lg\">\n        <table class=\"w-full text-left text-xs sm:text-sm border-collapse min-w-[460px]\">\n          <thead>\n            <tr class=\"bg-stone-50 border-b border-stone-200 text-slate-700 font-prompt\">\n              <th class=\"p-2.5 sm:p-3\">ชนิดข้อมูล</th>\n              <th class=\"p-2.5 sm:p-3\">สัญลักษณ์</th>\n              <th class=\"p-2.5 sm:p-3\">การจัดลำดับ</th>\n              <th class=\"p-2.5 sm:p-3\">การแก้ไขค่า</th>\n              <th class=\"p-2.5 sm:p-3\">สมาชิกซ้ำ</th>\n            </tr>\n          </thead>\n          <tbody class=\"divide-y divide-stone-100 text-xs\">\n            <tr>\n              <td class=\"p-2.5 sm:p-3 font-semibold text-slate-800 font-prompt text-xs sm:text-sm\">List</td>\n              <td class=\"p-2.5 sm:p-3 font-mono text-orange-700\">[]</td>\n              <td class=\"p-2.5 sm:p-3\">เรียงลำดับ (Ordered)</td>\n              <td class=\"p-2.5 sm:p-3 text-emerald-700 font-medium\">แก้ไขได้ (Mutable)</td>\n              <td class=\"p-2.5 sm:p-3\">ซ้ำได้</td>\n            </tr>\n            <tr>\n              <td class=\"p-2.5 sm:p-3 font-semibold text-slate-800 font-prompt text-xs sm:text-sm\">Tuple</td>\n              <td class=\"p-2.5 sm:p-3 font-mono text-orange-700\">()</td>\n              <td class=\"p-2.5 sm:p-3\">เรียงลำดับ (Ordered)</td>\n              <td class=\"p-2.5 sm:p-3 text-rose-700 font-medium\">แก้ไขไม่ได้ (Immutable)</td>\n              <td class=\"p-2.5 sm:p-3\">ซ้ำได้</td>\n            </tr>\n            <tr>\n              <td class=\"p-2.5 sm:p-3 font-semibold text-slate-800 font-prompt text-xs sm:text-sm\">Set</td>\n              <td class=\"p-2.5 sm:p-3 font-mono text-orange-700\">{}</td>\n              <td class=\"p-2.5 sm:p-3 text-rose-700 font-medium\">ไม่เรียงลำดับ (Unordered)</td>\n              <td class=\"p-2.5 sm:p-3\">เพิ่ม/ลบได้ แต่แก้ตัวเดิมไม่ได้</td>\n              <td class=\"p-2.5 sm:p-3 text-rose-700 font-medium\">ห้ามซ้ำ</td>\n            </tr>\n            <tr>\n              <td class=\"p-2.5 sm:p-3 font-semibold text-slate-800 font-prompt text-xs sm:text-sm\">Dictionary</td>\n              <td class=\"p-2.5 sm:p-3 font-mono text-orange-700\">{key:value}</td>\n              <td class=\"p-2.5 sm:p-3\">เรียงลำดับ</td>\n              <td class=\"p-2.5 sm:p-3 text-emerald-700 font-medium\">แก้ไขได้ (Mutable)</td>\n              <td class=\"p-2.5 sm:p-3\">Key ห้ามซ้ำ (Value ซ้ำได้)</td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n\n      <div class=\"mt-4 p-3.5 sm:p-4 rounded-lg bg-orange-50/70 border-l-4 border-orange-500 border border-orange-200/60 text-slate-700 text-xs sm:text-sm leading-relaxed\">\n        <strong class=\"font-prompt text-orange-900 block mb-1\">ข้อพึงระวัง: Set ว่าง และ Tuple 1 สมาชิก</strong>\n        การประกาศ <code class=\"font-mono text-xs bg-white text-orange-900 px-1.5 py-0.5 rounded border border-orange-200 break-words\">s = {}</code> จะได้ <strong>Dictionary ว่าง</strong> หากต้องการสร้าง Set ว่างต้องใช้ <code class=\"font-mono text-xs bg-white text-orange-900 px-1.5 py-0.5 rounded border border-orange-200 break-words\">s = set()</code> เท่านั้น และ Tuple ที่มีสมาชิกตัวเดียวต้องมีจุลภาคต่อท้ายเสมอ เช่น <code class=\"font-mono text-xs bg-white text-orange-900 px-1.5 py-0.5 rounded border border-orange-200 break-words\">(\"apple\",)</code>\n      </div>\n    </section>\n\n    <section class=\"pt-4 border-t border-stone-100\">\n      <h3 class=\"text-base sm:text-lg font-prompt font-semibold text-slate-800 mb-2.5\">2. การใช้งานและเมธอดของดิกชันนารี</h3>\n      <ul class=\"list-disc list-inside space-y-2 mb-3 pl-1\">\n        <li>เข้าถึงค่าด้วย <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">my_dict['key']</code> หรือ <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">my_dict.get('key')</code></li>\n        <li><code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">keys()</code>, <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">values()</code>, <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">items()</code> คืนค่าเป็น View Object (หากดิกชันนารีเปลี่ยน ค่าใน View จะเปลี่ยนตามทันที) โดย <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">items()</code> คืนค่าเป็นทูเพิลคู่ <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">(key, value)</code></li>\n        <li>การปรับปรุงค่าใช้ <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">my_dict.update({'color': 'blue'})</code></li>\n        <li><code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">setdefault(key, default)</code> คืนค่า Value ของ key ถ้ายังไม่มี key นั้นจะสร้างใหม่พร้อมกำหนดค่าเริ่มต้นให้ทันที</li>\n        <li><code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">dict.fromkeys(keys, value)</code> สร้างดิกชันนารีใหม่จากชุดของ key โดยมีค่าเริ่มต้นเหมือนกันทุกตัว</li>\n        <li><code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">pop(key)</code> ลบตาม key ส่วน <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">popitem()</code> จะนำคู่ key:value รายการสุดท้ายที่ถูกเพิ่มล่าสุดออกจากดิกชันนารี</li>\n      </ul>\n    </section>\n  </div>\n</article>\n\n<article id=\"ch5\" class=\"bg-white border border-stone-200/90 rounded-xl p-5 sm:p-8 md:p-8 mb-6 sm:mb-8 shadow-sm\">\n  <div class=\"mb-5 sm:mb-6 pb-3 sm:pb-4 border-b border-stone-100\">\n    <span class=\"text-xs font-prompt font-semibold tracking-wide uppercase px-2.5 py-1 rounded bg-orange-50 text-orange-800 border border-orange-200 inline-block mb-2\">บทที่ 5</span>\n    <h2 class=\"text-lg sm:text-2xl font-prompt font-semibold text-slate-800\">การจัดการไฟล์ (File Handling) และ JSON</h2>\n  </div>\n\n  <div class=\"space-y-5 sm:space-y-6 text-slate-600 text-sm sm:text-[15.5px] leading-relaxed break-words\">\n    <section>\n      <h3 class=\"text-base sm:text-lg font-prompt font-semibold text-slate-800 mb-2.5\">1. ขั้นตอนและโหมดการเปิดไฟล์</h3>\n      <p class=\"mb-3\">มี 3 ขั้นตอนหลักตามลำดับ: <strong>1. เปิดไฟล์ (open) &rarr; 2. อ่าน/เขียนไฟล์ &rarr; 3. ปิดไฟล์ (close)</strong></p>\n      \n      <!-- Responsive Table with horizontal swipe on mobile -->\n      <div class=\"w-full overflow-x-auto my-3 border border-stone-200 rounded-lg\">\n        <table class=\"w-full text-left text-xs sm:text-sm border-collapse min-w-[460px]\">\n          <thead>\n            <tr class=\"bg-stone-50 border-b border-stone-200 text-slate-700 font-prompt\">\n              <th class=\"p-2.5 sm:p-3\">โหมด</th>\n              <th class=\"p-2.5 sm:p-3\">ชื่อโหมด</th>\n              <th class=\"p-2.5 sm:p-3\">ลักษณะการทำงาน</th>\n            </tr>\n          </thead>\n          <tbody class=\"divide-y divide-stone-100 text-xs\">\n            <tr>\n              <td class=\"p-2.5 sm:p-3 font-mono font-semibold text-orange-700\">\"r\"</td>\n              <td class=\"p-2.5 sm:p-3 font-medium text-slate-800 font-prompt\">Read (Default)</td>\n              <td class=\"p-2.5 sm:p-3 text-slate-600\">เปิดเพื่ออ่าน ถ้าไม่มีไฟล์จะเกิดข้อผิดพลาด FileNotFoundError</td>\n            </tr>\n            <tr>\n              <td class=\"p-2.5 sm:p-3 font-mono font-semibold text-orange-700\">\"a\"</td>\n              <td class=\"p-2.5 sm:p-3 font-medium text-slate-800 font-prompt\">Append</td>\n              <td class=\"p-2.5 sm:p-3 text-slate-600\">เขียนข้อมูลต่อท้ายไฟล์เดิม หากไม่มีไฟล์จะสร้างไฟล์ใหม่ให้อัตโนมัติ</td>\n            </tr>\n            <tr>\n              <td class=\"p-2.5 sm:p-3 font-mono font-semibold text-orange-700\">\"w\"</td>\n              <td class=\"p-2.5 sm:p-3 font-medium text-slate-800 font-prompt\">Write</td>\n              <td class=\"p-2.5 sm:p-3 text-slate-600\">เขียนทับ (Overwrite) ข้อมูลเดิมทั้งหมด หากไม่มีจะสร้างไฟล์ใหม่</td>\n            </tr>\n            <tr>\n              <td class=\"p-2.5 sm:p-3 font-mono font-semibold text-orange-700\">\"x\"</td>\n              <td class=\"p-2.5 sm:p-3 font-medium text-slate-800 font-prompt\">Create</td>\n              <td class=\"p-2.5 sm:p-3 text-slate-600\">สร้างไฟล์ใหม่เท่านั้น หากมีไฟล์ชื่อนั้นอยู่แล้วจะเกิด FileExistsError ทันที</td>\n            </tr>\n            <tr>\n              <td class=\"p-2.5 sm:p-3 font-mono font-semibold text-orange-700\">\"t\" / \"b\"</td>\n              <td class=\"p-2.5 sm:p-3 font-medium text-slate-800 font-prompt\">Text / Binary</td>\n              <td class=\"p-2.5 sm:p-3 text-slate-600\">\"t\" คือโหมดข้อความ (Default) ส่วน \"b\" คือโหมดไบนารี เช่น ไฟล์รูปภาพ, .exe, .dll</td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n      <p class=\"text-xs text-slate-500 font-mono mt-1\">* ค่า Default ของ open(\"test.txt\") คือ open(\"test.txt\", \"rt\")</p>\n    </section>\n\n    <section class=\"pt-4 border-t border-stone-100\">\n      <h3 class=\"text-base sm:text-lg font-prompt font-semibold text-slate-800 mb-2.5\">2. การอ่าน เขียน ปิดไฟล์ และโมดูล os</h3>\n      <ul class=\"list-disc list-inside space-y-2 mb-3 pl-1\">\n        <li>การอ่าน: <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">read()</code> อ่านทั้งหมด, <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">read(5)</code> อ่าน 5 อักขระแรก, <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">readline()</code> อ่านทีละ 1 บรรทัด</li>\n        <li>การเขียน: ใช้ <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">f.write(\"text\\n\")</code> ต้องใส่ <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">\\n</code> เองเพื่อขึ้นบรรทัดใหม่ และต้องเรียก <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">f.close()</code> เพื่อให้ข้อมูลใน Buffer บันทึกลงดิสก์จริงอย่างสมบูรณ์</li>\n        <li>การใช้ <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">with open(...) as f:</code> จะปิดไฟล์ให้อัตโนมัติเมื่อออกจากบล็อก</li>\n        <li>โมดูล <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">os</code>: <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">os.path.exists()</code> เช็คว่ามีไฟล์อยู่จริงหรือไม่, <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">os.remove()</code> ลบไฟล์, และ <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">os.rmdir()</code> ลบโฟลเดอร์ (<strong>ลบได้เฉพาะโฟลเดอร์ที่ว่างเปล่าเท่านั้น</strong>)</li>\n        <li>ไฟล์ JSON: ใช้ <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">json.dump(data, file, ensure_ascii=False, indent=4)</code> โดยกำหนด <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">ensure_ascii=False</code> เพื่อให้อ่านภาษาไทยได้โดยตรง และใช้ <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">json.load(file)</code> อ่านข้อมูลกลับมา</li>\n      </ul>\n    </section>\n  </div>\n</article>\n\n<article id=\"ch6\" class=\"bg-white border border-stone-200/90 rounded-xl p-5 sm:p-8 md:p-8 mb-6 sm:mb-8 shadow-sm\">\n  <div class=\"mb-5 sm:mb-6 pb-3 sm:pb-4 border-b border-stone-100\">\n    <span class=\"text-xs font-prompt font-semibold tracking-wide uppercase px-2.5 py-1 rounded bg-orange-50 text-orange-800 border border-orange-200 inline-block mb-2\">บทที่ 6</span>\n    <h2 class=\"text-lg sm:text-2xl font-prompt font-semibold text-slate-800\">การใช้งานฟังก์ชัน (Functions)</h2>\n  </div>\n\n  <div class=\"space-y-5 sm:space-y-6 text-slate-600 text-sm sm:text-[15.5px] leading-relaxed break-words\">\n    <section>\n      <h3 class=\"text-base sm:text-lg font-prompt font-semibold text-slate-800 mb-2.5\">1. การสร้างและพารามิเตอร์</h3>\n      <ul class=\"list-disc list-inside space-y-2 mb-3 pl-1\">\n        <li>สร้างด้วยคีย์เวิร์ด <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">def</code> ตั้งชื่อตัวพิมพ์เล็กแบบ Snake Case เช่น <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">my_function()</code> โดยฟังก์ชันจะไม่ทำงานจนกว่าจะถูกเรียกใช้งาน</li>\n        <li><strong>Parameter vs Argument:</strong> พารามิเตอร์คือตัวแปรในวงเล็บตอนนิยามฟังก์ชัน ส่วนอากิวเมนต์คือค่าข้อมูลจริงที่ส่งเข้าไปตอนเรียกใช้</li>\n        <li>หากส่งอากิวเมนต์ไม่ครบตามพารามิเตอร์ที่กำหนด (โดยไม่มีค่า Default) จะเกิดข้อผิดพลาด <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">TypeError</code></li>\n      </ul>\n    </section>\n\n    <section class=\"pt-4 border-t border-stone-100\">\n      <h3 class=\"text-base sm:text-lg font-prompt font-semibold text-slate-800 mb-2.5\">2. รูปแบบอากิวเมนต์พิเศษ</h3>\n      <ul class=\"list-disc list-inside space-y-2 mb-3 pl-1\">\n        <li><code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">*args</code> (Arbitrary Arguments): ใส่ดอกจันหน้าพารามิเตอร์เมื่อไม่ทราบจำนวนอากิวเมนต์ ฟังก์ชันจะรับค่าเข้ามาเป็น <strong>Tuple</strong></li>\n        <li><strong>Keyword Arguments:</strong> ส่งค่าแบบระบุชื่อ <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">key = value</code> ได้โดยไม่จำเป็นต้องเรียงตามลำดับ</li>\n        <li><code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">**kwargs</code> (Arbitrary Keyword Arguments): ใส่ดอกจันคู่หน้าพารามิเตอร์ ฟังก์ชันจะรับค่าเข้ามาเป็น <strong>Dictionary</strong></li>\n        <li><strong>Default Parameter:</strong> กำหนดค่าเริ่มต้น เช่น <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">def myfunc(x=1, y=2):</code></li>\n        <li><code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">return</code>: ส่งค่าผลลัพธ์กลับออกจากฟังก์ชัน</li>\n      </ul>\n    </section>\n\n    <section class=\"pt-4 border-t border-stone-100\">\n      <h3 class=\"text-base sm:text-lg font-prompt font-semibold text-slate-800 mb-2.5\">3. ขอบเขตตัวแปร (Scope) และฟังก์ชันรีเคอร์ซีฟ (Recursive Function)</h3>\n      <ul class=\"list-disc list-inside space-y-2 mb-3 pl-1\">\n        <li>ตัวแปรที่ประกาศในฟังก์ชันเป็น Local การแก้ไขค่าจะไม่กระทบตัวแปร Global ด้านนอก หากต้องการแก้ไขตัวแปร Global ในฟังก์ชัน ต้องประกาศด้วยคีย์เวิร์ด <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">global x</code></li>\n        <li><strong>ฟังก์ชันรีเคอร์ซีฟ (Recursive Function):</strong> คือฟังก์ชันที่เรียกตัวเอง ต้องประกอบด้วย 2 ส่วนสำคัญคือ:\n          <ol class=\"list-decimal list-inside pl-2 sm:pl-4 space-y-1.5 text-xs sm:text-sm my-2\">\n            <li><strong>Base Case:</strong> เงื่อนไขหยุดเรียกซ้ำ เช่น แฟกทอเรียล <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">if n == 0: return 1</code></li>\n            <li><strong>Recursive Case:</strong> ส่วนที่ฟังก์ชันเรียกตัวเองด้วยค่าข้อมูลที่ลดทอนลง เช่น <code class=\"font-mono text-xs bg-stone-100 text-slate-800 px-1.5 py-0.5 rounded border border-stone-200 break-words\">return n * my_factorial(n-1)</code></li>\n          </ol>\n        </li>\n        <li>หากไม่มี Base Case หรือเงื่อนไขหยุดไม่ถูกต้อง จะทำให้เกิดข้อผิดพลาด <strong>Stack Overflow (RecursionError)</strong></li>\n      </ul>\n    </section>\n  </div>\n</article>\n", "questions": [{"id": 1, "category": "หมวดที่ 1: การควบคุมทิศทางและการทำซ้ำ (ข้อ 1 - 25)", "question": "ข้อใดคือหน้าที่ของเครื่องหมาย \":\" และการจัดย่อหน้า (Indentation) หลังคำสั่ง if ในภาษาไพธอน?", "options": ["ใช้เพื่อจบโปรแกรม", "ใช้กำหนดบล็อกของชุดคำสั่งที่จะทำงานเมื่อเงื่อนไขหลัง if เป็นจริง", "ใช้สำหรับประกาศตัวแปรใหม่", "ใช้แปลงชนิดข้อมูลเป็นข้อความ"], "correctAnswer": 1, "explanation": "ในภาษาไพธอน ถ้าเงื่อนไขหลัง if เป็นจริง จะทำคำสั่งที่อยู่หลังเครื่องหมาย \":\" โดยใช้การย่อหน้าเพื่อกำหนดขอบเขตบล็อกของคำสั่ง"}, {"id": 2, "category": "หมวดที่ 1: การควบคุมทิศทางและการทำซ้ำ (ข้อ 1 - 25)", "question": "จากโค้ด `a = 6` และ `if a > 5: print(\"a > 5\")` รูปแบบการเขียนนี้เรียกว่าอะไร?", "options": ["Nested if", "Short Hand if", "Short Hand if...else", "Elif statement"], "correctAnswer": 1, "explanation": "การเขียนคำสั่งที่ต้องการทำไว้ในบรรทัดเดียวกับ if เรียกว่า Short Hand if"}, {"id": 3, "category": "หมวดที่ 1: การควบคุมทิศทางและการทำซ้ำ (ข้อ 1 - 25)", "question": "หากกำหนด `a = 20, b = 20` แล้วรันคำสั่ง `print(\"a < b\") if a < b else print(\"a = b\") if a == b else print(\"a > b\")` จะได้ผลลัพธ์ใด?", "options": ["a < b", "a = b", "a > b", "เกิด SyntaxError"], "correctAnswer": 1, "explanation": "เป็น Short Hand if...else แบบหลายเงื่อนไข เมื่อ a < b เป็นเท็จ จึงทำหลัง else ถัดมาซึ่งตรวจพบว่า a == b เป็นจริง จึงพิมพ์ \"a = b\""}, {"id": 4, "category": "หมวดที่ 1: การควบคุมทิศทางและการทำซ้ำ (ข้อ 1 - 25)", "question": "ข้อใดคือเงื่อนไขที่ตรวจสอบว่าตัวแปร `a` มีค่าอยู่ระหว่าง 20 ถึง 30 (รวม 20 และ 30 ด้วย)?", "options": ["if a >= 20 or a <= 30:", "if a >= 20 and a <= 30:", "if a < 20 and a > 30:", "if a == 20 to 30:"], "correctAnswer": 1, "explanation": "ใช้ตัวดำเนินการทางลอจิก and เพื่อเชื่อมเงื่อนไขว่า a ต้องมากกว่าหรือเท่ากับ 20 และน้อยกว่าหรือเท่ากับ 30 พร้อมกัน"}, {"id": 5, "category": "หมวดที่ 1: การควบคุมทิศทางและการทำซ้ำ (ข้อ 1 - 25)", "question": "ข้อใดคือเงื่อนไขที่ตรวจสอบว่าตัวแปร `a` \"ไม่ได้\" มีค่าอยู่ในช่วง 20 ถึง 30?", "options": ["if a < 20 or a > 30:", "if a < 20 and a > 30:", "if a >= 20 or a <= 30:", "if not a == 20:"], "correctAnswer": 0, "explanation": "ค่าที่ไม่อยู่ในช่วง 20 ถึง 30 คือค่าน้อยกว่า 20 หรือมากกว่า 30 อย่างใดอย่างหนึ่ง จึงใช้ตัวดำเนินการ or"}, {"id": 6, "category": "หมวดที่ 1: การควบคุมทิศทางและการทำซ้ำ (ข้อ 1 - 25)", "question": "การเขียนประโยค if ซ้อนไว้ภายใต้ประโยค if อีกชั้นหนึ่ง เรียกว่าอะไร?", "options": ["Loop if", "Short Hand if", "Nested if", "Multiple elif"], "correctAnswer": 2, "explanation": "Nested if คือการเขียนประโยค if ซ้อนไว้ภายใต้ประโยค if"}, {"id": 7, "category": "หมวดที่ 1: การควบคุมทิศทางและการทำซ้ำ (ข้อ 1 - 25)", "question": "คำสั่ง `elif` ในภาษาไพธอนจะถูกตรวจสอบเมื่อใด?", "options": ["ตรวจสอบพร้อมกับ if เสมอ", "ตรวจสอบเมื่อเงื่อนไข if หรือ elif ก่อนหน้าเป็นเท็จ", "ตรวจสอบเมื่อเงื่อนไข if เป็นจริง", "ทำงานเป็นลำดับสุดท้ายเมื่อทุกเงื่อนไขเป็นเท็จ"], "correctAnswer": 1, "explanation": "elif ใช้กำหนดเงื่อนไขเพิ่มเติม โดยจะถูกตรวจสอบในกรณีที่เงื่อนไข if ก่อนหน้าเป็นเท็จ"}, {"id": 8, "category": "หมวดที่ 1: การควบคุมทิศทางและการทำซ้ำ (ข้อ 1 - 25)", "question": "คำสั่ง `else` ในโครงสร้าง if-elif-else จะทำงานเมื่อใด?", "options": ["เมื่อเงื่อนไข if เป็นจริง", "เมื่อเงื่อนไขก่อนหน้าไม่ตรงตามเงื่อนไขใดเลย (เป็นเท็จทั้งหมด)", "ทำงานทุกครั้งไม่ว่าเงื่อนไขจะเป็นอย่างไร", "เมื่อเกิดข้อผิดพลาดในโปรแกรม"], "correctAnswer": 1, "explanation": "else จะใช้ในกรณีที่เงื่อนไขก่อนหน้าไม่ตรงตามเงื่อนไขใดเลย"}, {"id": 9, "category": "หมวดที่ 1: การควบคุมทิศทางและการทำซ้ำ (ข้อ 1 - 25)", "question": "จากโค้ด `i = 1` และลูป `while i < 13: print(i); i += 1` ตัวเลขสุดท้ายที่ถูกพิมพ์ออกมาคือข้อใด?", "options": ["11", "12", "13", "14"], "correctAnswer": 1, "explanation": "ลูปจะทำงานเมื่อ i < 13 ดังนั้นเมื่อ i เป็น 12 จะพิมพ์ 12 แล้วบวกเป็น 13 ทำให้เงื่อนไข i < 13 เป็นเท็จและจบการทำงาน"}, {"id": 10, "category": "หมวดที่ 1: การควบคุมทิศทางและการทำซ้ำ (ข้อ 1 - 25)", "question": "คำสั่งใดที่ใช้สำหรับหยุดการวนรอบและออกจากลูปทันที?", "options": ["stop", "exit", "continue", "break"], "correctAnswer": 3, "explanation": "คำสั่ง break ใช้สำหรับหยุดการวนรอบหรือออกจากลูปทันที"}, {"id": 11, "category": "หมวดที่ 1: การควบคุมทิศทางและการทำซ้ำ (ข้อ 1 - 25)", "question": "คำสั่ง `continue` ในลูป while หรือ for ทำหน้าที่อะไร?", "options": ["ออกจากลูปทันที", "หยุดการทำงานในรอบปัจจุบัน แล้วข้ามไปตรวจสอบเงื่อนไขเพื่อทำรอบถัดไปทันที", "เริ่มต้นลูปใหม่ตั้งแต่รอบแรก", "จบการทำงานของโปรแกรม"], "correctAnswer": 1, "explanation": "เมื่อคำสั่ง continue ทำงาน จะหยุดการทำงานในรอบนั้นแล้วข้ามกลับไปทำรอบต่อไปทันที"}, {"id": 12, "category": "หมวดที่ 1: การควบคุมทิศทางและการทำซ้ำ (ข้อ 1 - 25)", "question": "บล็อกคำสั่ง `else` ที่ต่อท้ายลูป `while` หรือ `for` จะทำงานเมื่อใด?", "options": ["เมื่อออกจากลูปด้วยคำสั่ง break", "เมื่อการวนรอบสิ้นสุดลงตามปกติ (เงื่อนไข while เป็นเท็จ หรือ for วนครบทุกรอบ)", "เมื่อเงื่อนไขเริ่มต้นของลูปเป็นจริง", "เมื่อมีคำสั่ง continue ภายในลูป"], "correctAnswer": 1, "explanation": "else ในลูปจะทำงานเมื่อวนรอบครบหรือเงื่อนไขหลัง while เป็นเท็จ แต่ถ้าออกจากลูปด้วย break จะไม่ทำหลัง else"}, {"id": 13, "category": "หมวดที่ 1: การควบคุมทิศทางและการทำซ้ำ (ข้อ 1 - 25)", "question": "ในการทดลองที่มีลูป `while True:` และภายในมีคำสั่ง `if i == 11: break` ต่อด้วย `else: print(\"loop end\")` และนอกลูปมี `print(\"End Program\")` ข้อความ \"loop end\" จะถูกพิมพ์หรือไม่ เพราะเหตุใด?", "options": ["พิมพ์ เพราะจบการทำงานของลูปแล้ว", "ไม่พิมพ์ เพราะลูปถูกสั่งให้ออกด้วยคำสั่ง break", "พิมพ์ เพราะเงื่อนไข while เป็นจริง", "ไม่พิมพ์ เพราะเกิด SyntaxError"], "correctAnswer": 1, "explanation": "เนื่องจากลูปถูกหยุดด้วยคำสั่ง break จึงไม่เข้าไปทำงานในบล็อก else ของลูป แต่จะข้ามไปพิมพ์ \"End Program\" ที่อยู่นอกลูปเลย"}, {"id": 14, "category": "หมวดที่ 1: การควบคุมทิศทางและการทำซ้ำ (ข้อ 1 - 25)", "question": "ในการทดลองเดียวกัน หากเริ่มต้น `i = 1` ในลูป `while True:` มีการเพิ่มค่า `i += 1` แล้วเช็คว่า `if (i % 2) == 0: continue` จากนั้น `print(i)` ถ้าเปลี่ยนเงื่อนไขหยุดลูปเป็น `if i == 12: break` จะเกิดอะไรขึ้น?", "options": ["พิมพ์ถึงเลข 11 แล้วจบโปรแกรม", "พิมพ์ถึงเลข 12 แล้วจบโปรแกรม", "เกิด Infinite Loop (วนไม่รู้จบ) เพราะเมื่อ i เป็น 12 จะถูกคำสั่ง continue ข้ามไปก่อนถึงคำสั่ง break", "เกิดข้อผิดพลาด ValueError"], "correctAnswer": 2, "explanation": "เนื่องจาก 12 เป็นเลขคู่ (12 % 2 == 0) โปรแกรมจึงสั่ง continue ข้ามบรรทัดข้างล่างไป ทำให้ไม่มีโอกาสลงไปเจอเงื่อนไข if i == 12: break จึงวนลูปไปเรื่อยๆ"}, {"id": 15, "category": "หมวดที่ 1: การควบคุมทิศทางและการทำซ้ำ (ข้อ 1 - 25)", "question": "คำสั่ง `for a in \"mango\": print(a)` จะทำงานทั้งหมดกี่รอบ?", "options": ["1 รอบ", "4 รอบ", "5 รอบ", "6 รอบ"], "correctAnswer": 2, "explanation": "เป็นการวนรอบตามจำนวนตัวอักษรในข้อความ \"mango\" ซึ่งมี 5 ตัวอักษร จึงทำงาน 5 รอบ"}, {"id": 16, "category": "หมวดที่ 1: การควบคุมทิศทางและการทำซ้ำ (ข้อ 1 - 25)", "question": "ฟังก์ชัน `range(5)` จะสร้างลำดับตัวเลขใดออกมา?", "options": ["1, 2, 3, 4, 5", "0, 1, 2, 3, 4", "0, 1, 2, 3, 4, 5", "5"], "correctAnswer": 1, "explanation": "range(5) จะส่งค่ากลับเป็นลำดับตัวเลขตั้งแต่ 0 ถึง 4 (รวม 5 ตัว)"}, {"id": 17, "category": "หมวดที่ 1: การควบคุมทิศทางและการทำซ้ำ (ข้อ 1 - 25)", "question": "ฟังก์ชัน `range(2, 5)` จะสร้างลำดับตัวเลขใด?", "options": ["2, 3, 4, 5", "2, 3, 4", "2, 5", "0, 1, 2, 3, 4"], "correctAnswer": 1, "explanation": "range(start, stop) จะสร้างค่าตั้งแต่ตัวเริ่มต้นจนถึงก่อนตัวสุดท้าย ในที่นี้คือ 2, 3 และ 4"}, {"id": 18, "category": "หมวดที่ 1: การควบคุมทิศทางและการทำซ้ำ (ข้อ 1 - 25)", "question": "ฟังก์ชัน `range(2, 9, 3)` จะสร้างลำดับตัวเลขใด?", "options": ["2, 5, 8", "2, 3, 9", "2, 5, 8, 11", "3, 6, 9"], "correctAnswer": 0, "explanation": "เริ่มต้นที่ 2 เพิ่มขึ้นทีละ 3 ไปเรื่อยๆ โดยไม่เกิน 9 จึงได้ค่าเป็น 2, 5 และ 8"}, {"id": 19, "category": "หมวดที่ 1: การควบคุมทิศทางและการทำซ้ำ (ข้อ 1 - 25)", "question": "จากโค้ด `for a in range(3):` ซ้อนด้วย `for b in range(4): print(a, b)` คำสั่ง `print(a, b)` จะทำงานทั้งหมดกี่ครั้ง?", "options": ["3 ครั้ง", "4 ครั้ง", "7 ครั้ง", "12 ครั้ง"], "correctAnswer": 3, "explanation": "เป็น Nested loops ลูปนอกทำงาน 3 รอบ ในแต่ละรอบลูปในทำงาน 4 รอบ รวมเป็น 3 x 4 = 12 ครั้ง"}, {"id": 20, "category": "หมวดที่ 1: การควบคุมทิศทางและการทำซ้ำ (ข้อ 1 - 25)", "question": "จากโค้ด `for i in range(1, 50, step): print(i)` หากผู้ใช้ป้อนค่า `step` เป็น `15` จะได้ผลลัพธ์ชุดตัวเลขใด?", "options": ["1, 15, 30, 45", "1, 16, 31, 46", "15, 30, 45", "1, 16, 31, 46, 50"], "correctAnswer": 1, "explanation": "เริ่มที่ 1 บวกเพิ่มทีละ 15 โดยต้องน้อยกว่า 50 จึงได้ 1, 16, 31 และ 46"}, {"id": 21, "category": "หมวดที่ 1: การควบคุมทิศทางและการทำซ้ำ (ข้อ 1 - 25)", "question": "จากโค้ด `[int(tmp) for tmp in input().split()]` หากผู้ใช้ป้อน `\"2 5\"` ตัวแปรที่รับค่าจะได้ผลลัพธ์เป็นอะไร?", "options": ["สตริง \"2 5\"", "ลิสต์ของจำนวนเต็ม [2, 5]", "ทูเพิล ('2', '5')", "จำนวนเต็ม 25"], "correctAnswer": 1, "explanation": ".split() แยกข้อความด้วยช่องว่างเป็นลิสต์ และ List Comprehension แปลงแต่ละค่าเป็น int จึงได้ [2, 5]"}, {"id": 22, "category": "หมวดที่ 1: การควบคุมทิศทางและการทำซ้ำ (ข้อ 1 - 25)", "question": "ตามโจทย์การคำนวณค่าไฟฟ้าแบบขั้นบันได (0-50 หน่วยละ 2 บาท, 51-100 หน่วยละ 3 บาท, 101-500 หน่วยละ 5 บาท, 501 ขึ้นไปหน่วยละ 7 บาท) หากใช้ไฟฟ้า 75 หน่วย จะต้องจ่ายเงินกี่บาท?", "options": ["150 บาท", "175 บาท", "225 บาท", "375 บาท"], "correctAnswer": 1, "explanation": "50 หน่วยแรกคิด (50 x 2) = 100 บาท และส่วนที่เกินมา 25 หน่วยคิด (25 x 3) = 75 บาท รวมเป็น 100 + 75 = 175 บาท"}, {"id": 23, "category": "หมวดที่ 1: การควบคุมทิศทางและการทำซ้ำ (ข้อ 1 - 25)", "question": "จากเกณฑ์ค่าไฟฟ้าข้อที่แล้ว หากใช้ไฟฟ้า 600 หน่วย จะคิดเป็นเงินกี่บาท?", "options": ["2,950 บาท", "3,000 บาท", "4,200 บาท", "2,250 บาท"], "correctAnswer": 0, "explanation": "คิดแยกตามขั้น: (50x2) + (50x3) + (400x5) + (100x7) = 100 + 150 + 2000 + 700 = 2,950 บาท"}, {"id": 24, "category": "หมวดที่ 1: การควบคุมทิศทางและการทำซ้ำ (ข้อ 1 - 25)", "question": "ข้อใดอธิบายความแตกต่างของการใช้ลูป `for` ในภาษาไพธอนเทียบกับลูป `while` ได้ถูกต้องตามเนื้อหา?", "options": ["for ใช้กับเงื่อนไขที่ไม่รู้จำนวนรอบ ส่วน while ใช้กับจำนวนรอบที่แน่นอน", "for มักใช้วนอ่านค่าจากภายในวัตถุตามลำดับ เช่น List, String หรือ range() ที่มีจำนวนรอบแน่นอน", "for ไม่สามารถใช้ break และ continue ได้", "while ไม่สามารถใช้ร่วมกับ else ได้"], "correctAnswer": 1, "explanation": "ในไพธอน for loop ใช้ควบคุมการทำงานซ้ำที่มีจำนวนรอบแน่นอน โดยมักวนอ่านค่าจากวัตถุ เช่น String, List หรือ range()"}, {"id": 25, "category": "หมวดที่ 1: การควบคุมทิศทางและการทำซ้ำ (ข้อ 1 - 25)", "question": "หากเขียนโค้ด `i = 1` แล้วตามด้วย `while i < 5: print(i)` โดยลืมเขียนบรรทัด `i += 1` จะเกิดผลอย่างไร?", "options": ["พิมพ์เลข 1 ครั้งเดียวแล้วจบ", "พิมพ์เลข 1 ถึง 4", "โปรแกรมจะพิมพ์เลข 1 ซ้ำไปเรื่อยๆ ไม่สิ้นสุด (Infinite Loop)", "เกิดข้อผิดพลาด SyntaxError"], "correctAnswer": 2, "explanation": "เนื่องจากค่า i เป็น 1 ตลอดเวลา เงื่อนไข i < 5 จึงเป็นจริงเสมอ ทำให้วนรอบไม่รู้จบ"}, {"id": 26, "category": "หมวดที่ 2: ข้อมูลชนิดสตริง (ข้อ 26 - 60)", "question": "ข้อมูลชนิดสตริงในภาษาไพธอนถูกจัดเก็บในลักษณะรหัสมาตรฐานใดที่ทำให้รองรับภาษาต่างๆ ได้จำนวนมาก?", "options": ["ASCII", "Binary", "Unicode", "Hexadecimal"], "correctAnswer": 2, "explanation": "ในภาษาไพธอน สตริงจะจัดเก็บเป็นลักษณะ Unicode ทำให้รองรับภาษาต่างๆ ได้เป็นจำนวนมาก"}, {"id": 27, "category": "หมวดที่ 2: ข้อมูลชนิดสตริง (ข้อ 26 - 60)", "question": "หากต้องการแสดงเครื่องหมาย Single Quote (') ภายในสตริงที่ครอบด้วย Single Quote เช่น `'I don\\'t know.'` ต้องใช้เครื่องหมายใดนำหน้า?", "options": ["/ (Slash)", "\\ (Backslash)", "% (Percent)", "# (Hash)"], "correctAnswer": 1, "explanation": "ใช้เครื่องหมาย \\ (Backslash) นำหน้าอักขระพิเศษที่ต้องการแสดง เช่น \\' หรือ \\\""}, {"id": 28, "category": "หมวดที่ 2: ข้อมูลชนิดสตริง (ข้อ 26 - 60)", "question": "อักขระพิเศษ `\\t` ในสตริง เช่น `print(\"Hello\\tPaiboon\")` ทำหน้าที่อะไร?", "options": ["ขึ้นบรรทัดใหม่", "เว้นระยะแท็บ (Tab) เข้าไปในสตริง", "แสดงตัวอักษร t", "ลบช่องว่างออก"], "correctAnswer": 1, "explanation": "\\t ใช้สำหรับใส่เครื่องหมาย tab เข้าไปในสตริง"}, {"id": 29, "category": "หมวดที่ 2: ข้อมูลชนิดสตริง (ข้อ 26 - 60)", "question": "คำสั่ง `print(\"\\101\")` และ `print(\"\\x41\")` เป็นการแสดงตัวอักขระจากค่าตัวเลขในระบบฐานใดตามลำดับ?", "options": ["ฐาน 10 และ ฐาน 16", "ฐาน 2 และ ฐาน 8", "ฐาน 8 และ ฐาน 16", "ฐาน 16 และ ฐาน 8"], "correctAnswer": 2, "explanation": "\\ooo เป็นการแสดงตัวอักขระจากเลขฐาน 8 (\\101 คือ 'A') และ \\xhh แสดงตัวอักขระจากเลขฐาน 16 (\\x41 คือ 'A')"}, {"id": 30, "category": "หมวดที่ 2: ข้อมูลชนิดสตริง (ข้อ 26 - 60)", "question": "คำสั่ง `myStr = \"\\110\\145\\154\\154\\157\"` และ `\"\\x48\\x65\\x6c\\x6c\\x6f\"` เมื่อสั่งพิมพ์จะได้ข้อความใด?", "options": ["Computer", "Hello", "Python", "Love"], "correctAnswer": 1, "explanation": "จากแบบฝึกหัดที่ 1 รหัสฐานแปดและฐานสิบหกดังกล่าวตรงกับรหัสตัวอักษรคำว่า \"Hello\""}, {"id": 31, "category": "หมวดที่ 2: ข้อมูลชนิดสตริง (ข้อ 26 - 60)", "question": "ฟังก์ชันใดใช้สำหรับหาจำนวนของตัวอักขระที่อยู่ภายในสตริง?", "options": ["count()", "size()", "len()", "str()"], "correctAnswer": 2, "explanation": "ฟังก์ชัน len() ใช้สำหรับการหาจำนวนของตัวอักขระที่อยู่ภายในสตริง"}, {"id": 32, "category": "หมวดที่ 2: ข้อมูลชนิดสตริง (ข้อ 26 - 60)", "question": "กำหนดให้ `myStr1 = \"Computer\"` คำสั่ง `print(myStr1 * 3)` จะให้ผลลัพธ์อย่างไร?", "options": ["Computer 3", "ComputerComputerComputer", "Computer Computer Computer", "เกิด TypeError"], "correctAnswer": 1, "explanation": "การนำสตริงมาคูณด้วยจำนวนเต็ม 3 จะเป็นการพิมพ์ข้อความนั้นซ้ำติดกัน 3 ครั้ง"}, {"id": 33, "category": "หมวดที่ 2: ข้อมูลชนิดสตริง (ข้อ 26 - 60)", "question": "กำหนดให้ `a = 255` เมื่อรันคำสั่ง `a = str(a)` แล้ว `print(type(a))` จะได้ผลลัพธ์ใด?", "options": ["<class 'int'>", "<class 'str'>", "<class 'float'>", "<class 'list'>"], "correctAnswer": 1, "explanation": "ฟังก์ชัน str() ใช้แปลงข้อมูลชนิดอื่นให้เป็นชนิดสตริง (<class 'str'>)"}, {"id": 34, "category": "หมวดที่ 2: ข้อมูลชนิดสตริง (ข้อ 26 - 60)", "question": "กำหนดให้ `myStr = \"Computer Laboratory 1\"` คำสั่ง `print(len(myStr))` จะแสดงค่าเท่าใด?", "options": ["19", "20", "21", "22"], "correctAnswer": 2, "explanation": "นับรวมตัวอักษรทั้งหมดและช่องว่างอีก 2 ตัวใน \"Computer Laboratory 1\" ได้ทั้งหมด 21 ตัวอักขระ"}, {"id": 35, "category": "หมวดที่ 2: ข้อมูลชนิดสตริง (ข้อ 26 - 60)", "question": "จาก `myStr = \"Computer Laboratory 1\"` คำสั่ง `myStr[0]` และ `myStr[-1]` คือตัวอักขระใดตามลำดับ?", "options": ["'C' และ 'y'", "'C' และ '1'", "'o' และ '1'", "'1' และ 'C'"], "correctAnswer": 1, "explanation": "ตำแหน่งที่ 0 คือตัวแรกสุด ('C') และตำแหน่งที่ -1 คือตัวสุดท้ายของสตริง ('1')"}, {"id": 36, "category": "หมวดที่ 2: ข้อมูลชนิดสตริง (ข้อ 26 - 60)", "question": "จาก `myStr = \"Computer Laboratory 1\"` (มีความยาว 21 ตัว) หากเรียกคำสั่ง `print(myStr[50])` จะเกิดอะไรขึ้น?", "options": ["พิมพ์ค่าว่าง", "พิมพ์ตัวสุดท้ายคือ '1'", "เกิดข้อผิดพลาด IndexError (string index out of range)", "คืนค่า -1"], "correctAnswer": 2, "explanation": "การอ้างอิงตำแหน่งดัชนีเดียวที่เกินความยาวของสตริง จะทำให้เกิดข้อผิดพลาด IndexError"}, {"id": 37, "category": "หมวดที่ 2: ข้อมูลชนิดสตริง (ข้อ 26 - 60)", "question": "จาก `myStr = \"Computer Laboratory 1\"` คำสั่ง `myStr[0:4]` และ `myStr[:4]` ให้ผลลัพธ์เป็นข้อใด?", "options": ["\"Compu\"", "\"Comp\"", "\"ompu\"", "\"Computer\""], "correctAnswer": 1, "explanation": "การตัดคำ [0:4] หรือ [:4] จะตัดตั้งแต่ตำแหน่งที่ 0 ถึงตำแหน่งที่ 4-1 (คือ 0, 1, 2, 3) ได้คำว่า \"Comp\""}, {"id": 38, "category": "หมวดที่ 2: ข้อมูลชนิดสตริง (ข้อ 26 - 60)", "question": "จาก `myStr = \"Computer Laboratory 1\"` คำสั่ง `myStr[0:21:2]` ทำหน้าที่อะไร?", "options": ["ตัดคำตั้งแต่ตำแหน่ง 0 ถึง 20 โดยข้ามทีละ 2 ตำแหน่ง (ได้อักขระตำแหน่งคู่)", "ตัดคำเฉพาะ 2 ตัวแรก", "พิมพ์สตริงซ้ำ 2 รอบ", "แบ่งสตริงออกเป็น 2 ส่วน"], "correctAnswer": 0, "explanation": "รูปแบบ [start:stop:step] โดย step=2 จะดึงตัวอักขระโดยเพิ่มตำแหน่งทีละ 2 (คือตำแหน่ง 0, 2, 4, ...)"}, {"id": 39, "category": "หมวดที่ 2: ข้อมูลชนิดสตริง (ข้อ 26 - 60)", "question": "กำหนดให้ `myStr = \"Computer Laboratory 1\"` ข้อใดให้ผลลัพธ์เป็น `False`?", "options": ["\"L\" in myStr", "\"c\" in myStr", "\"a\" in myStr", "\"s\" not in myStr"], "correctAnswer": 1, "explanation": "ใน myStr มีแต่ตัว 'C' พิมพ์ใหญ่ ไม่มี 'c' พิมพ์เล็ก ดังนั้น `\"c\" in myStr` จึงเป็น False"}, {"id": 40, "category": "หมวดที่ 2: ข้อมูลชนิดสตริง (ข้อ 26 - 60)", "question": "หากต้องการพิมพ์ข้อความสตริงในโค้ดให้ต่อเนื่องกันหลายบรรทัดใน Editor แต่ให้ไพธอนมองเหมือนเป็นการพิมพ์ในบรรทัดเดียวกัน ต้องใส่เครื่องหมายใดไว้ท้ายบรรทัดก่อนกด Enter?", "options": ["`\\n`", "`\\` (Backslash)", "`;` (Semicolon)", "`,` (Comma)"], "correctAnswer": 1, "explanation": "การใส่เครื่องหมาย \\ ต่อท้ายบรรทัดแล้วกด Enter จะทำให้พิมพ์ข้อความต่อที่บรรทัดใหม่ได้โดยไพธอนมองว่าเป็นบรรทัดเดียวกัน"}, {"id": 41, "category": "หมวดที่ 2: ข้อมูลชนิดสตริง (ข้อ 26 - 60)", "question": "ในการจัดรูปแบบสตริงด้วยเครื่องหมาย `%` รหัสใดใช้สำหรับแสดงผล \"เลขฐานแปด\" และ \"เลขฐานสิบหก\" ตามลำดับ?", "options": ["`%b` และ `%h`", "`%o` และ `%x` (หรือ `%X`)", "`%d` และ `%f`", "`%e` และ `%g`"], "correctAnswer": 1, "explanation": "`%o` ใช้แสดงผลเลขฐานแปด และ `%x` หรือ `%X` ใช้แสดงผลเลขฐานสิบหกพิมพ์เล็กและพิมพ์ใหญ่"}, {"id": 42, "category": "หมวดที่ 2: ข้อมูลชนิดสตริง (ข้อ 26 - 60)", "question": "คำสั่ง `print(\"รหัสแอสกี้ %d คืออักขระ %c\" % (65, 65))` จะแสดงผลลัพธ์สำหรับ `%c` เป็นตัวอักษรใด?", "options": ["a", "A", "65", "B"], "correctAnswer": 1, "explanation": "`%c` ใช้แสดงผลตัวอักขระ ซึ่งรหัส ASCII 65 คือตัวอักษร 'A'"}, {"id": 43, "category": "หมวดที่ 2: ข้อมูลชนิดสตริง (ข้อ 26 - 60)", "question": "กำหนดให้ `a = 12.8890` คำสั่ง `print(\"%.2f\" % a)` และ `print(\"%010.3f\" % a)` จะแสดงผลลัพธ์ของ `%.2f` เป็นอย่างไร?", "options": ["12.88", "12.89", "12.889", "000012.89"], "correctAnswer": 1, "explanation": "`%.2f` จะแสดงทศนิยม 2 ตำแหน่งพร้อมปัดเศษ จาก 12.8890 จึงได้ 12.89 (ส่วน `%010.3f` จะจองพื้นที่ 10 ช่อง ทศนิยม 3 ตำแหน่ง และเติมเลข 0 ข้างหน้าให้ครบ 10 ตัวอักษร คือ `000012.889`)"}, {"id": 44, "category": "หมวดที่ 2: ข้อมูลชนิดสตริง (ข้อ 26 - 60)", "question": "กำหนดให้ `a = 10, b = 3` คำสั่ง `print(f\"{a} / {b} = {a/b:.2f}\")` คือการจัดรูปแบบสตริงที่เรียกว่าอะไร และให้ผลลัพธ์ทศนิยมกี่ตำแหน่ง?", "options": ["format method, 3 ตำแหน่ง", "f-string, 2 ตำแหน่ง (ได้ 3.33)", "Modulo formatting, 2 ตำแหน่ง", "Raw string, 1 ตำแหน่ง"], "correctAnswer": 1, "explanation": "การขึ้นต้นด้วยตัว f หรือ F หน้าสตริงเรียกว่า f-string และ `:.2f` คือการกำหนดให้แสดงทศนิยม 2 ตำแหน่ง"}, {"id": 45, "category": "หมวดที่ 2: ข้อมูลชนิดสตริง (ข้อ 26 - 60)", "question": "ข้อใดคือความแตกต่างที่สำคัญระหว่างเมธอด `find()` และ `index()` ของสตริง?", "options": ["find() คืนค่าเป็น Boolean ส่วน index() คืนค่าเป็นตัวเลข", "เมื่อค้นหาไม่พบ find() จะส่งค่า -1 กลับมา แต่ index() จะเกิดข้อผิดพลาดแจ้งเตือน (ValueError)", "index() ใช้กับตัวเลขเท่านั้น", "find() นับจำนวนคำ ส่วน index() หาตำแหน่ง"], "correctAnswer": 1, "explanation": "หากไม่พบข้อความ เมธอด find() จะคืนค่า -1 ส่วนเมธอด index() จะแสดงข้อความแจ้งเตือนข้อผิดพลาด (ValueError)"}, {"id": 46, "category": "หมวดที่ 2: ข้อมูลชนิดสตริง (ข้อ 26 - 60)", "question": "กำหนดให้ `a = \"This is a book.\"` คำสั่ง `print(a.find(\"booking\"))` จะได้ผลลัพธ์ใด?", "options": ["10", "0", "-1", "เกิด ValueError"], "correctAnswer": 2, "explanation": "เนื่องจากไม่มีคำว่า \"booking\" ในสตริง a เมธอด find() จึงส่งค่า -1 กลับมา"}, {"id": 47, "category": "หมวดที่ 2: ข้อมูลชนิดสตริง (ข้อ 26 - 60)", "question": "กำหนดให้ `a = \"book book book book\"` เมื่อรันคำสั่ง `c = a.replace(\"book\", \"fruit\", 2)` ค่าของ `c` คือข้อใด?", "options": ["\"fruit fruit fruit fruit\"", "\"fruit fruit book book\"", "\"book book fruit fruit\"", "\"fruit book book book\""], "correctAnswer": 1, "explanation": "พารามิเตอร์ตัวที่ 3 (เลข 2) ใน replace() คือการกำหนดให้แทนที่ข้อความเพียง 2 ตำแหน่งแรกที่พบ"}, {"id": 48, "category": "หมวดที่ 2: ข้อมูลชนิดสตริง (ข้อ 26 - 60)", "question": "กำหนดให้ `a = \"1,2,3,4,5\"` เมื่อใช้คำสั่ง `b = a.split(\",\")` ตัวแปร `b` จะมีค่าและชนิดข้อมูลเป็นอะไร?", "options": ["สตริง `\"1 2 3 4 5\"`", "ลิสต์ `['1', '2', '3', '4', '5']`", "ลิสต์ `[1, 2, 3, 4, 5]`", "ทูเพิล `('1', '2', '3', '4', '5')`"], "correctAnswer": 1, "explanation": "เมธอด split(\",\") จะแยกข้อความตรงเครื่องหมายจุลภาค และคืนค่ากลับมาอยู่ในรูปของ List ของสตริง"}, {"id": 49, "category": "หมวดที่ 2: ข้อมูลชนิดสตริง (ข้อ 26 - 60)", "question": "ข้อใดต่อไปนี้เมื่อเรียกใช้เมธอด `.isalnum()` แล้วจะได้ผลลัพธ์เป็น `True`?", "options": ["`\"12_hoop\".isalnum()`", "`\"12 hoop\".isalnum()`", "`\"12hoop\".isalnum()`", "`\"hello!\".isalnum()`"], "correctAnswer": 2, "explanation": "เมธอด isalnum() จะคืนค่า True เมื่อสตริงประกอบด้วยตัวเลขหรือตัวอักษรเท่านั้น หากมีสัญลักษณ์อื่น (เช่น `_`, `!`) หรือช่องว่าง จะได้ False"}, {"id": 50, "category": "หมวดที่ 2: ข้อมูลชนิดสตริง (ข้อ 26 - 60)", "question": "เมธอดใดใช้สำหรับแปลงตัวอักษรในสตริงให้เป็น \"ตัวพิมพ์ใหญ่ทั้งหมด\" และ \"ตัวพิมพ์เล็กทั้งหมด\" ตามลำดับ?", "options": ["`big()` และ `small()`", "`upper()` และ `lower()`", "`capitalize()` และ `casefold()`", "`isupper()` และ `islower()`"], "correctAnswer": 1, "explanation": "เมธอด upper() ใช้แปลงเป็นตัวพิมพ์ใหญ่ทั้งหมด และ lower() ใช้แปลงเป็นตัวพิมพ์เล็กทั้งหมด"}, {"id": 51, "category": "หมวดที่ 2: ข้อมูลชนิดสตริง (ข้อ 26 - 60)", "question": "กำหนดให้ `a = \"There are history books, sport books and cooking books in our house.\"` คำสั่ง `a.count('e', 0, 9)` หมายถึงอะไร?", "options": ["นับตัว 'e' ทั้งหมดในสตริงแล้วหารด้วย 9", "นับจำนวนตัวอักษร 'e' เฉพาะในช่วงดัชนีที่ 0 ถึงก่อนตำแหน่งที่ 9 (คือในคำว่า \"There are\") ซึ่งได้ 3 ตัว", "แทนที่ตัว 'e' ในตำแหน่งที่ 0 ถึง 9", "ค้นหาตำแหน่งของ 'e'"], "correctAnswer": 1, "explanation": "count('e', 0, 9) เป็นการนับจำนวนตัวอักษร 'e' ตั้งแต่ตำแหน่ง 0 ถึง 8 (\"There are\") ซึ่งมีตัว 'e' อยู่ 3 ตัว"}, {"id": 52, "category": "หมวดที่ 2: ข้อมูลชนิดสตริง (ข้อ 26 - 60)", "question": "หากต้องการลบช่องว่างด้านหน้าและด้านหลังสุดของข้อความสตริงออก ควรใช้เมธอดใด?", "options": ["`split()`", "`replace()`", "`strip()`", "`clear()`"], "correctAnswer": 2, "explanation": "จากภาคผนวก ข เมธอด String.strip() ใช้สำหรับนำช่องว่างด้านหน้าและด้านหลังข้อความออก"}, {"id": 53, "category": "หมวดที่ 2: ข้อมูลชนิดสตริง (ข้อ 26 - 60)", "question": "ฟังก์ชัน `ord('A')` และ `chr(65)` ให้ผลลัพธ์เป็นข้อใดตามลำดับ?", "options": ["`'A'` และ `65`", "`65` และ `'A'`", "`97` และ `'a'`", "เกิดข้อผิดพลาด"], "correctAnswer": 1, "explanation": "ฟังก์ชัน ord() ใช้หาค่า Unicode ของตัวอักขระ (ord('A') ได้ 65) ส่วน chr() ใช้หาตัวอักขระจากค่า Unicode (chr(65) ได้ 'A')"}, {"id": 54, "category": "หมวดที่ 2: ข้อมูลชนิดสตริง (ข้อ 26 - 60)", "question": "ในการเขียนโปรแกรมแปลงเลขฐานสอง (เช่นรับค่าสตริง `\"1010010\"`) ให้เป็นเลขฐานสิบ (ได้ `82`) ในภาษาไพธอน สามารถใช้ฟังก์ชันใดได้อย่างถูกต้องและรวดเร็วที่สุด?", "options": ["`int(\"1010010\", 2)`", "`str(\"1010010\", 10)`", "`float(\"1010010\")`", "`hex(1010010)`"], "correctAnswer": 0, "explanation": "ฟังก์ชัน int(binary_string, 2) สามารถแปลงสตริงเลขฐานสองให้เป็นจำนวนเต็มฐานสิบได้ทันที (1010010 ฐานสอง = 64 + 16 + 2 = 82)"}, {"id": 55, "category": "หมวดที่ 2: ข้อมูลชนิดสตริง (ข้อ 26 - 60)", "question": "ในโจทย์การนับเฉพาะตัวอักษรพิมพ์เล็กจากข้อความ `\"Hello I love you.\"` (ซึ่งนับได้ 11 ตัว) หากวนลูปตรวจสอบทีละตัวอักษร `ch` ควรใช้เงื่อนไขใดในการนับ?", "options": ["`if ch.isupper():`", "`if ch.islower():` (หรือ `'a' <= ch <= 'z'`)", "`if ch.isalnum():`", "`if ch != \" \":`"], "correctAnswer": 1, "explanation": "ตัวอักษรพิมพ์เล็กใน \"Hello I love you.\" คือ e,l,l,o, l,o,v,e, y,o,u รวม 11 ตัว ตรวจสอบได้ด้วย `ch.islower()` หรือเปรียบเทียบช่วง `'a' <= ch <= 'z'`"}, {"id": 56, "category": "หมวดที่ 2: ข้อมูลชนิดสตริง (ข้อ 26 - 60)", "question": "หากต้องการแสดงเลขฐานสิบ `10` คู่กับเลขฐานสิบหกตัวพิมพ์ใหญ่ `A` ดังรูปแบบ `DEC = 10 HEX = A` ข้อใดเขียนคำสั่ง print ได้ถูกต้อง?", "options": ["`print(\"DEC = %d HEX = %X\" % (10, 10))`", "`print(\"DEC = %s HEX = %o\" % (10, 10))`", "`print(\"DEC = %x HEX = %d\" % (10, 10))`", "`print(\"DEC = %f HEX = %c\" % (10, 10))`"], "correctAnswer": 0, "explanation": "`%d` แสดงเลขฐานสิบ (10) และ `%X` แสดงเลขฐานสิบหกด้วยตัวอักษรพิมพ์ใหญ่ (A)"}, {"id": 57, "category": "หมวดที่ 2: ข้อมูลชนิดสตริง (ข้อ 26 - 60)", "question": "กำหนดให้ `a = \"This is a book.\"` และ `b = a.replace(\"book\", \"fruit\")` เมื่อสั่ง `print(a)` จะได้ผลลัพธ์ใด?", "options": ["\"This is a fruit.\"", "\"This is a book.\"", "\"book\"", "\"fruit\""], "correctAnswer": 1, "explanation": "เนื่องจากสตริงในไพธอนเปลี่ยนแปลงค่าโดยตรงไม่ได้ (Immutable) เมธอด replace() จึงคืนค่าสตริงใหม่ให้ตัวแปร b โดยที่ตัวแปร a เดิมยังคงมีค่าเป็น \"This is a book.\" เหมือนเดิม"}, {"id": 58, "category": "หมวดที่ 2: ข้อมูลชนิดสตริง (ข้อ 26 - 60)", "question": "คำสั่ง `\"10.2\".format()` กับ `print(\"{:.4f}\".format(10))` คำสั่งหลังจะแสดงผลลัพธ์อย่างไร?", "options": ["10", "10.0000", "0010", "10.4"], "correctAnswer": 1, "explanation": "`{:.4f}` กำหนดให้แสดงผลเป็นทศนิยม 4 ตำแหน่ง ดังนั้น 10 จึงแสดงเป็น 10.0000"}, {"id": 59, "category": "หมวดที่ 2: ข้อมูลชนิดสตริง (ข้อ 26 - 60)", "question": "หากเขียนคำสั่ง `print(\"{.4f}\".format(10))` (สังเกตว่าไม่มีเครื่องหมาย `:` หน้า `.4f`) จะเกิดผลลัพธ์อย่างไรตามแบบฝึกหัดที่ 6.2?", "options": ["แสดง 10.0000 ตามปกติ", "เกิดข้อผิดพลาด AttributeError (เพราะไพธอนเข้าใจว่าเรียกใช้แอตทริบิวต์ .4f ของออบเจกต์)", "แสดงข้อความ \"{.4f}\"", "แสดง 10"], "correctAnswer": 1, "explanation": "ใน `.format()` การกำหนดรูปแบบต้องมีเครื่องหมายโคลอน `:` นำหน้าเสมอ เช่น `{:.4f}` หากเขียน `{.4f}` จะเกิดข้อผิดพลาดทันที"}, {"id": 60, "category": "หมวดที่ 2: ข้อมูลชนิดสตริง (ข้อ 26 - 60)", "question": "กำหนดให้ `name = \"Paiboon\"` คำสั่ง `print(f\"{name[3:8]}\")` จะแสดงผลลัพธ์ใด?", "options": ["Paib", "boon", "iboon", "aiboo"], "correctAnswer": 1, "explanation": "ดัชนีของ \"Paiboon\" คือ P(0), a(1), i(2), b(3), o(4), o(5), n(6) ดังนั้นการตัดคำตั้งแต่ตำแหน่งที่ 3 เป็นต้นไป `[3:8]` จึงได้คำว่า `\"boon\"`"}, {"id": 61, "category": "หมวดที่ 3: ข้อมูลชนิดลิสต์ (ข้อ 61 - 90)", "question": "ข้อใดเป็นคุณสมบัติของข้อมูลชนิดลิสต์ (List) ในภาษาไพธอน?", "options": ["เก็บข้อมูลไม่เป็นลำดับ และห้ามมีข้อมูลซ้ำ", "เก็บข้อมูลเป็นลำดับ (Ordered), แก้ไขค่าได้ (Changeable), และเก็บข้อมูลซ้ำกันได้", "แก้ไขข้อมูลไม่ได้หลังจากสร้างแล้ว", "เก็บข้อมูลในรูปแบบคู่ของ key:value เท่านั้น"], "correctAnswer": 1, "explanation": "ลิสต์มีการจัดเก็บเป็นลำดับ สามารถเพิ่ม ลบ แก้ไขข้อมูลได้ และอนุญาตให้มีค่าซ้ำกันหรือเก็บข้อมูลต่างชนิดกันได้"}, {"id": 62, "category": "หมวดที่ 3: ข้อมูลชนิดลิสต์ (ข้อ 61 - 90)", "question": "คำสั่ง `myList = list(\"hello\")` จะสร้างลิสต์ที่มีค่าตรงกับข้อใด?", "options": ["`['hello']`", "`['h', 'e', 'l', 'l', 'o']`", "`['h', 'e', 'l', 'o']`", "เกิดข้อผิดพลาด"], "correctAnswer": 1, "explanation": "การใช้คอนสตรัคเตอร์ `list()` แปลงสตริง จะแยกตัวอักษรแต่ละตัวในสตริงออกมาเป็นสมาชิกของลิสต์ตามลำดับ"}, {"id": 63, "category": "หมวดที่ 3: ข้อมูลชนิดลิสต์ (ข้อ 61 - 90)", "question": "กำหนดให้ `myList = ['python', 'c++', 'java', 'c#']` คำสั่ง `print(myList[-2])` จะแสดงผลลัพธ์ใด?", "options": ["c++", "java", "c#", "python"], "correctAnswer": 1, "explanation": "ดัชนีติดลบเริ่มนับจากท้ายสุดคือ -1 ('c#') ดังนั้น -2 จึงเป็น 'java'"}, {"id": 64, "category": "หมวดที่ 3: ข้อมูลชนิดลิสต์ (ข้อ 61 - 90)", "question": "กำหนดให้ `myList = ['apple', 'banana', 'grape', 'papaya', 'mango']` คำสั่ง `print(myList[1:2])` จะได้ผลลัพธ์ใด?", "options": ["`'banana'`", "`['banana']`", "`['banana', 'grape']`", "`['apple', 'banana']`"], "correctAnswer": 1, "explanation": "การเข้าถึงลิสต์โดยใช้ช่วงดัชนี (Slicing) จะส่งค่ากลับเป็น \"ลิสต์ใหม่\" เสมอ โดย `[1:2]` จะได้สมาชิกตำแหน่งที่ 1 เพียงตัวเดียวในรูปของลิสต์คือ `['banana']`"}, {"id": 65, "category": "หมวดที่ 3: ข้อมูลชนิดลิสต์ (ข้อ 61 - 90)", "question": "จาก `myList = ['apple', 'banana', 'grape', 'papaya', 'mango']` คำสั่ง `print(myList[-4:-1])` จะได้ผลลัพธ์ใด?", "options": ["`['banana', 'grape', 'papaya']`", "`['banana', 'grape', 'papaya', 'mango']`", "`['apple', 'banana', 'grape']`", "`['mango', 'papaya', 'grape']`"], "correctAnswer": 0, "explanation": "ตำแหน่ง -4 คือ 'banana' ไปจนถึงก่อนตำแหน่ง -1 ('mango') จึงได้ `['banana', 'grape', 'papaya']`"}, {"id": 66, "category": "หมวดที่ 3: ข้อมูลชนิดลิสต์ (ข้อ 61 - 90)", "question": "หากเขียนคำสั่ง `print(myList[1, 10])` โดยใช้เครื่องหมายจุลภาคคั่นในวงเล็บก้ามปูของลิสต์ จะเกิดผลอย่างไร?", "options": ["แสดงสมาชิกตัวที่ 1 และตัวที่ 10", "แสดงสมาชิกตั้งแต่ตัวที่ 1 ถึง 9", "เกิดข้อผิดพลาด `TypeError: list indices must be integers or slices, not tuple`", "คืนค่าลิสต์ว่าง `[]`"], "correctAnswer": 2, "explanation": "การคั่นด้วยจุลภาคทำให้ไพธอนมองว่าเป็น Tuple ซึ่งไม่สามารถใช้เป็นดัชนีของลิสต์ได้ (ต้องใช้ `:` สำหรับช่วงดัชนี)"}, {"id": 67, "category": "หมวดที่ 3: ข้อมูลชนิดลิสต์ (ข้อ 61 - 90)", "question": "กำหนดให้ `myList = ['apple', 'fruit 1', 'fruit 2', 'papaya', 'mango']` เมื่อรันคำสั่ง `myList[1:3] = ['fruit']` แล้วสั่งพิมพ์ `myList` จะมีสมาชิกกี่ตัว และมีค่าอย่างไร?", "options": ["5 ตัว: `['apple', 'fruit', 'fruit 2', 'papaya', 'mango']`", "4 ตัว: `['apple', 'fruit', 'papaya', 'mango']`", "3 ตัว: `['apple', 'fruit', 'mango']`", "เกิดข้อผิดพลาด"], "correctAnswer": 1, "explanation": "เป็นการแทนที่ช่วงดัชนีที่ 1 และ 2 (`'fruit 1', 'fruit 2'`) ด้วยสมาชิกใหม่เพียงตัวเดียวคือ `'fruit'` ทำให้ขนาดของลิสต์ลดลงเหลือ 4 ตัว"}, {"id": 68, "category": "หมวดที่ 3: ข้อมูลชนิดลิสต์ (ข้อ 61 - 90)", "question": "กำหนดให้ `myList = ['apple', 'banana', 'grape']` หากต้องการแทรกคำว่า `\"cherries\"` ลงไปในตำแหน่งดัชนีที่ 2 ต้องใช้คำสั่งใด?", "options": ["`myList.append(2, \"cherries\")`", "`myList.insert(2, \"cherries\")`", "`myList.add(2, \"cherries\")`", "`myList.extend(2, \"cherries\")`"], "correctAnswer": 1, "explanation": "เมธอด `insert(index, item)` ใช้สำหรับแทรกรายการเข้าไปในตำแหน่งดัชนีที่กำหนดของลิสต์"}, {"id": 69, "category": "หมวดที่ 3: ข้อมูลชนิดลิสต์ (ข้อ 61 - 90)", "question": "เมธอดใดใช้สำหรับเพิ่มรายการใหม่เข้าไป \"ต่อท้ายสุด\" ของลิสต์เพียง 1 รายการ?", "options": ["`insert()`", "`append()`", "`push()`", "`update()`"], "correctAnswer": 1, "explanation": "เมธอด `append()` ใช้สำหรับเพิ่มรายการเข้าไปต่อท้ายลิสต์"}, {"id": 70, "category": "หมวดที่ 3: ข้อมูลชนิดลิสต์ (ข้อ 61 - 90)", "question": "หากต้องการนำสมาชิกรายการทั้งหมดจาก `myList1` หรือจาก Tuple/Set อื่น เข้าไปต่อท้ายใน `myList` ปัจจุบัน ควรใช้เมธอดใด?", "options": ["`myList.extend(myList1)`", "`myList.insert(myList1)`", "`myList.copy(myList1)`", "`myList.sort(myList1)`"], "correctAnswer": 0, "explanation": "เมธอด `extend()` ใช้สำหรับการขยายลิสต์โดยการเพิ่มรายการจากลิสต์หรือ Iterable อื่นๆ เข้าไปในลิสต์ปัจจุบัน"}, {"id": 71, "category": "หมวดที่ 3: ข้อมูลชนิดลิสต์ (ข้อ 61 - 90)", "question": "หากใช้คำสั่ง `myList.remove('grape')` แต่ใน `myList` ไม่มีคำว่า `'grape'` อยู่เลย จะเกิดอะไรขึ้น?", "options": ["ไม่มีอะไรเกิดขึ้น ลิสต์คงเดิม", "คืนค่า False", "เกิดข้อผิดพลาด `ValueError: list.remove(x): x not in list`", "ลบสมาชิกตัวสุดท้ายออกแทน"], "correctAnswer": 2, "explanation": "เมธอด `remove()` จะลบรายการที่ระบุ แต่ถ้าไม่มีค่าดังกล่าวอยู่ในลิสต์ จะเกิด `ValueError`"}, {"id": 72, "category": "หมวดที่ 3: ข้อมูลชนิดลิสต์ (ข้อ 61 - 90)", "question": "คำสั่ง `myList.pop()` โดยไม่ระบุตัวเลขดัชนีในวงเล็บ จะทำหน้าที่อย่างไร?", "options": ["ลบสมาชิกตัวแรกสุด (ตำแหน่งที่ 0) ออก", "นำสมาชิกรายการสุดท้ายออกจากลิสต์และคืนค่านั้นออกมา", "ล้างข้อมูลทั้งหมดในลิสต์", "เกิดข้อผิดพลาด TypeError"], "correctAnswer": 1, "explanation": "เมธอด `pop()` หากไม่ระบุหมายเลขดัชนี จะเป็นการนำรายการสุดท้ายออกจากลิสต์"}, {"id": 73, "category": "หมวดที่ 3: ข้อมูลชนิดลิสต์ (ข้อ 61 - 90)", "question": "ข้อใดคือความแตกต่างระหว่างคำสั่ง `del myList` และ `myList.clear()`?", "options": ["เหมือนกันทุกประการ", "`del myList` จะลบตัวแปรลิสต์ทิ้งไปเลย (หากเรียกใช้อีกจะเกิด NameError) ส่วน `myList.clear()` จะล้างเฉพาะข้อมูลข้างในแต่ตัวแปรลิสต์ยังคงอยู่เป็นลิสต์ว่าง `[]`", "`clear()` จะลบตัวแปรทิ้ง ส่วน `del` เหลือลิสต์ว่าง", "`del` ใช้กับลิสต์ไม่ได้"], "correctAnswer": 1, "explanation": "`del myList` เป็นการลบลิสต์ออกไปจากหน่วยความจำ ส่วน `clear()` เป็นการเคลียร์ข้อมูลทั้งหมดแต่ตัวลิสต์ยังอยู่ (`[]`)"}, {"id": 74, "category": "หมวดที่ 3: ข้อมูลชนิดลิสต์ (ข้อ 61 - 90)", "question": "จากการเขียน List Comprehension: `newlist = [x for x in fruits if \"a\" in x]` หมายถึงการทำงานใด?", "options": ["สร้างลิสต์ใหม่ที่เก็บผลไม้ทุกชนิดที่ไม่มีตัวอักษร 'a'", "สร้างลิสต์ใหม่ที่คัดกรองเฉพาะชื่อผลไม้จากลิสต์ `fruits` ที่มีตัวอักษร `'a'` ประกอบอยู่", "แทนที่ชื่อผลไม้ทุกตัวด้วยตัวอักษร 'a'", "นับจำนวนตัวอักษร 'a' ในลิสต์"], "correctAnswer": 1, "explanation": "รูปแบบ `[expression for item in iterable if condition]` จะวนลูปดึงค่า `x` จาก `fruits` เฉพาะตัวที่เงื่อนไข `\"a\" in x` เป็นจริงมาสร้างเป็นลิสต์ใหม่"}, {"id": 75, "category": "หมวดที่ 3: ข้อมูลชนิดลิสต์ (ข้อ 61 - 90)", "question": "กำหนดให้ `myList = [100, 50, 65, 82, 23]` หากต้องการเรียงลำดับตัวเลขจาก \"มากไปหาน้อย\" ต้องใช้คำสั่งใด?", "options": ["`myList.sort()`", "`myList.sort(reverse = True)`", "`myList.reverse()`", "`myList.order(desc = True)`"], "correctAnswer": 1, "explanation": "เมธอด `sort()` ปกติจะเรียงจากน้อยไปมาก หากต้องการเรียงจากมากไปน้อยต้องกำหนดพารามิเตอร์ `reverse = True`"}, {"id": 76, "category": "หมวดที่ 3: ข้อมูลชนิดลิสต์ (ข้อ 61 - 90)", "question": "เหตุใดการคัดลอกลิสต์จึงไม่ควรใช้วิธี `list2 = list1`?", "options": ["เพราะจะทำให้เกิด SyntaxError", "เพราะ `list2` จะเป็นเพียงตัวอ้างอิง (Reference) ไปยัง `list1` เมื่อแก้ไขค่าใน `list1` จะทำให้ `list2` เปลี่ยนแปลงตามไปด้วย", "เพราะจะคัดลอกมาได้แค่สมาชิกตัวแรก", "เพราะทำได้เฉพาะลิสต์ของตัวเลขเท่านั้น"], "correctAnswer": 1, "explanation": "การใช้เครื่องหมาย `=` เป็นเพียงการอ้างอิงไปยังลิสต์ตัวเดียวกัน หากต้องการคัดลอกเป็นลิสต์ใหม่ที่เป็นอิสระต่อกัน ต้องใช้ `list1.copy()` หรือ `list(list1)`"}, {"id": 77, "category": "หมวดที่ 3: ข้อมูลชนิดลิสต์ (ข้อ 61 - 90)", "question": "ข้อใดเป็นวิธีการคัดลอกลิสต์ `myList` ไปยัง `myList1` ที่ถูกต้อง?", "options": ["`myList1 = myList.copy()` หรือ `myList1 = list(myList)`", "`myList1 = myList.clone()`", "`myList1 = copy(myList)`", "`myList1 == myList`"], "correctAnswer": 0, "explanation": "ในไพธอนสามารถคัดลอกลิสต์ได้โดยใช้เมธอด `.copy()` หรือใช้คอนสตรัคเตอร์ `list()`"}, {"id": 78, "category": "หมวดที่ 3: ข้อมูลชนิดลิสต์ (ข้อ 61 - 90)", "question": "กำหนดให้ `myList = ['a', 'b']` และ `myList1 = [1, 2]` คำสั่ง `myList2 = myList + myList1` จะได้ผลลัพธ์ใด?", "options": ["`['a', 'b', [1, 2]]`", "`['a', 'b', 1, 2]`", "`['a1', 'b2']`", "เกิด TypeError เพราะชนิดข้อมูลข้างในต่างกัน"], "correctAnswer": 1, "explanation": "โอเปอเรเตอร์ `+` สามารถใช้เชื่อมต่อ 2 ลิสต์เข้าด้วยกันเป็นลิสต์เดียวได้โดยตรง"}, {"id": 79, "category": "หมวดที่ 3: ข้อมูลชนิดลิสต์ (ข้อ 61 - 90)", "question": "หากต้องการเข้าถึงสมาชิกทุกตัวใน `myList` โดยใช้ลูป `for` ผ่านตัวชี้ดัชนี (Index) ต้องเขียนคำสั่งอย่างไร?", "options": ["`for i in len(myList):`", "`for i in range(len(myList)): print(myList[i])`", "`for i in myList.index():`", "`for i in range(myList):`"], "correctAnswer": 1, "explanation": "การวนรอบผ่านตัวชี้ดัชนีทำได้โดยใช้ฟังก์ชัน `range()` ร่วมกับ `len()` เพื่อสร้างลำดับดัชนีตั้งแต่ 0 ถึงความยาวลิสต์ลบ 1"}, {"id": 80, "category": "หมวดที่ 3: ข้อมูลชนิดลิสต์ (ข้อ 61 - 90)", "question": "ในการเข้าถึงลิสต์ด้วยลูป `while` โดยกำหนด `i = 0` เงื่อนไขของ while ควรเป็นข้อใดจึงจะเข้าถึงสมาชิกครบทุกตัวโดยไม่เกิด IndexError?", "options": ["`while i <= len(myList):`", "`while i < len(myList):`", "`while i == len(myList):`", "`while i > len(myList):`"], "correctAnswer": 1, "explanation": "ดัชนีของลิสต์เริ่มที่ 0 ถึง `len(myList) - 1` ดังนั้นเงื่อนไขต้องเป็น `i < len(myList)`"}, {"id": 81, "category": "หมวดที่ 3: ข้อมูลชนิดลิสต์ (ข้อ 61 - 90)", "question": "กำหนดให้ `myList = [\"orange\", \"mango\", \"kiwi\", \"pineapple\", \"banana\"]` เมื่อรัน `myList.sort()` ข้อมูลตัวแรกสุด (`myList[0]`) คือข้อใด?", "options": ["`\"orange\"`", "`\"banana\"`", "`\"kiwi\"`", "`\"pineapple\"`"], "correctAnswer": 1, "explanation": "`sort()` จะเรียงข้อมูลสตริงตามลำดับตัวอักษร A-Z ดังนั้น `\"banana\"` ที่ขึ้นต้นด้วยตัว b จึงอยู่ลำดับแรกสุด"}, {"id": 82, "category": "หมวดที่ 3: ข้อมูลชนิดลิสต์ (ข้อ 61 - 90)", "question": "จากคำถามท้ายการทดลองเรื่องลิสต์ หากรับค่าตัวเลข 10 ชุดมาเก็บไว้ในลิสต์ชื่อ `nums` แล้วต้องการหาค่าที่น้อยที่สุดและค่าที่มากที่สุด สามารถใช้ฟังก์ชัน Built-in ใดได้ทันที หรือดูจากดัชนีใดหลังเรียงลำดับแล้ว?", "options": ["ใช้ `min(nums)` และ `max(nums)` (หรือหลังจาก `nums.sort()` คือตำแหน่ง `nums[0]` และ `nums[-1]`)", "ใช้ `first(nums)` และ `last(nums)`", "ใช้ `low(nums)` และ `high(nums)`", "ใช้ `count()` และ `len()`"], "correctAnswer": 0, "explanation": "สามารถหาค่าน้อยสุดและมากสุดได้ด้วย `min()` และ `max()` หรือหากเรียงจากน้อยไปมากด้วย `.sort()` แล้ว ค่าน้อยสุดคือ `nums[0]` และค่ามากสุดคือ `nums[-1]`"}, {"id": 83, "category": "หมวดที่ 3: ข้อมูลชนิดลิสต์ (ข้อ 61 - 90)", "question": "โครงสร้างข้อมูลแบบ สแตก (Stack) มีหลักการทำงานตรงกับข้อใด และหากใช้ List ในไพธอนจำลองการทำงาน จะใช้เมธอดใดในการนำข้อมูลเข้าและนำข้อมูลออก?", "options": ["เข้าก่อนออกก่อน (FIFO) ใช้ `append()` และ `pop(0)`", "เข้าทีหลังออกก่อน (LIFO - Last In, First Out) โดยใช้ `append()` เพิ่มข้อมูลเข้าท้ายสุด และใช้ `pop()` นำข้อมูลตัวท้ายสุดออก", "เข้าออกตำแหน่งใดก็ได้โดยใช้ `insert()`", "เรียงลำดับอัตโนมัติด้วย `sort()`"], "correctAnswer": 1, "explanation": "Stack มีลักษณะเป็น LIFO (เข้าทีหลังออกก่อน) ในไพธอนสามารถใช้ List จำลองได้โดยใช้ `append()` เพื่อ Push ข้อมูลเข้า และ `pop()` เพื่อ Pop ข้อมูลตัวบนสุดออก"}, {"id": 84, "category": "หมวดที่ 3: ข้อมูลชนิดลิสต์ (ข้อ 61 - 90)", "question": "โครงสร้างข้อมูลแบบ คิว (Queue) มีหลักการทำงานอย่างไร?", "options": ["เข้าทีหลังออกก่อน (LIFO)", "เข้าก่อนออกก่อน (FIFO - First In, First Out) ข้อมูลที่ถูกเพิ่มเข้าไปก่อนจะถูกนำออกมาก่อน (เช่น ใช้ `append()` เข้าท้ายคิว และ `pop(0)` ออกจากหัวคิว หรือใช้ `collections.deque`)", "ห้ามมีข้อมูลซ้ำกัน", "เก็บข้อมูลแบบ key:value"], "correctAnswer": 1, "explanation": "Queue มีลักษณะการทำงานแบบ FIFO (First In, First Out) คือข้อมูลที่เข้ามาก่อนจะถูกนำออกไปใช้งานก่อนเหมือนการเข้าแถวคิว"}, {"id": 85, "category": "หมวดที่ 3: ข้อมูลชนิดลิสต์ (ข้อ 61 - 90)", "question": "ข้อใดอธิบายลักษณะของข้อมูลชนิด อาเรย์ (Array) ในภาษาไพธอนได้ถูกต้อง?", "options": ["เหมือนกับ Dictionary ทุกประการ", "ใช้เก็บข้อมูลเป็นลำดับเหมือน List แต่ Array (จากการ import โมดูล `array` หรือ `numpy`) จะบังคับให้ข้อมูลทุกตัวต้องเป็นชนิดเดียวกัน (Homogeneous) เพื่อประหยัดหน่วยความจำ ส่วน List เก็บข้อมูลต่างชนิดกันได้", "Array ไม่สามารถใช้ดัชนีเข้าถึงได้", "Array เปลี่ยนแปลงค่าไม่ได้"], "correctAnswer": 1, "explanation": "ในไพธอนทั่วไปสามารถใช้ List แทน Array ได้ แต่ถ้าใช้โมดูล `array` ข้อมูลภายในจะต้องเป็นชนิดเดียวกันทั้งหมด"}, {"id": 86, "category": "หมวดที่ 3: ข้อมูลชนิดลิสต์ (ข้อ 61 - 90)", "question": "กำหนดให้ `myList = ['apple', 'banana', 'grape', 'papaya', 'mango']` เมื่อรันคำสั่ง `del myList[0]` แล้วพิมพ์ `myList[0]` อีกครั้ง จะได้ค่าใด?", "options": ["`'apple'`", "`'banana'`", "`None`", "เกิดข้อผิดพลาด"], "correctAnswer": 1, "explanation": "เมื่อลบตำแหน่งที่ 0 (`'apple'`) ออกไป สมาชิกตัวถัดไปคือ `'banana'` จะเลื่อนขึ้นมาเป็นตำแหน่งที่ 0 แทน"}, {"id": 87, "category": "หมวดที่ 3: ข้อมูลชนิดลิสต์ (ข้อ 61 - 90)", "question": "คำสั่ง `myList = list((1, 2, 3))` เป็นการแปลงข้อมูลชนิดใดให้กลายเป็นลิสต์?", "options": ["String", "Set", "Tuple", "Dictionary"], "correctAnswer": 2, "explanation": "`(1, 2, 3)` ที่อยู่ในวงเล็บโค้งคือข้อมูลชนิดทูเพิล (Tuple) เมื่อส่งเข้าฟังก์ชัน `list()` จึงเป็นการแปลงจากทูเพิลเป็นลิสต์"}, {"id": 88, "category": "หมวดที่ 3: ข้อมูลชนิดลิสต์ (ข้อ 61 - 90)", "question": "คำสั่ง `myList2 = list({1, 2, 3})` เป็นการแปลงข้อมูลชนิดใดให้กลายเป็นลิสต์?", "options": ["Tuple", "Set", "Dictionary", "String"], "correctAnswer": 1, "explanation": "`{1, 2, 3}` ที่อยู่ในวงเล็บปีกกาโดยไม่มี key:value คือข้อมูลชนิดเซ็ต (Set)"}, {"id": 89, "category": "หมวดที่ 3: ข้อมูลชนิดลิสต์ (ข้อ 61 - 90)", "question": "หากต้องการตรวจสอบว่ามีคำว่า `'apple'` อยู่ในลิสต์ `myList` หรือไม่ ต้องใช้คีย์เวิร์ดใด?", "options": ["`has`", "`in` (เช่น `'apple' in myList`)", "`find`", "`exists`"], "correctAnswer": 1, "explanation": "การตรวจสอบรายการในลิสต์จะใช้คีย์เวิร์ด `in` ซึ่งจะคืนค่าเป็น True หรือ False"}, {"id": 90, "category": "หมวดที่ 3: ข้อมูลชนิดลิสต์ (ข้อ 61 - 90)", "question": "กำหนดให้ `myList = ['a', 'b']` และ `myList1 = [1, 2]` หากใช้ลูป `for x in myList1: myList.append(x)` ผลลัพธ์ของ `myList` จะตรงกับข้อใด?", "options": ["`['a', 'b', 1, 2]`", "`['a', 'b', [1, 2]]`", "`[1, 2]`", "`['a', 'b']`"], "correctAnswer": 0, "explanation": "เป็นการวนลูปดึงสมาชิกทีละตัวจาก `myList1` (คือ 1 และ 2) มาต่อท้ายใน `myList` ด้วย `append()` จึงได้ผลลัพธ์เหมือนการเชื่อมต่อลิสต์"}, {"id": 91, "category": "หมวดที่ 4: ข้อมูลชนิดดิกชันนารี เซ็ต และทูเพิล (ข้อ 91 - 115)", "question": "ข้อใดเปรียบเทียบความแตกต่างระหว่าง List, Tuple, Set และ Dictionary ได้ถูกต้องที่สุด?", "options": ["Tuple แก้ไขข้อมูลได้ ส่วน List แก้ไขไม่ได้", "Set เก็บข้อมูลแบบเรียงลำดับและซ้ำกันได้", "Tuple สร้างด้วย `()` แก้ไขค่าไม่ได้, Set สร้างด้วย `{}` ไม่เรียงลำดับและห้ามซ้ำ, Dictionary สร้างด้วย `{key:value}` ห้ามมี key ซ้ำกัน", "Dictionary อนุญาตให้มี key ซ้ำกันได้"], "correctAnswer": 2, "explanation": "Tuple เรียงลำดับแต่แก้ไขไม่ได้, Set ไม่เรียงลำดับและห้ามซ้ำ, ส่วน Dictionary เก็บเป็นคู่ key:value แก้ไขได้แต่ห้ามมีข้อมูล key ซ้ำกัน"}, {"id": 92, "category": "หมวดที่ 4: ข้อมูลชนิดดิกชันนารี เซ็ต และทูเพิล (ข้อ 91 - 115)", "question": "ฟังก์ชันหรือเมธอดใดที่สามารถใช้กับข้อมูลชนิด List ได้ แต่ \"ไม่สามารถ\" ใช้กับ Set และ Tuple ได้?", "options": ["`len()`", "`append()`, `insert()`, `sort()` (และใน Tuple ไม่สามารถใช้ `remove()` หรือ `pop()` ได้เพราะแก้ไขค่าไม่ได้ ส่วน Set ไม่มีลำดับจึงใช้ `insert()` หรือ `sort()` ไม่ได้)", "`in`", "`type()`"], "correctAnswer": 1, "explanation": "เนื่องจาก Tuple ไม่สามารถเปลี่ยนแปลงค่าได้ จึงไม่มีเมธอดเพิ่ม/ลบ/เรียงข้อมูล เช่น `append()`, `insert()`, `sort()`, `remove()` ส่วน Set ไม่มีลำดับดัชนีจึงใช้ `insert()`, `append()`, `sort()` ไม่ได้ (Set จะใช้ `add()` แทน)"}, {"id": 93, "category": "หมวดที่ 4: ข้อมูลชนิดดิกชันนารี เซ็ต และทูเพิล (ข้อ 91 - 115)", "question": "กำหนดให้ `my_dict = {\"brand\": \"Honda\", \"model\": \"City\", \"year\": 2010}` คำสั่ง `print(len(my_dict))` จะได้ผลลัพธ์เท่าใด?", "options": ["6", "3", "1", "2"], "correctAnswer": 1, "explanation": "ฟังก์ชัน `len()` ในดิกชันนารีจะนับจำนวนคู่ของ `key:value` ซึ่งในที่นี้มี 3 รายการ"}, {"id": 94, "category": "หมวดที่ 4: ข้อมูลชนิดดิกชันนารี เซ็ต และทูเพิล (ข้อ 91 - 115)", "question": "ข้อใดคือการใช้คอนสตรัคเตอร์ `dict()` ในการสร้างดิกชันนารีที่ถูกต้อง?", "options": ["`my_dict = dict(\"brand\":\"Honda\", \"year\":2010)`", "`my_dict = dict(brand=\"Honda\", electric=False, year=2010)`", "`my_dict = dict[\"brand\"=\"Honda\"]`", "`my_dict = new dict()`"], "correctAnswer": 1, "explanation": "การใช้คอนสตรัคเตอร์ `dict()` จะระบุในรูปแบบ `key=value` คั่นด้วยจุลภาค โดยไม่ต้องใส่เครื่องหมายอัญประกาศครอบชื่อ key"}, {"id": 95, "category": "หมวดที่ 4: ข้อมูลชนิดดิกชันนารี เซ็ต และทูเพิล (ข้อ 91 - 115)", "question": "กำหนดให้ `my_dict = {\"brand\": \"Honda\", \"model\": \"City\"}` ข้อใดสามารถใช้ดึงค่า `\"City\"` ออกมาได้ถูกต้อง?", "options": ["`my_dict[1]`", "`my_dict[\"model\"]` หรือ `my_dict.get(\"model\")`", "`my_dict(\"model\")`", "`my_dict.find(\"model\")`"], "correctAnswer": 1, "explanation": "การเข้าถึง value ในดิกชันนารีทำได้โดยระบุ key ในวงเล็บก้ามปู `my_dict[\"model\"]` หรือใช้เมธอด `my_dict.get(\"model\")`"}, {"id": 96, "category": "หมวดที่ 4: ข้อมูลชนิดดิกชันนารี เซ็ต และทูเพิล (ข้อ 91 - 115)", "question": "เมธอด `my_dict.keys()` และ `my_dict.values()` คืนค่ากลับมาเป็นออบเจกต์ชนิดพิเศษที่เรียกว่า \"วิว (View)\" ซึ่งมีคุณสมบัติอย่างไร?", "options": ["ไม่สามารถนำไปวนลูปได้", "หากมีการเปลี่ยนแปลงหรือเพิ่มค่า key/value ในดิกชันนารีหลัก ค่าในตัวแปรวิวจะเปลี่ยนแปลงตามโดยอัตโนมัติ", "เป็นการคัดลอกข้อมูลแยกออกมาอย่างอิสระ", "ลบข้อมูลในดิกชันนารีทิ้งทันทีที่เรียกใช้"], "correctAnswer": 1, "explanation": "View ของดิกชันนารีจะสะท้อนการเปลี่ยนแปลงของดิกชันนารีต้นทางเสมอ หากดิกชันนารีมีการเพิ่มหรือแก้ไขค่า ตัวแปรที่เก็บ `keys()` หรือ `values()` ไว้จะมีค่าเปลี่ยนตามทันที"}, {"id": 97, "category": "หมวดที่ 4: ข้อมูลชนิดดิกชันนารี เซ็ต และทูเพิล (ข้อ 91 - 115)", "question": "เมธอด `my_dict.items()` จะส่งค่ากลับออกมาในรูปแบบโครงสร้างใด?", "options": ["ลิสต์ของ key เท่านั้น", "วิวที่ภายในเป็นลิสต์ของทูเพิลคู่ `(key, value)` เช่น `dict_items([('brand', 'Honda'), ('model', 'Accord')])`", "สตริงยาวต่อเนื่องกัน", "เซ็ตของ value"], "correctAnswer": 1, "explanation": "เมธอด `items()` จะส่งค่ากลับเป็นรายการทูเพิลของคู่ `(key, value)` ทั้งหมดในดิกชันนารี"}, {"id": 98, "category": "หมวดที่ 4: ข้อมูลชนิดดิกชันนารี เซ็ต และทูเพิล (ข้อ 91 - 115)", "question": "หากต้องการปรับปรุงค่าที่มีอยู่แล้ว หรือเพิ่มคู่ `key:value` ใหม่เข้าไปในดิกชันนารีด้วยเมธอด ต้องใช้คำสั่งใด?", "options": ["`my_dict.append({'color': 'blue'})`", "`my_dict.update({'color': 'blue'})`", "`my_dict.insert('color', 'blue')`", "`my_dict.add({'color': 'blue'})`"], "correctAnswer": 1, "explanation": "เมธอด `update()` ใช้สำหรับปรับปรุงหรือเพิ่มรายการในดิกชันนารีจากอากิวเมนต์ที่กำหนดในรูปดิกชันนารี `{key: value}`"}, {"id": 99, "category": "หมวดที่ 4: ข้อมูลชนิดดิกชันนารี เซ็ต และทูเพิล (ข้อ 91 - 115)", "question": "ในดิกชันนารี ความแตกต่างระหว่างเมธอด `pop('model')` และ `popitem()` คือข้อใด?", "options": ["`pop('model')` ลบรายการตาม key ที่ระบุ ส่วน `popitem()` จะนำคู่ของ key และ value รายการสุดท้ายที่ถูกเพิ่มเข้าไปล่าสุดออกจากดิกชันนารี", "`popitem()` ลบรายการแรกสุด", "`pop()` ลบทั้งดิกชันนารี", "ไม่มีความแตกต่างกัน"], "correctAnswer": 0, "explanation": "`pop(key)` ต้องระบุ key ที่ต้องการลบ ส่วน `popitem()` ไม่ต้องรับอากิวเมนต์และจะลบคู่ `key:value` ที่เพิ่มเข้าไปล่าสุดออกเสมอ"}, {"id": 100, "category": "หมวดที่ 4: ข้อมูลชนิดดิกชันนารี เซ็ต และทูเพิล (ข้อ 91 - 115)", "question": "เมื่อใช้ลูป `for i in my_dict: print(i)` โดยไม่ได้เรียกเมธอดใดๆ ต่อท้าย `my_dict` ตัวแปร `i` ที่ถูกพิมพ์ออกมาจะเป็นค่าส่วนใดของดิกชันนารี?", "options": ["ค่า `value` ทั้งหมด", "ค่า `key` ทั้งหมด", "ทั้งคู่ `(key, value)`", "ตัวเลขดัชนี 0, 1, 2"], "correctAnswer": 1, "explanation": "การวนรอบ `for i in my_dict:` โดยตรง จะเป็นการดึงชื่อ `key` ออกมาทีละตัว (หากต้องการค่า value ต้องใช้ `my_dict[i]` หรือวนผ่าน `my_dict.values()`)"}, {"id": 101, "category": "หมวดที่ 4: ข้อมูลชนิดดิกชันนารี เซ็ต และทูเพิล (ข้อ 91 - 115)", "question": "หากต้องการวนลูปอ่านทั้งค่า `key` และ `value` ออกมาพร้อมกันในตัวแปร `i` และ `j` ต้องเขียนคำสั่งอย่างไร?", "options": ["`for i, j in my_dict:`", "`for i, j in my_dict.items():`", "`for i, j in my_dict.keys():`", "`for i, j in my_dict.values():`"], "correctAnswer": 1, "explanation": "ใช้เมธอด `.items()` เพื่อคืนค่าคู่ `(key, value)` ออกมาให้ตัวแปร `i` และ `j` รับค่าไปพร้อมกันในแต่ละรอบ"}, {"id": 102, "category": "หมวดที่ 4: ข้อมูลชนิดดิกชันนารี เซ็ต และทูเพิล (ข้อ 91 - 115)", "question": "ข้อใดคือคำสั่งที่ใช้สำหรับคัดลอกดิกชันนารี `my_dict` ไปยังตัวแปรใหม่ได้อย่างถูกต้องโดยไม่เป็นการอ้างอิงที่อยู่เดิม?", "options": ["`my_dict1 = my_dict`", "`my_dict1 = my_dict.copy()` หรือ `my_dict2 = dict(my_dict)`", "`my_dict1 = list(my_dict)`", "`my_dict1 = my_dict.items()`"], "correctAnswer": 1, "explanation": "การคัดลอกดิกชันนารีต้องใช้เมธอด `.copy()` หรือฟังก์ชัน Built-in `dict()`"}, {"id": 103, "category": "หมวดที่ 4: ข้อมูลชนิดดิกชันนารี เซ็ต และทูเพิล (ข้อ 91 - 115)", "question": "กำหนดดิกชันนารีซ้อน (Nested Dictionary): `students = {\"67032001\": {\"name\": \"ธนัชชัย\", \"sirname\": \"มาลา\"}, \"67032002\": {\"name\": \"คณิตกร\", \"sirname\": \"คนไทย\"}}` หากต้องการพิมพ์คำว่า `\"คณิตกร\"` ต้องเขียนคำสั่งอย่างไร?", "options": ["`print(students[\"name\"][\"67032002\"])`", "`print(students[\"67032002\"][\"name\"])`", "`print(students[\"67032002\", \"name\"])`", "`print(students[1][0])`"], "correctAnswer": 1, "explanation": "การเข้าถึงดิกชันนารีซ้อนต้องอ้างอิงผ่าน key ของดิกชันนารีชั้นนอกก่อน (`\"67032002\"`) แล้วตามด้วย key ของดิกชันนารีชั้นใน (`\"name\"`)"}, {"id": 104, "category": "หมวดที่ 4: ข้อมูลชนิดดิกชันนารี เซ็ต และทูเพิล (ข้อ 91 - 115)", "question": "กำหนดให้ `x = ('key1', 'key2', 'key3')` และ `y = 12` เมื่อรันคำสั่ง `my_dict = dict.fromkeys(x, y)` จะได้ผลลัพธ์ตรงกับข้อใด?", "options": ["`{'x': 12, 'y': 12}`", "`{'key1': 12, 'key2': 12, 'key3': 12}`", "`{('key1', 'key2', 'key3'): 12}`", "`{'key1': 1, 'key2': 2, 'key3': 3}`"], "correctAnswer": 1, "explanation": "เมธอด `dict.fromkeys(x, y)` จะสร้างดิกชันนารีที่มี key มาจากสมาชิกใน `x` ทุกตัว และมีค่า value เริ่มต้นเป็น `y` (คือ 12) เหมือนกันทั้งหมด"}, {"id": 105, "category": "หมวดที่ 4: ข้อมูลชนิดดิกชันนารี เซ็ต และทูเพิล (ข้อ 91 - 115)", "question": "กำหนดให้ `s1 = {\"name\": \"ธนัชชัย\", \"sirname\": \"มาลา\"}` เมื่อรันคำสั่ง `print(s1.setdefault(\"name\", \"no key\"))` และ `print(s1.setdefault(\"nickname\", \"โอ\"))` จะเกิดผลอย่างไร?", "options": ["เปลี่ยนชื่อเป็น \"no key\" และเพิ่ม nickname เป็น \"โอ\"", "คำสั่งแรกคืนค่าเดิมคือ `\"ธนัชชัย\"` (เพราะมี key `\"name\"` อยู่แล้วจึงไม่แก้ไข) ส่วนคำสั่งที่สองจะเพิ่มคู่ `'nickname': 'โอ'` เข้าไปใน `s1` และคืนค่า `\"โอ\"`", "เกิดข้อผิดพลาด KeyError", "ลบข้อมูลเดิมทิ้งทั้งหมด"], "correctAnswer": 1, "explanation": "เมธอด `setdefault()` จะส่งค่ากลับเป็น value ของ key ที่ระบุหากมีอยู่แล้วโดยไม่ทับค่าเดิม แต่ถ้ายังไม่มี key นั้นในดิกชันนารี จะทำการเพิ่ม key พร้อม value ที่กำหนดเข้าไปให้ใหม่"}, {"id": 106, "category": "หมวดที่ 4: ข้อมูลชนิดดิกชันนารี เซ็ต และทูเพิล (ข้อ 91 - 115)", "question": "ในการเขียนโปรแกรมนับคำซ้ำภาษาอังกฤษ เช่น ป้อน `\"box log bat hat box bat\"` แล้วต้องการเก็บจำนวนนับไว้ในดิกชันนารี `word_count` อัลกอริทึมในข้อใดถูกต้องที่สุด?", "options": ["แยกคำด้วย `.split()` แล้ววนลูป `for w in words:` หาก `w in word_count:` ให้บวกค่า `word_count[w] += 1` แต่ถ้ายังไม่มีให้กำหนด `word_count[w] = 1`", "ใช้ `dict.fromkeys()` เพียงอย่างเดียว", "ใช้ `popitem()` ในการนับคำ", "แปลงสตริงเป็นเซ็ตแล้วใช้ `len()`"], "correctAnswer": 0, "explanation": "การนับคำด้วยดิกชันนารีจะใช้คำศัพท์เป็น `key` และจำนวนครั้งที่พบเป็น `value` เมื่อพบคำซ้ำจะเพิ่มค่า value ขึ้นทีละ 1"}, {"id": 107, "category": "หมวดที่ 4: ข้อมูลชนิดดิกชันนารี เซ็ต และทูเพิล (ข้อ 91 - 115)", "question": "หากต้องการประกาศสร้างตัวแปรชนิด เซ็ตว่าง (Empty Set) ในภาษาไพธอน ต้องใช้คำสั่งใด? (ข้อควรระวังระหว่าง Set กับ Dict)", "options": ["`s = {}`", "`s = set()`", "`s = []`", "`s = ()`"], "correctAnswer": 1, "explanation": "การใช้ `{}` เปล่าๆ ในไพธอนจะได้ข้อมูลชนิดดิกชันนารีว่าง (`<class 'dict'>`) ดังนั้นหากต้องการสร้างเซ็ตว่างต้องใช้คอนสตรัคเตอร์ `set()`"}, {"id": 108, "category": "หมวดที่ 4: ข้อมูลชนิดดิกชันนารี เซ็ต และทูเพิล (ข้อ 91 - 115)", "question": "หากประกาศทูเพิลที่มีสมาชิกเพียงตัวเดียว เช่นต้องการเก็บคำว่า `\"apple\"` เป็น Tuple ข้อใดเขียนได้ถูกต้องตามไวยากรณ์ไพธอน?", "options": ["`t = (\"apple\")`", "`t = (\"apple\",)` (ต้องมีเครื่องหมายจุลภาคต่อท้าย)", "`t = [\"apple\"]`", "`t = {\"apple\"}`"], "correctAnswer": 1, "explanation": "การประกาศ Tuple ที่มีสมาชิกเพียงตัวเดียวต้องใส่เครื่องหมายจุลภาค `,` ต่อท้ายเสมอ เช่น `(\"apple\",)` มิฉะนั้นไพธอนจะมองว่าเป็นเพียงสตริงธรรมดาในวงเล็บ"}, {"id": 109, "category": "หมวดที่ 4: ข้อมูลชนิดดิกชันนารี เซ็ต และทูเพิล (ข้อ 91 - 115)", "question": "คำสั่ง `if 'brand' in my_dict:` เป็นการตรวจสอบในส่วนใดของดิกชันนารี?", "options": ["ตรวจสอบเฉพาะในชื่อ `key` ของดิกชันนารี", "ตรวจสอบเฉพาะใน `value` ของดิกชันนารี", "ตรวจสอบทั้ง key และ value พร้อมกัน", "ตรวจสอบความยาวของดิกชันนารี"], "correctAnswer": 0, "explanation": "การใช้คีย์เวิร์ด `in` กับตัวแปรดิกชันนารีโดยตรง จะเป็นการตรวจสอบว่ามีชื่อ `key` ที่กำหนดอยู่ภายในดิกชันนารีหรือไม่"}, {"id": 110, "category": "หมวดที่ 4: ข้อมูลชนิดดิกชันนารี เซ็ต และทูเพิล (ข้อ 91 - 115)", "question": "กำหนดให้ `s1 = {\"name\": \"ธนัชชัย\"}` เมื่อรันคำสั่ง `print(f\"{s1=}\")` ในไพธอน จะแสดงผลลัพธ์ในรูปแบบใด?", "options": ["`ธนัชชัย`", "`s1={'name': 'ธนัชชัย'}`", "`{'name': 'ธนัชชัย'}`", "เกิด SyntaxError"], "correctAnswer": 1, "explanation": "การใส่เครื่องหมาย `=` ต่อท้ายชื่อตัวแปรภายใน f-string เช่น `f\"{s1=}\"` จะเป็นการพิมพ์ทั้งชื่อตัวแปร เครื่องหมายเท่ากับ และค่าของตัวแปรนั้นออกมา ดังที่ปรากฏในตัวอย่างบทเรียนเรื่องดิกชันนารี"}, {"id": 111, "category": "หมวดที่ 4: ข้อมูลชนิดดิกชันนารี เซ็ต และทูเพิล (ข้อ 91 - 115)", "question": "ในโปรแกรมจัดเก็บข้อมูลพนักงานหลายคนที่ประกอบด้วย รหัสพนักงาน (เช่น `\"0001\"`, `\"0002\"`), ชื่อ, นามสกุล, ตำแหน่ง และเงินเดือน โครงสร้างข้อมูลใดเหมาะสมที่สุดในการจัดเก็บเพื่อค้นหาด้วยรหัสพนักงาน?", "options": ["สตริงตัวเดียว", "ดิกชันนารีซ้อน (Nested Dictionary) โดยใช้รหัสพนักงานเป็น key ชั้นนอก และข้อมูลรายละเอียดเป็นดิกชันนารีชั้นใน", "เซ็ตของตัวเลข", "ทูเพิลชั้นเดียว"], "correctAnswer": 1, "explanation": "การใช้ Nested Dictionary ที่มีรหัสพนักงานเป็น key หลักช่วยให้ค้นหาข้อมูลเฉพาะรายบุคคล (เช่น `emp[\"0002\"]`) หรือวนลูปแสดงทั้งหมด (`for id, info in emp.items():`) ได้สะดวกและตรงตามเนื้อหาบทเรียน"}, {"id": 112, "category": "หมวดที่ 4: ข้อมูลชนิดดิกชันนารี เซ็ต และทูเพิล (ข้อ 91 - 115)", "question": "หากมีดิกชันนารี `my_dict = {\"year\": 2010, \"year\": 1998}` ซึ่งกำหนด key ชื่อซ้ำกัน เมื่อสั่งพิมพ์ `my_dict` จะได้ผลลัพธ์อย่างไร?", "options": ["เก็บทั้งสองค่าไว้คู่กัน", "ไม่เก็บข้อมูลที่ซ้ำกัน โดยค่าหลังสุด (`1998`) จะเขียนทับค่าเดิมของ key `\"year\"`", "เกิดข้อผิดพลาด SyntaxError", "ลบ key `\"year\"` ทิ้งทั้งคู่"], "correctAnswer": 1, "explanation": "ดิกชันนารีไม่อนุญาตให้เก็บ key ซ้ำกัน หากระบุ key ซ้ำ ค่าที่กำหนดทีหลังจะทับค่าก่อนหน้า"}, {"id": 113, "category": "หมวดที่ 4: ข้อมูลชนิดดิกชันนารี เซ็ต และทูเพิล (ข้อ 91 - 115)", "question": "ค่า `value` ที่เก็บอยู่ภายในดิกชันนารี สามารถเป็นข้อมูลชนิดใดได้บ้าง?", "options": ["สตริงและตัวเลขเท่านั้น", "ข้อมูลชนิดใดก็ได้ เช่น สตริง, จำนวนเต็ม, Boolean, ลิสต์ หรือดิกชันนารีอื่น", "ลิสต์เท่านั้น", "ต้องเป็นชนิดเดียวกันกับ key เท่านั้น"], "correctAnswer": 1, "explanation": "ดิกชันนารีสามารถประกอบด้วยข้อมูลหลายชนิดปะปนกันได้ เช่น `\"electric\": False`, `\"year\": 2010`, `\"color\": [\"blue\", \"green\"]`"}, {"id": 114, "category": "หมวดที่ 4: ข้อมูลชนิดดิกชันนารี เซ็ต และทูเพิล (ข้อ 91 - 115)", "question": "เมื่อใช้คำสั่ง `del my_dict['brand']` จะเกิดผลอย่างไร?", "options": ["ลบเฉพาะค่า value ของ `'brand'` ให้เป็นค่าว่าง", "ลบทั้งคู่ `key:value` ของ `'brand'` ออกไปจากดิกชันนารี", "ลบตัวแปร `my_dict` ทั้งหมดทิ้ง", "ล้างข้อมูลทุกตัวในดิกชันนารี"], "correctAnswer": 1, "explanation": "การใช้ `del` โดยระบุ key จะเป็นการลบรายการคู่ `key:value` นั้นออกจากดิกชันนารี"}, {"id": 115, "category": "หมวดที่ 4: ข้อมูลชนิดดิกชันนารี เซ็ต และทูเพิล (ข้อ 91 - 115)", "question": "เมธอดใดที่ใช้ล้างข้อมูลทั้งหมดในดิกชันนารีให้กลายเป็นดิกชันนารีว่าง `{}`?", "options": ["`my_dict.empty()`", "`my_dict.remove_all()`", "`my_dict.clear()`", "`my_dict.pop()`"], "correctAnswer": 2, "explanation": "เมธอด `clear()` ใช้สำหรับล้างข้อมูลทั้งหมดในตัวแปรดิกชันนารีให้เหลือ `{}`"}, {"id": 116, "category": "หมวดที่ 5: การจัดการไฟล์และ JSON (ข้อ 116 - 135)", "question": "ขั้นตอนหลักในการจัดการไฟล์ (File Handling) ทั้ง 3 ขั้นตอนเรียงตามลำดับคือข้อใด?", "options": ["สร้างไฟล์ -> ลบไฟล์ -> ปิดไฟล์", "เปิดไฟล์ -> อ่าน/เขียนไฟล์ -> ปิดไฟล์", "อ่านไฟล์ -> เปิดไฟล์ -> บันทึกไฟล์", "อิมพอร์ตไฟล์ -> คัดลอกไฟล์ -> ปิดไฟล์"], "correctAnswer": 1, "explanation": "ขั้นตอนในการจัดการไฟล์มี 3 ขั้นตอนตามแผนผังคือ 1. เปิดไฟล์ 2. อ่าน/เขียนไฟล์ และ 3. ปิดไฟล์"}, {"id": 117, "category": "หมวดที่ 5: การจัดการไฟล์และ JSON (ข้อ 116 - 135)", "question": "หากใช้คำสั่ง `f = open(\"test.txt\")` โดยไม่ระบุพารามิเตอร์โหมดในการเปิดไฟล์ ไพธอนจะใช้ค่าดีฟอลต์ (Default) เป็นโหมดใด?", "options": ["`\"w\"` (เขียนทับไฟล์ข้อความ)", "`\"rt\"` (เปิดไฟล์เพื่ออ่าน ในโหมดข้อความ)", "`\"ab\"` (เปิดเพื่อเขียนต่อท้าย ในโหมดไบนารี)", "`\"x\"` (สร้างไฟล์ใหม่)"], "correctAnswer": 1, "explanation": "ค่าดีฟอลต์ของ `open()` คือ `\"r\"` (Read - เปิดเพื่ออ่าน) และ `\"t\"` (Text - โหมดข้อความ) ดังนั้น `open(\"test.txt\")` จึงเทียบเท่ากับ `open(\"test.txt\", \"rt\")`"}, {"id": 118, "category": "หมวดที่ 5: การจัดการไฟล์และ JSON (ข้อ 116 - 135)", "question": "โหมดการเปิดไฟล์ใดที่ใช้สำหรับ \"สร้างไฟล์ใหม่เท่านั้น\" และจะเกิดข้อผิดพลาด `FileExistsError` ทันทีหากมีไฟล์ชื่อนั้นอยู่แล้ว (ช่วยป้องกันการเขียนทับไฟล์เดิมโดยไม่ตั้งใจ)?", "options": ["`\"r\"`", "`\"a\"`", "`\"w\"`", "`\"x\"`"], "correctAnswer": 3, "explanation": "โหมด `\"x\"` (Create) ใช้สร้างไฟล์ใหม่เท่านั้น ถ้าไฟล์มีอยู่แล้วจะเกิดข้อผิดพลาด `FileExistsError`"}, {"id": 119, "category": "หมวดที่ 5: การจัดการไฟล์และ JSON (ข้อ 116 - 135)", "question": "ข้อใดคือความแตกต่างของการเขียนไฟล์ด้วยโหมด `\"a\"` (Append) และโหมด `\"w\"` (Write) เมื่อเปิดไฟล์ที่มีข้อมูลอยู่แล้ว?", "options": ["`\"a\"` จะลบข้อมูลเดิมทิ้งทั้งหมด ส่วน `\"w\"` จะเขียนต่อท้าย", "`\"a\"` จะเพิ่มข้อมูลต่อท้ายไฟล์เดิม ส่วน `\"w\"` จะเขียนทับ (Overwrite) ข้อมูลเดิมทั้งหมดในไฟล์", "ทั้งสองโหมดเกิดข้อผิดพลาดหากมีไฟล์อยู่แล้ว", "`\"a\"` ใช้สำหรับอ่านอย่างเดียว"], "correctAnswer": 1, "explanation": "โหมด `\"a\"` (Append) เป็นการเพิ่มข้อมูลต่อท้ายของไฟล์เดิม ส่วน `\"w\"` (Write) เป็นการเขียนทับข้อมูลเดิมในไฟล์ทั้งหมด (และทั้งคู่จะสร้างไฟล์ใหม่ให้หากยังไม่มีไฟล์นั้น)"}, {"id": 120, "category": "หมวดที่ 5: การจัดการไฟล์และ JSON (ข้อ 116 - 135)", "question": "หากเปิดไฟล์ด้วยโหมด `\"r\"` แต่ไฟล์ที่ระบุไม่มีอยู่จริงในเครื่องคอมพิวเตอร์ จะเกิดผลอย่างไร?", "options": ["ไพธอนจะสร้างไฟล์เปล่าขึ้นมาให้ใหม่ทันที", "คืนค่าเป็นสตริงว่าง `\"\"`", "เกิดข้อผิดพลาดขึ้น (FileNotFoundError)", "ข้ามการทำงานของบรรทัดนั้นไป"], "correctAnswer": 2, "explanation": "ในโหมด `\"r\"` ไฟล์ที่จะเปิดต้องมีอยู่จริง มิฉะนั้นจะทำให้เกิดข้อผิดพลาดขึ้น"}, {"id": 121, "category": "หมวดที่ 5: การจัดการไฟล์และ JSON (ข้อ 116 - 135)", "question": "คำสั่ง `f.read(5)` ทำหน้าที่อะไร?", "options": ["อ่านข้อมูลในไฟล์ 5 บรรทัดแรก", "อ่านข้อมูลจากไฟล์และส่งกลับตัวอักขระจำนวน 5 ตัวแรก", "อ่านไฟล์ซ้ำ 5 รอบ", "ข้ามการอ่านไป 5 ตัวอักษร"], "correctAnswer": 1, "explanation": "โดยปกติ `read()` จะอ่านข้อความทั้งหมด แต่ถ้าระบุตัวเลข เช่น `f.read(5)` จะเป็นการกำหนดให้ส่งกลับตัวอักขระจำนวน 5 ตัว"}, {"id": 122, "category": "หมวดที่ 5: การจัดการไฟล์และ JSON (ข้อ 116 - 135)", "question": "หากต้องการอ่านข้อมูลจากไฟล์ข้อความทีละ 1 บรรทัด ควรใช้เมธอดใด?", "options": ["`f.read(1)`", "`f.readline()`", "`f.writeline()`", "`f.splitline()`"], "correctAnswer": 1, "explanation": "เมธอด `readline()` ใช้เพื่ออ่านข้อมูลเป็นบรรทัด และถ้าเรียก `readline()` อีกครั้งก็จะอ่านบรรทัดถัดไป"}, {"id": 123, "category": "หมวดที่ 5: การจัดการไฟล์และ JSON (ข้อ 116 - 135)", "question": "เหตุใดจึงควรเรียกใช้เมธอด `f.close()` เพื่อปิดไฟล์ทุกครั้งหลังจากใช้งานไฟล์เสร็จ?", "options": ["เพื่อลบไฟล์ทิ้งอัตโนมัติ", "เพราะในบางกรณี เช่น การทำบัฟเฟอร์ (Buffer) การเปลี่ยนแปลงต่างๆ ที่เขียนลงในไฟล์จะยังไม่ปรากฏสมบูรณ์จนกว่าจะทำการปิดไฟล์", "เพื่อแปลงไฟล์เป็นไบนารี", "เพื่อเปลี่ยนชื่อไฟล์"], "correctAnswer": 1, "explanation": "จากหมายเหตุในบทเรียน ในบางกรณีเช่นการทำบัฟเฟอร์ การเปลี่ยนแปลงต่างๆ ภายในไฟล์จะยังไม่ปรากฏจนกระทั่งปิดไฟล์ด้วย `f.close()`"}, {"id": 124, "category": "หมวดที่ 5: การจัดการไฟล์และ JSON (ข้อ 116 - 135)", "question": "หากต้องการเขียนข้อความที่มีภาษาไทยลงในไฟล์ข้อความ (เช่น `Test02.txt`) ให้แสดงผลได้อย่างถูกต้อง ไม่เพี้ยน ควรกำหนดพารามิเตอร์ใดในฟังก์ชัน `open()`?", "options": ["`mode=\"thai\"`", "`encoding=\"UTF-8\"`", "`format=\"unicode\"`", "`language=\"th\"`"], "correctAnswer": 1, "explanation": "ดังในการทดลองข้อ 6 และตัวอย่างโหมด x การระบุ `encoding=\"UTF-8\"` (หรือ `\"utf-8\"`) ใน `open()` จะช่วยให้จัดเก็บและอ่านภาษาไทยได้อย่างถูกต้อง"}, {"id": 125, "category": "หมวดที่ 5: การจัดการไฟล์และ JSON (ข้อ 116 - 135)", "question": "ในการตรวจสอบว่ามีไฟล์ชื่อ `\"d:\\\\Test3.txt\"` อยู่จริงหรือไม่ก่อนทำการเปิดหรือลบไฟล์ ต้องอิมพอร์ตโมดูลใดและใช้คำสั่งใด?", "options": ["`import file` แล้วใช้ `file.check()`", "`import os` แล้วใช้ `os.path.exists(\"d:\\\\Test3.txt\")`", "`import sys` แล้วใช้ `sys.find()`", "`import json` แล้วใช้ `json.exists()`"], "correctAnswer": 1, "explanation": "การตรวจสอบการมีอยู่ของไฟล์จะใช้โมดูล `os` ด้วยฟังก์ชัน `os.path.exists(filename)`"}, {"id": 126, "category": "หมวดที่ 5: การจัดการไฟล์และ JSON (ข้อ 116 - 135)", "question": "คำสั่งใดในโมดูล `os` ที่ใช้สำหรับ \"ลบไฟล์\" และ \"ลบโฟลเดอร์ว่าง\" ตามลำดับ?", "options": ["`os.delete()` และ `os.deldir()`", "`os.remove()` และ `os.rmdir()`", "`os.clear()` และ `os.popdir()`", "`os.unlink_folder()` และ `os.erase()`"], "correctAnswer": 1, "explanation": "การลบไฟล์ใช้ `os.remove(filename)` และการลบโฟลเดอร์ใช้ `os.rmdir(foldername)`"}, {"id": 127, "category": "หมวดที่ 5: การจัดการไฟล์และ JSON (ข้อ 116 - 135)", "question": "ข้อจำกัดสำคัญของการลบโฟลเดอร์ด้วยคำสั่ง `os.rmdir('myFolder')` คือข้อใด?", "options": ["ลบได้เฉพาะโฟลเดอร์ที่อยู่ในไดรฟ์ C เท่านั้น", "จะทำได้เมื่อโฟลเดอร์นั้นเป็นโฟลเดอร์ที่ว่างเปล่า (ไม่มีไฟล์ข้างใน) เท่านั้น", "ต้องเปิดโฟลเดอร์ด้วย `open()` ก่อนเสมอ", "ลบได้เฉพาะโฟลเดอร์ที่ตั้งชื่อเป็นตัวเลข"], "correctAnswer": 1, "explanation": "การลบทั้งโฟลเดอร์ด้วย `os.rmdir()` จะทำได้เมื่อโฟลเดอร์ว่างเปล่าเท่านั้น"}, {"id": 128, "category": "หมวดที่ 5: การจัดการไฟล์และ JSON (ข้อ 116 - 135)", "question": "ในการ実験ข้อที่ 7 เมื่ออ่านไฟล์ที่มีข้อมูลแต่ละบรรทัดเป็น `\"ant:มด\\n\"` มาเก็บในตัวแปร `i` คำสั่ง `i = i.replace('\\n', '')` ตามด้วย `a = i.split(\":\")` และ `dict.update({a[0]: a[1]})` ทำหน้าที่อะไร?", "options": ["ลบไฟล์ทิ้ง", "ตัดอักขระขึ้นบรรทัดใหม่ออก แยกคำศัพท์กับความหมายออกจากกันตรงเครื่องหมาย `:` แล้วนำเข้าสู่ดิกชันนารีโดยให้คำศัพท์ (`a[0]`) เป็น key และความหมาย (`a[1]`) เป็น value", "เรียงลำดับคำศัพท์ใหม่", "แปลงดิกชันนารีเป็นไฟล์ไบนารี"], "correctAnswer": 1, "explanation": "เป็นขั้นตอนการแปลงข้อมูลข้อความแบบคั่นด้วย `:` จากไฟล์เข้ามาเก็บในโครงสร้าง Dictionary ของไพธอน"}, {"id": 129, "category": "หมวดที่ 5: การจัดการไฟล์และ JSON (ข้อ 116 - 135)", "question": "ในการบันทึกข้อมูลชนิดดิกชันนารีลงในไฟล์รูปแบบ JSON ต้องอิมพอร์ตไลบรารี `json` และใช้เมธอดใด?", "options": ["`json.save()`", "`json.dump()`", "`json.write()`", "`json.load()`"], "correctAnswer": 1, "explanation": "ใช้เมธอด `json.dump(data, file)` เพื่อบันทึกข้อมูลชนิดดิกชันนารีเก็บไว้ในไฟล์ JSON"}, {"id": 130, "category": "หมวดที่ 5: การจัดการไฟล์และ JSON (ข้อ 116 - 135)", "question": "ในคำสั่ง `json.dump(data, json_file, ensure_ascii=False, indent=4)` พารามิเตอร์ `ensure_ascii=False` มีหน้าที่สำคัญอย่างไร?", "options": ["ป้องกันการแก้ไขไฟล์", "กำหนดให้เขียนตัวอักขระ (เช่น ภาษาไทย) ลงไฟล์โดยตรงเพื่อให้มนุษย์อ่านเข้าใจง่าย (เพราะค่า Default คือ True ซึ่งจะแปลงภาษาไทยเป็นรหัส Escape)", "ใช้บีบอัดขนาดไฟล์ให้เล็กลง", "ใช้ตรวจสอบไวยากรณ์ภาษาอังกฤษ"], "correctAnswer": 1, "explanation": "เมื่อกำหนด `ensure_ascii=False` จะเป็นการเขียนอักขระลงไฟล์โดยตรง ถ้าเป็น True (ค่า Default) จะเขียนในรูปของรหัส Escape"}, {"id": 131, "category": "หมวดที่ 5: การจัดการไฟล์และ JSON (ข้อ 116 - 135)", "question": "หากต้องการอ่านข้อมูลจากไฟล์ `\"employees.json\"` กลับมาเก็บไว้ในตัวแปรดิกชันนารีของไพธอน ต้องใช้เมธอดใดของไลบรารี `json`?", "options": ["`json.read(f)`", "`json.load(f)`", "`json.open(f)`", "`json.get(f)`"], "correctAnswer": 1, "explanation": "ใช้เมธอด `json.load(f)` เพื่ออ่านข้อมูลจากไฟล์ JSON มาเก็บไว้ในดิกชันนารี"}, {"id": 132, "category": "หมวดที่ 5: การจัดการไฟล์และ JSON (ข้อ 116 - 135)", "question": "การเปิดไฟล์ด้วยคำสั่ง `with open(\"employees.json\", \"r\") as f:` มีข้อดีอย่างไร?", "options": ["ไม่ต้องอิมพอร์ตโมดูลใดๆ เลย", "ไพธอนจะจัดการปิดไฟล์ให้อัตโนมัติเมื่อทำงานจบออกจากบล็อก `with` โดยไม่ต้องเขียน `f.close()` เอง", "ทำให้ไฟล์ไม่ถูกไวรัสโจมตี", "อ่านไฟล์ได้เร็วกว่าปกติ 100 เท่า"], "correctAnswer": 1, "explanation": "การใช้ Context Manager (`with open(...) as f:`) เป็นวิธีมาตรฐานที่ปลอดภัยเพราะจะปิดไฟล์ให้อัตโนมัติเมื่อจบการทำงานในบล็อกนั้น"}, {"id": 133, "category": "หมวดที่ 5: การจัดการไฟล์และ JSON (ข้อ 116 - 135)", "question": "ในการระบุตำแหน่งไฟล์ (File Path) บนระบบปฏิบัติการ Windows เช่น `\"d:\\\\test.txt\"` เหตุใดจึงต้องใส่เครื่องหมาย Backslash สองตัวติดกัน (`\\\\`)?", "options": ["เพราะเป็นกฎของระบบไบนารี", "เพราะ `\\` ตัวเดียวเป็น Escape Character (เช่น `\\t` คือแท็บ) จึงต้องใช้ `\\\\` เพื่อให้ไพธอนเข้าใจว่าเป็นเครื่องหมาย `\\` ใน Path จริงๆ", "เพื่อระบุว่าเป็นไฟล์ซ่อน", "เพื่อเปิดไฟล์ในโหมดอ่านและเขียนพร้อมกัน"], "correctAnswer": 1, "explanation": "ในสตริงของไพธอน `\\t` หมายถึงการใส่แท็บ ดังนั้นใน Path `\"d:\\\\test.txt\"` จึงต้องใส่ `\\\\` เพื่อแสดงเครื่องหมาย `\\`"}, {"id": 134, "category": "หมวดที่ 5: การจัดการไฟล์และ JSON (ข้อ 116 - 135)", "question": "ข้อใดคือตัวอย่างของไฟล์ที่ต้องเปิดจัดการใน \"โหมดไฟล์ไบนารี\" (`\"b\"`)?", "options": ["ไฟล์ `.txt` และ `.json`", "ไฟล์ `.exe`, `.dll` หรือไฟล์รูปภาพต่างๆ", "ไฟล์ `.py`", "ไฟล์ `.ini`"], "correctAnswer": 1, "explanation": "โหมดไฟล์ข้อความใช้กับ `.txt`, `.json`, `.ini` ส่วนโหมดไฟล์ไบนารี (`\"b\"`) ใช้กับไฟล์ประเภท `.exe`, `.dll` หรือไฟล์รูปภาพต่างๆ"}, {"id": 135, "category": "หมวดที่ 5: การจัดการไฟล์และ JSON (ข้อ 116 - 135)", "question": "ในการทดลองข้อที่ 5 ที่รับข้อความจากผู้ใช้เข้าสู่วนลูป `while myInput != \"\\\\\":` แล้วเขียนลงไฟล์ด้วย `f.write(f\"{myInput}\\n\")` เหตุใดจึงต้องใส่ `\\n` ต่อท้ายใน `f.write()`?", "options": ["เพื่อให้จบโปรแกรม", "เพราะเมธอด `f.write()` ไม่ได้ขึ้นบรรทัดใหม่ให้อัตโนมัติเหมือน `print()` จึงต้องใส่ `\\n` เพื่อให้ข้อความแต่ละรอบถูกเขียนแยกบรรทัดกันในไฟล์", "เพื่อลบช่องว่าง", "เพื่อแปลงเป็น JSON"], "correctAnswer": 1, "explanation": "ในการเขียนข้อมูลลงไฟล์ด้วย `write()` หากต้องการขึ้นบรรทัดใหม่จะต้องใส่ `\\n` ลงไปด้วยเสมอ"}, {"id": 136, "category": "หมวดที่ 6: การใช้งานฟังก์ชัน (ข้อ 136 - 150)", "question": "คีย์เวิร์ดใดที่ใช้ในการนิยามหรือสร้างฟังก์ชันในภาษาไพธอน และข้อตกลงในการตั้งชื่อฟังก์ชันควรเป็นรูปแบบใด?", "options": ["ใช้ `function` และตั้งชื่อตัวพิมพ์ใหญ่ทั้งหมด", "ใช้ `def` และควรตั้งชื่อเป็นตัวอักษรพิมพ์เล็กทั้งหมดในรูปแบบ Snake Case เช่น `my_function`", "ใช้ `func` และตั้งชื่อแบบ CamelCase", "ใช้ `create` และห้ามมีขีดล่าง"], "correctAnswer": 1, "explanation": "การสร้างฟังก์ชันใช้คีย์เวิร์ด `def` และข้อตกลงในการตั้งชื่อควรเป็นตัวพิมพ์เล็กทั้งหมดแบบ Snake Case เช่น `my_function`"}, {"id": 137, "category": "หมวดที่ 6: การใช้งานฟังก์ชัน (ข้อ 136 - 150)", "question": "เมื่อเราพิมพ์นิยามฟังก์ชัน `def hello(): print(\"Hi\")` เสร็จแล้วแต่ยังไม่ได้เขียนคำสั่ง `hello()` เพื่อเรียกใช้งาน จะเกิดอะไรขึ้นเมื่อรันโปรแกรม?", "options": ["พิมพ์คำว่า \"Hi\" ออกมา 1 ครั้ง", "ไม่มีอะไรเกิดขึ้น เพราะฟังก์ชันเป็นบล็อกของชุดคำสั่งที่จะทำงานเมื่อมีการเรียกใช้เท่านั้น", "เกิดข้อผิดพลาด SyntaxError", "พิมพ์ชื่อฟังก์ชันออกมา"], "correctAnswer": 1, "explanation": "เมื่อนิยามฟังก์ชันเสร็จ ฟังก์ชันจะยังไม่ทำงานจนกว่าจะถูกเรียกใช้งาน"}, {"id": 138, "category": "หมวดที่ 6: การใช้งานฟังก์ชัน (ข้อ 136 - 150)", "question": "ข้อใดอธิบายความแตกต่างระหว่างคำว่า \"พารามิเตอร์ (Parameter)\" และ \"อากิวเมนต์ (Argument)\" ได้ถูกต้องตามเนื้อหา?", "options": ["พารามิเตอร์คือค่าที่ส่งกลับจาก return ส่วนอากิวเมนต์คือชื่อฟังก์ชัน", "พารามิเตอร์คือรายการของตัวแปรที่อยู่ในวงเล็บตอนนิยามฟังก์ชัน (`def`) ส่วนอากิวเมนต์คือค่าข้อมูลจริงที่ส่งไปให้กับฟังก์ชันเมื่อมีการเรียกใช้งาน", "ทั้งสองคำใช้แทนที่ตัวแปร Global เท่านั้น", "พารามิเตอร์ใช้กับตัวเลข ส่วนอากิวเมนต์ใช้กับสตริง"], "correctAnswer": 1, "explanation": "ในมุมมองของฟังก์ชัน พารามิเตอร์คือตัวแปรในวงเล็บหลังชื่อฟังก์ชันตอนประกาศ ส่วนอากิวเมนต์คือค่าที่ส่งเข้าไปเมื่อเรียกใช้งานฟังก์ชัน"}, {"id": 139, "category": "หมวดที่ 6: การใช้งานฟังก์ชัน (ข้อ 136 - 150)", "question": "กำหนดฟังก์ชัน `def my_function(fname, lname): print(fname + \" \" + lname)` หากเรียกใช้งานโดยส่งค่าเพียงตัวเดียวคือ `my_function(\"Paiboon\")` จะเกิดอะไรขึ้น?", "options": ["พิมพ์ `\"Paiboon \"` ตามด้วยค่าว่าง", "พิมพ์ `\"Paiboon None\"`", "เกิดข้อผิดพลาด `TypeError: my_function() missing 1 required positional argument: 'lname'`", "โปรแกรมข้ามการทำงานไปเฉยๆ"], "correctAnswer": 2, "explanation": "หากประกาศฟังก์ชันให้รับพารามิเตอร์ 2 ตัว (โดยไม่มีค่า Default) เมื่อเรียกใช้งานจะต้องส่งอากิวเมนต์ให้ครบ 2 ตัว มิฉะนั้นจะเกิด `TypeError`"}, {"id": 140, "category": "หมวดที่ 6: การใช้งานฟังก์ชัน (ข้อ 136 - 150)", "question": "หากไม่ทราบจำนวนที่แน่นอนของอากิวเมนต์ที่จะส่งให้กับฟังก์ชัน และใส่เครื่องหมาย `*` นำหน้าพารามิเตอร์ เช่น `def my_func(*kids):` (หรือ `*args`) ข้อมูลที่ส่งเข้ามาจะถูกเก็บอยู่ในตัวแปร `kids` เป็นชนิดข้อมูลใด?", "options": ["List (`<class 'list'>`)", "Tuple (`<class 'tuple'>`)", "Dictionary (`<class 'dict'>`)", "Set (`<class 'set'>`)"], "correctAnswer": 1, "explanation": "การใช้ Arbitrary Arguments (`*args` หรือ `*kids`) จะส่งอากิวเมนต์เข้าไปเป็นทูเพิล (Tuple) และสามารถเข้าถึงแต่ละรายการด้วยดัชนี เช่น `kids[2]`"}, {"id": 141, "category": "หมวดที่ 6: การใช้งานฟังก์ชัน (ข้อ 136 - 150)", "question": "การเรียกใช้ฟังก์ชันโดยส่งค่าในรูปแบบ `my_func(fruit1='apple', fruit3='banana', fruit2='mango')` เรียกว่าอะไร และมีข้อดีอย่างไร?", "options": ["Arbitrary Arguments, ช่วยให้ไม่ต้องใส่ชื่อตัวแปร", "Keyword Arguments (kwargs), ช่วยให้ส่งค่าในรูปแบบ `key = value` ได้โดยไม่จำเป็นต้องเรียงตามลำดับของพารามิเตอร์", "Default Arguments, ใช้กำหนดค่าคงที่", "Recursive Call"], "correctAnswer": 1, "explanation": "การส่งค่าแบบระบุชื่อ `key = value` เรียกว่า Keyword Arguments ใช้ในกรณีที่ไม่สนใจลำดับของอากิวเมนต์ตอนส่งค่า"}, {"id": 142, "category": "หมวดที่ 6: การใช้งานฟังก์ชัน (ข้อ 136 - 150)", "question": "หากใส่เครื่องหมาย `**` นำหน้าชื่อพารามิเตอร์ขณะประกาศฟังก์ชัน เช่น `def my_func(**fruits):` (หรือ `**kwargs`) ฟังก์ชันจะได้รับอากิวเมนต์เข้ามาเป็นข้อมูลชนิดใด?", "options": ["Tuple", "List", "Dictionary (`<class 'dict'>`)", "String"], "correctAnswer": 2, "explanation": "การใช้ Arbitrary Keyword Arguments (`**kwargs`) จะทำให้ฟังก์ชันได้รับอากิวเมนต์เป็นประเภทดิกชันนารี และอ้างอิงค่าได้ด้วย `fruits['fruit1']`"}, {"id": 143, "category": "หมวดที่ 6: การใช้งานฟังก์ชัน (ข้อ 136 - 150)", "question": "กำหนดฟังก์ชัน `def myfunc(x = 1, y = 2, z = 3): print(x, y, z)` เมื่อเรียกใช้คำสั่ง `myfunc(x = 4, z = 3)` จะพิมพ์ผลลัพธ์ใดออกมา?", "options": ["`1 2 3`", "`4 2 3`", "`4 3 2`", "เกิด TypeError เพราะไม่ได้ส่งค่า y"], "correctAnswer": 1, "explanation": "พารามิเตอร์ `x` ได้รับค่าใหม่เป็น 4, `z` ได้รับค่าเป็น 3 ส่วน `y` ไม่ได้ถูกส่งค่ามาจึงใช้ค่า Default ที่ตั้งไว้คือ 2 ผลลัพธ์จึงเป็น `4 2 3`"}, {"id": 144, "category": "หมวดที่ 6: การใช้งานฟังก์ชัน (ข้อ 136 - 150)", "question": "คำสั่งใดใช้สำหรับส่งค่าผลลัพธ์กลับออกจากฟังก์ชันไปยังจุดที่เรียกใช้งาน?", "options": ["`send`", "`output`", "`return`", "`back`"], "correctAnswer": 2, "explanation": "ใช้คีย์เวิร์ด `return` ตามด้วยค่าที่ต้องการส่งกลับออกจากฟังก์ชัน"}, {"id": 145, "category": "หมวดที่ 6: การใช้งานฟังก์ชัน (ข้อ 136 - 150)", "question": "เมื่อส่งผ่านอากิวเมนต์ที่เป็นลิสต์ เช่น `my_fruits = ['apple', 'banana']` เข้าไปในฟังก์ชัน `def my_func(fruits):` ตัวแปร `fruits` ภายในฟังก์ชันจะมีชนิดข้อมูลเป็นอะไร?", "options": ["แปลงเป็น Tuple เสมอ", "แปลงเป็น String เสมอ", "ยังคงเป็นชนิดข้อมูลเดิมคือ List (`<class 'list'>`)", "แปลงเป็น Dictionary"], "correctAnswer": 2, "explanation": "การส่งผ่านอากิวเมนต์ให้ฟังก์ชันสามารถส่งเป็นชนิดข้อมูลใดๆ ก็ได้ และเมื่อฟังก์ชันได้รับข้อมูลมาก็จะเป็นชนิดข้อมูลเดียวกันนั้น"}, {"id": 146, "category": "หมวดที่ 6: การใช้งานฟังก์ชัน (ข้อ 136 - 150)", "question": "ฟังก์ชันรีเคอร์ซีฟ (Recursive Function) คืออะไร และต้องมีองค์ประกอบหลัก 2 ส่วนใดเสมอ?", "options": ["ฟังก์ชันที่มีลูป while อยู่ข้างใน, ต้องมี break และ continue", "ฟังก์ชันที่เรียกตัวเอง, ต้องมี 1. Base Case (เงื่อนไขที่ทำให้หยุดการเรียกซ้ำ) และ 2. Recursive Case (ส่วนที่ฟังก์ชันเรียกตัวเองด้วยค่าที่เปลี่ยนไป)", "ฟังก์ชันที่รับค่า `*args` และ `**kwargs`", "ฟังก์ชันที่เขียนในบรรทัดเดียว"], "correctAnswer": 1, "explanation": "ฟังก์ชันรีเคอร์ซีฟคือฟังก์ชันที่เรียกตัวเอง จำเป็นต้องมี Base Case เพื่อหยุดการเรียกซ้ำ และ Recursive Case เพื่อเรียกตัวเอง"}, {"id": 147, "category": "หมวดที่ 6: การใช้งานฟังก์ชัน (ข้อ 136 - 150)", "question": "ในฟังก์ชันรีเคอร์ซีฟสำหรับหาค่าแฟกทอเรียล `def my_factorial(n):` ข้อใดคือ Base Case และ Recursive Case ที่ถูกต้อง?", "options": ["Base Case: `if n == 0: return 0`, Recursive Case: `return n + my_factorial(n-1)`", "Base Case: `if n == 0: return 1`, Recursive Case: `return n * my_factorial(n-1)`", "Base Case: `if n == 100: break`, Recursive Case: `return n * n`", "ไม่มีข้อใดถูก"], "correctAnswer": 1, "explanation": "ตามนิยามแฟกทอเรียล เมื่อ `n == 0` จะหยุดเรียกซ้ำและคืนค่าเป็น `1` (Base Case) และส่วนที่เรียกตัวเองคือ `n * my_factorial(n-1)`"}, {"id": 148, "category": "หมวดที่ 6: การใช้งานฟังก์ชัน (ข้อ 136 - 150)", "question": "ข้อควรระวังในการใช้ฟังก์ชันรีเคอร์ซีฟคือ หากไม่มี Base Case ที่ชัดเจนหรือมีการเรียกซ้ำมากเกินไป จะทำให้เกิดข้อผิดพลาดใดขึ้น?", "options": ["`FileExistsError`", "`Stack Overflow` (หรือ RecursionError จากการใช้หน่วยความจำเก็บสถานะฟังก์ชันที่เรียกซ้ำจนเต็ม)", "`ZeroDivisionError`", "`SyntaxError`"], "correctAnswer": 1, "explanation": "การใช้รีเคอร์ซีฟใช้ทรัพยากรหน่วยความจำสูงในการเก็บสถานะฟังก์ชัน และหากไม่มี Base Case ที่ชัดเจนจะทำให้เกิดข้อผิดพลาดที่เรียกว่า `Stack Overflow`"}, {"id": 149, "category": "หมวดที่ 6: การใช้งานฟังก์ชัน (ข้อ 136 - 150)", "question": "จากการทดลองเรื่องขอบเขตตัวแปร: กำหนด `x = \"Hello\"` ไว้นอกฟังก์ชัน แล้วสร้างฟังก์ชัน `def myfunc(): x = \"Good byte,\"; print(x + \" your name.\")` เมื่อเรียก `myfunc()` เสร็จแล้ว มาสั่ง `print(x + \" your name.\")` ที่ด้านนอกฟังก์ชัน จะได้ผลลัพธ์ข้างนอกเป็นอย่างไร?", "options": ["`\"Good bye, your name.\"` เพราะค่า x ถูกเปลี่ยนไปแล้ว", "`\"Hello your name.\"` เพราะตัวแปร `x` ในฟังก์ชันเป็นคนละตัวกับ `x` นอกฟังก์ชัน (Local vs Global) การกำหนดค่าในฟังก์ชันจึงไม่กระทบค่า `x` ที่อยู่ด้านนอก", "เกิด NameError", "พิมพ์ทั้งสองข้อความพร้อมกัน"], "correctAnswer": 1, "explanation": "จากการทดลองที่ 3 ข้อ 2 ตัวแปร `x` ภายในฟังก์ชันเป็นตัวแปรเฉพาะที่ (Local) จึงแสดง `\"Good bye, your name.\"` เฉพาะตอนอยู่ในฟังก์ชัน แต่เมื่อออกมาพิมพ์ `x` นอกฟังก์ชัน ค่า `x` ภายนอกยังคงเป็น `\"Hello\"` เหมือนเดิม"}, {"id": 150, "category": "หมวดที่ 6: การใช้งานฟังก์ชัน (ข้อ 136 - 150)", "question": "จากข้อที่แล้ว หากต้องการให้การแก้ไขค่าตัวแปร `x = \"Good bye,\"` ภายในฟังก์ชัน `myfunc()` ส่งผลเปลี่ยนแปลงค่าของตัวแปร `x` ที่อยู่นอกฟังก์ชันด้วย จะต้องเพิ่มคำสั่งใดไว้ภายในฟังก์ชัน?", "options": ["`return x`", "`global x`", "`export x`", "`public x`"], "correctAnswer": 1, "explanation": "จากการทดลองที่ 3 ข้อ 3 การประกาศ `global x` ภายในฟังก์ชันจะทำให้ตัวแปร `x` ในฟังก์ชันอ้างอิงไปยังตัวแปร Global ด้านนอก เมื่อเปลี่ยนค่าเป็น `\"Good bye,\"` แล้วออกมาพิมพ์นอกฟังก์ชัน ค่าของ `x` จึงเปลี่ยนเป็น `\"Good bye,\"` ด้วย"}]}];
+
+    const categories = [
+      { id: 'all', name: 'ทั้งหมด (150 ข้อ)', start: 1, end: 150 },
+      { id: 'cat1', name: 'หมวดที่ 1: การควบคุมทิศทาง (1-25)', start: 1, end: 25 },
+      { id: 'cat2', name: 'หมวดที่ 2: สตริง (26-60)', start: 26, end: 60 },
+      { id: 'cat3', name: 'หมวดที่ 3: ลิสต์ (61-90)', start: 61, end: 90 },
+      { id: 'cat4', name: 'หมวดที่ 4: ดิกชันนารี (91-115)', start: 91, end: 115 },
+      { id: 'cat5', name: 'หมวดที่ 5: จัดการไฟล์ & JSON (116-135)', start: 116, end: 135 },
+      { id: 'cat6', name: 'หมวดที่ 6: ฟังก์ชัน (136-150)', start: 136, end: 150 }
+    ];
+
+    /**
+     * Strict Derangement Algorithm
+     * Guarantees that every element at index i is moved to index j where j !== i
+     */
+    function derangeIndices(n) {
+      if (n <= 1) return [0];
+      if (n === 2) return [1, 0];
+      if (n === 3) return Math.random() < 0.5 ? [1, 2, 0] : [2, 0, 1];
+
+      const base = Array.from({ length: n }, (_, i) => i);
+      for (let attempt = 0; attempt < 500; attempt++) {
+        const perm = [...base];
+        for (let i = n - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [perm[i], perm[j]] = [perm[j], perm[i]];
+        }
+        let isDeranged = true;
+        for (let i = 0; i < n; i++) {
+          if (perm[i] === i) {
+            isDeranged = false;
+            break;
+          }
+        }
+        if (isDeranged) return perm;
+      }
+      // Guaranteed cyclic shift fallback
+      const shift = 1 + Math.floor(Math.random() * (n - 1));
+      return base.map(i => (i + shift) % n);
+    }
+
+    /**
+     * Prepares a brand-new randomized quiz session:
+     * 1. Deep copies original questions to maintain immutability
+     * 2. Strict Derangement on Question sequence
+     * 3. Strict Derangement on Option positions with Anchor Exception:
+     *    ("ไม่มีข้อใดถูก", "ถูกทุกข้อ", "ผิดทุกข้อ" locked at Option D, remaining 3 options deranged)
+     */
+    function generateShuffledSession(originalQuestions) {
+      // Deep clone original array
+      const cloned = JSON.parse(JSON.stringify(originalQuestions));
+      
+      // Derange question sequence
+      const qPerm = derangeIndices(cloned.length);
+      const shuffledQuestions = qPerm.map(idx => cloned[idx]);
+
+      const anchorRegex = /(ไม่มีข้อใดถูก|ถูกทุกข้อ|ผิดทุกข้อ)/;
+
+      shuffledQuestions.forEach((q, newIndex) => {
+        // Assign clean display sequence (1..150)
+        q.originalId = q.id;
+        q.displayNum = newIndex + 1;
+
+        // Build option objects with original isCorrect status
+        const rawOptions = q.options.map((optText, oIdx) => ({
+          text: optText,
+          isCorrect: oIdx === q.correctAnswer
+        }));
+
+        // Check for anchor option
+        const anchorIdx = rawOptions.findIndex(o => anchorRegex.test(o.text));
+
+        let finalOptions;
+        if (anchorIdx !== -1) {
+          // Anchor locked at index 3 (Option D)
+          const anchorOpt = rawOptions[anchorIdx];
+          const nonAnchors = rawOptions.filter((_, idx) => idx !== anchorIdx);
+          
+          // Derange only the first 3 options
+          const perm3 = derangeIndices(3);
+          const derangedNonAnchors = perm3.map(i => nonAnchors[i]);
+          
+          finalOptions = [...derangedNonAnchors, anchorOpt];
+        } else {
+          // Derange all 4 options
+          const perm4 = derangeIndices(4);
+          finalOptions = perm4.map(i => rawOptions[i]);
+        }
+
+        // Save new options array and find updated correctAnswer index
+        q.options = finalOptions.map(o => o.text);
+        q.optionsObjects = finalOptions;
+        q.correctAnswer = finalOptions.findIndex(o => o.isCorrect);
+      });
+
+      return shuffledQuestions;
+    }
+
+    const app = {
+      currentSubject: masterSubjectsData[0],
+      activeSessionQuestions: [], // Shuffled session questions
+      activeTab: 'all',
+      quizMode: 'single', // 'single' or 'page'
+      singleIndex: 0,     // index in filteredQuestions
+      pageIndex: 0,       // page number in 'page' mode
+      pageSize: 10,
+      userAnswers: {},    // question displayNum -> selected option index (0..3)
+      filteredQuestions: [],
+
+      init() {
+        this.renderHome();
+        this.renderCategoryTabs();
+      },
+
+      // Navigation
+      switchView(viewId) {
+        document.getElementById('view-home').classList.add('hidden');
+        document.getElementById('view-summary').classList.add('hidden');
+        document.getElementById('view-quiz').classList.add('hidden');
+
+        document.getElementById(`view-${viewId}`).classList.remove('hidden');
+
+        // Nav tabs active styling
+        const homeBtn = document.getElementById('nav-btn-home');
+        const summaryBtn = document.getElementById('nav-btn-summary');
+        const quizBtn = document.getElementById('nav-btn-quiz');
+
+        const activeClass = 'px-2.5 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-orange-700 bg-orange-50 transition-colors duration-150 flex items-center gap-1 sm:gap-1.5';
+        const inactiveClass = 'px-2.5 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-stone-100 transition-colors duration-150 flex items-center gap-1 sm:gap-1.5';
+
+        homeBtn.className = viewId === 'home' ? activeClass : inactiveClass;
+        summaryBtn.className = viewId === 'summary' ? activeClass : inactiveClass;
+        quizBtn.className = viewId === 'quiz' ? activeClass : inactiveClass;
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      },
+
+      showHome() {
+        this.switchView('home');
+      },
+
+      showSummary(subjectId) {
+        const subject = this.currentSubject;
+        document.getElementById('summary-code-badge').textContent = subject.code;
+        document.getElementById('summary-title').textContent = subject.title;
+        document.getElementById('summary-desc').textContent = subject.description;
+        document.getElementById('summary-body').innerHTML = subject.summaryContent;
+        this.switchView('summary');
+      },
+
+      // Render Home
+      renderHome() {
+        const container = document.getElementById('subject-list');
+        container.innerHTML = '';
+        const subj = this.currentSubject;
+
+        const card = document.createElement('div');
+        card.className = 'bg-white border border-stone-200/90 rounded-xl p-5 sm:p-8 shadow-sm transition-colors duration-150 hover:border-stone-300';
+        card.innerHTML = `
+          <div class="flex items-start justify-between gap-4 mb-3">
+            <span class="font-prompt font-semibold text-xs text-orange-800 bg-orange-50 border border-orange-200/80 px-2.5 py-1 rounded">
+              ${subj.code}
+            </span>
+            <span class="font-prompt text-xs text-slate-500 bg-stone-100 border border-stone-200 px-2.5 py-1 rounded-full">
+              ${subj.questions.length} ข้อสอบ (สุ่มลำดับไม่ซ้ำ)
+            </span>
+          </div>
+
+          <h3 class="font-prompt font-bold text-lg sm:text-2xl text-slate-800 mb-2 tracking-tight">
+            ${subj.title}
+          </h3>
+          <p class="text-slate-600 text-xs sm:text-sm md:text-base leading-relaxed mb-5 sm:mb-6">
+            ${subj.description}
+          </p>
+
+          <div class="flex flex-wrap gap-2 text-xs font-prompt text-slate-600 mb-5 sm:mb-6 pb-5 sm:pb-6 border-b border-stone-100">
+            <span class="bg-stone-50 border border-stone-200/80 px-2.5 py-1 rounded">6 บทเรียนสรุป</span>
+            <span class="bg-stone-50 border border-stone-200/80 px-2.5 py-1 rounded">สุ่มข้อสอบ &amp; สลับตัวเลือกแบบ Derangement</span>
+            <span class="bg-stone-50 border border-stone-200/80 px-2.5 py-1 rounded">ตรวจคำตอบทันทีพร้อมเฉลยละเอียด</span>
+          </div>
+
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3 font-prompt text-xs sm:text-sm">
+            <button onclick="app.showSummary('${subj.id}')" class="px-5 py-2.5 rounded-lg border border-stone-200 bg-white hover:bg-stone-100 text-slate-700 font-medium transition-colors duration-150 text-center w-full sm:w-auto">
+              อ่านสรุปเนื้อหา
+            </button>
+            <button onclick="app.startQuiz('${subj.id}')" class="px-5 py-2.5 rounded-lg bg-orange-600 hover:bg-orange-700 text-white font-medium transition-colors duration-150 text-center shadow-sm w-full sm:w-auto">
+              เริ่มทำข้อสอบ (สุ่มลำดับ 150 ข้อ)
+            </button>
+          </div>
+        `;
+        container.appendChild(card);
+      },
+
+      // Category Tabs
+      renderCategoryTabs() {
+        const container = document.getElementById('quiz-cat-tabs');
+        container.innerHTML = '';
+
+        categories.forEach(cat => {
+          const btn = document.createElement('button');
+          const isActive = this.activeTab === cat.id;
+          btn.className = isActive 
+            ? 'bg-orange-600 text-white font-prompt text-xs sm:text-sm font-medium px-3 sm:px-3.5 py-1.5 rounded-lg shrink-0 transition-colors duration-150 shadow-sm'
+            : 'bg-white hover:bg-stone-100 text-slate-600 border border-stone-200 font-prompt text-xs sm:text-sm font-medium px-3 sm:px-3.5 py-1.5 rounded-lg shrink-0 transition-colors duration-150';
+          btn.textContent = cat.name;
+          btn.onclick = () => this.selectCategory(cat.id);
+          container.appendChild(btn);
+        });
+      },
+
+      selectCategory(catId) {
+        this.activeTab = catId;
+        this.renderCategoryTabs();
+
+        if (catId === 'all') {
+          this.filteredQuestions = this.activeSessionQuestions;
+        } else {
+          const cat = categories.find(c => c.id === catId);
+          // Filter by category matching the original question range or category name
+          this.filteredQuestions = this.activeSessionQuestions.filter(q => q.originalId >= cat.start && q.originalId <= cat.end);
+        }
+
+        this.singleIndex = 0;
+        this.pageIndex = 0;
+        this.renderQuiz();
+      },
+
+      // Quiz Flow: Shuffles anew every time a new quiz session is started
+      startQuiz(subjectId) {
+        // Generate a completely new randomized session with strict derangement
+        this.activeSessionQuestions = generateShuffledSession(this.currentSubject.questions);
+        this.userAnswers = {};
+        this.switchView('quiz');
+        document.getElementById('quiz-result-view').classList.add('hidden');
+        document.getElementById('quiz-container').classList.remove('hidden');
+        this.selectCategory('all');
+      },
+
+      restartQuiz(keepAnswers = false) {
+        if (!keepAnswers) {
+          // Re-shuffle completely on fresh retake
+          this.activeSessionQuestions = generateShuffledSession(this.currentSubject.questions);
+          this.userAnswers = {};
+        }
+        document.getElementById('quiz-result-view').classList.add('hidden');
+        document.getElementById('quiz-container').classList.remove('hidden');
+        this.singleIndex = 0;
+        this.pageIndex = 0;
+        this.selectCategory('all');
+      },
+
+      reviewMistakes() {
+        const wrongList = this.activeSessionQuestions.filter(q => {
+          return this.userAnswers.hasOwnProperty(q.displayNum) && this.userAnswers[q.displayNum] !== q.correctAnswer;
+        });
+
+        if (wrongList.length === 0) {
+          alert('คุณยังไม่มีข้อที่ตอบผิด หรือยังไม่ได้เริ่มทำข้อสอบ');
+          return;
+        }
+
+        this.filteredQuestions = wrongList;
+        this.activeTab = 'mistakes';
+        this.renderCategoryTabs();
+        this.singleIndex = 0;
+        this.pageIndex = 0;
+
+        document.getElementById('quiz-result-view').classList.add('hidden');
+        document.getElementById('quiz-container').classList.remove('hidden');
+        this.renderQuiz();
+      },
+
+      confirmExitQuiz() {
+        const answered = Object.keys(this.userAnswers).length;
+        if (answered > 0) {
+          if (confirm('ต้องการออกจากการทำข้อสอบหรือไม่? คำตอบที่คุณทำไว้จะยังคงอยู่จนกว่าจะเริ่มทำใหม่หรือรีเฟรชหน้าเว็บ')) {
+            this.showHome();
+          }
+        } else {
+          this.showHome();
+        }
+      },
+
+      switchQuizMode(mode) {
+        this.quizMode = mode;
+        const singleBtn = document.getElementById('btn-mode-single');
+        const pageBtn = document.getElementById('btn-mode-page');
+
+        if (mode === 'single') {
+          singleBtn.className = 'px-2.5 py-1 rounded text-xs font-medium bg-orange-600 text-white transition-colors duration-150';
+          pageBtn.className = 'px-2.5 py-1 rounded text-xs font-medium bg-white text-slate-600 border border-stone-200 hover:bg-stone-50 transition-colors duration-150';
+        } else {
+          singleBtn.className = 'px-2.5 py-1 rounded text-xs font-medium bg-white text-slate-600 border border-stone-200 hover:bg-stone-50 transition-colors duration-150';
+          pageBtn.className = 'px-2.5 py-1 rounded text-xs font-medium bg-orange-600 text-white transition-colors duration-150';
+        }
+        this.renderQuiz();
+      },
+
+      // Render Question Views
+      renderQuiz() {
+        this.updateStats();
+
+        const container = document.getElementById('quiz-container');
+        container.innerHTML = '';
+
+        if (this.filteredQuestions.length === 0) {
+          container.innerHTML = '<p class="text-center py-12 text-slate-400 font-prompt text-xs sm:text-sm">ไม่พบข้อสอบในหมวดนี้</p>';
+          return;
+        }
+
+        if (this.quizMode === 'single') {
+          document.getElementById('single-nav-row').classList.remove('hidden');
+          document.getElementById('page-nav-bar').classList.add('hidden');
+
+          if (this.singleIndex >= this.filteredQuestions.length) this.singleIndex = this.filteredQuestions.length - 1;
+          if (this.singleIndex < 0) this.singleIndex = 0;
+
+          const q = this.filteredQuestions[this.singleIndex];
+          container.appendChild(this.buildQuestionCard(q, this.singleIndex, this.filteredQuestions.length));
+
+          document.getElementById('btn-prev-q').disabled = this.singleIndex === 0;
+          document.getElementById('btn-next-q').disabled = this.singleIndex === this.filteredQuestions.length - 1;
+        } else {
+          document.getElementById('single-nav-row').classList.add('hidden');
+          document.getElementById('page-nav-bar').classList.remove('hidden');
+
+          const startIdx = this.pageIndex * this.pageSize;
+          const endIdx = Math.min(startIdx + this.pageSize, this.filteredQuestions.length);
+          const slice = this.filteredQuestions.slice(startIdx, endIdx);
+
+          slice.forEach((q, idx) => {
+            container.appendChild(this.buildQuestionCard(q, startIdx + idx, this.filteredQuestions.length));
+          });
+
+          this.renderPagination();
+        }
+
+        this.renderDrawerGrid();
+      },
+
+      // Build Question Card Element (Mobile-First Touch Target)
+      buildQuestionCard(q, idx, totalCount) {
+        const card = document.createElement('div');
+        card.id = `q-card-${q.displayNum}`;
+        card.className = 'bg-white border border-stone-200/90 rounded-xl p-4 sm:p-7 md:p-8 shadow-sm';
+
+        const hasAnswered = this.userAnswers.hasOwnProperty(q.displayNum);
+        const userChoice = hasAnswered ? this.userAnswers[q.displayNum] : null;
+        const letters = ['A', 'B', 'C', 'D'];
+
+        let optionsHtml = '';
+        q.options.forEach((optText, optIdx) => {
+          let itemClass = 'w-full text-left p-3.5 sm:p-4 min-h-[48px] rounded-lg border border-stone-200 bg-white hover:bg-stone-50 hover:border-stone-300 transition-colors duration-150 flex items-start gap-3 text-slate-700 text-sm sm:text-base leading-relaxed break-words';
+          let letterClass = 'w-7 h-7 sm:w-8 sm:h-8 rounded bg-stone-100 text-slate-600 font-prompt font-medium text-xs sm:text-sm flex items-center justify-center shrink-0 mt-0.5 border border-stone-200 transition-colors duration-150';
+
+          if (hasAnswered) {
+            if (optIdx === q.correctAnswer) {
+              if (userChoice === q.correctAnswer) {
+                itemClass = 'w-full text-left p-3.5 sm:p-4 min-h-[48px] rounded-lg border border-emerald-500 bg-emerald-50/80 text-emerald-950 flex items-start gap-3 text-sm sm:text-base leading-relaxed break-words';
+                letterClass = 'w-7 h-7 sm:w-8 sm:h-8 rounded bg-emerald-600 text-white font-prompt font-semibold text-xs sm:text-sm flex items-center justify-center shrink-0 mt-0.5 border border-emerald-600';
+              } else {
+                itemClass = 'w-full text-left p-3.5 sm:p-4 min-h-[48px] rounded-lg border-2 border-dashed border-emerald-500 bg-emerald-50/70 text-emerald-950 flex items-start gap-3 text-sm sm:text-base leading-relaxed break-words';
+                letterClass = 'w-7 h-7 sm:w-8 sm:h-8 rounded bg-emerald-600 text-white font-prompt font-semibold text-xs sm:text-sm flex items-center justify-center shrink-0 mt-0.5 border border-emerald-600';
+              }
+            } else if (optIdx === userChoice) {
+              itemClass = 'w-full text-left p-3.5 sm:p-4 min-h-[48px] rounded-lg border border-rose-400 bg-rose-50/80 text-rose-950 flex items-start gap-3 text-sm sm:text-base leading-relaxed break-words';
+              letterClass = 'w-7 h-7 sm:w-8 sm:h-8 rounded bg-rose-600 text-white font-prompt font-semibold text-xs sm:text-sm flex items-center justify-center shrink-0 mt-0.5 border border-rose-600';
+            } else {
+              itemClass = 'w-full text-left p-3.5 sm:p-4 min-h-[48px] rounded-lg border border-stone-200/70 bg-stone-50/50 text-slate-400 opacity-60 flex items-start gap-3 text-sm sm:text-base leading-relaxed break-words cursor-default';
+              letterClass = 'w-7 h-7 sm:w-8 sm:h-8 rounded bg-stone-100 text-slate-400 font-prompt text-xs sm:text-sm flex items-center justify-center shrink-0 mt-0.5 border border-stone-200';
+            }
+          }
+
+          const disabledAttr = hasAnswered ? 'disabled' : '';
+
+          optionsHtml += `
+            <button class="${itemClass}" ${disabledAttr} onclick="app.selectOption(${q.displayNum}, ${optIdx})">
+              <span class="${letterClass}">${letters[optIdx]}</span>
+              <span class="flex-1 break-words">${this.escapeHtml(optText)}</span>
+            </button>
+          `;
+        });
+
+        let explanationHtml = '';
+        if (hasAnswered) {
+          const isCorrect = userChoice === q.correctAnswer;
+          explanationHtml = `
+            <div class="mt-4 p-3.5 sm:p-4 rounded-lg bg-stone-100/90 border-l-4 border-orange-500 text-slate-700 text-xs sm:text-sm leading-relaxed break-words">
+              <div class="font-prompt font-semibold text-xs uppercase tracking-wider text-slate-700 mb-1 flex items-center gap-1.5">
+                ${isCorrect 
+                  ? `<span class="text-emerald-700 font-medium flex items-center gap-1"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> ตอบถูกต้อง</span>` 
+                  : `<span class="text-rose-700 font-medium flex items-center gap-1"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg> ยังไม่ถูกต้อง (คำตอบที่ถูกคือข้อ ${letters[q.correctAnswer]})</span>`
+                }
+              </div>
+              <p class="font-medium text-slate-800 mt-1 mb-0.5">
+                <strong>คำตอบที่ถูกต้อง:</strong> ข้อ ${letters[q.correctAnswer]}) ${this.escapeHtml(q.options[q.correctAnswer])}
+              </p>
+              <p class="text-slate-600">
+                <strong>คำอธิบาย:</strong> ${this.escapeHtml(q.explanation)}
+              </p>
+            </div>
+          `;
+        }
+
+        card.innerHTML = `
+          <div class="flex items-center justify-between gap-2 sm:gap-3 mb-2.5 sm:mb-3">
+            <span class="font-prompt font-semibold text-xs text-orange-800 bg-orange-50 border border-orange-200 px-2 py-0.5 rounded">
+              ข้อที่ ${q.displayNum} / 150
+            </span>
+            <span class="font-prompt text-[11px] sm:text-xs text-slate-500 truncate max-w-[200px] sm:max-w-none">
+              ${q.category}
+            </span>
+          </div>
+
+          <h3 class="text-base sm:text-lg font-semibold text-slate-800 leading-relaxed mb-4 sm:mb-5 break-words">
+            ${this.escapeHtml(q.question)}
+          </h3>
+
+          <div class="space-y-2 sm:space-y-2.5">
+            ${optionsHtml}
+          </div>
+
+          ${explanationHtml}
+        `;
+
+        return card;
+      },
+
+      selectOption(displayNum, optIdx) {
+        if (this.userAnswers.hasOwnProperty(displayNum)) return;
+        this.userAnswers[displayNum] = optIdx;
+        this.renderQuiz();
+      },
+
+      nextQuestion() {
+        if (this.singleIndex < this.filteredQuestions.length - 1) {
+          this.singleIndex += 1;
+          this.renderQuiz();
+          window.scrollTo({ top: 100, behavior: 'smooth' });
+        }
+      },
+
+      prevQuestion() {
+        if (this.singleIndex > 0) {
+          this.singleIndex -= 1;
+          this.renderQuiz();
+          window.scrollTo({ top: 100, behavior: 'smooth' });
+        }
+      },
+
+      jumpToQuestion(targetDisplayNum) {
+        this.toggleDrawer(false);
+
+        let idx = this.filteredQuestions.findIndex(q => q.displayNum === targetDisplayNum);
+        if (idx === -1) {
+          this.selectCategory('all');
+          idx = this.filteredQuestions.findIndex(q => q.displayNum === targetDisplayNum);
+        }
+
+        if (this.quizMode === 'single') {
+          this.singleIndex = idx;
+          this.renderQuiz();
+        } else {
+          this.pageIndex = Math.floor(idx / this.pageSize);
+          this.renderQuiz();
+          setTimeout(() => {
+            const el = document.getElementById(`q-card-${targetDisplayNum}`);
+            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }, 80);
+        }
+      },
+
+      renderPagination() {
+        const bar = document.getElementById('page-nav-bar');
+        bar.innerHTML = '';
+
+        const totalPages = Math.ceil(this.filteredQuestions.length / this.pageSize);
+        if (totalPages <= 1) return;
+
+        const prev = document.createElement('button');
+        prev.className = 'w-8 h-8 rounded border border-stone-200 bg-white hover:bg-stone-50 text-slate-600 flex items-center justify-center disabled:opacity-40 transition-colors text-sm';
+        prev.innerHTML = '&lsaquo;';
+        prev.disabled = this.pageIndex === 0;
+        prev.onclick = () => {
+          this.pageIndex -= 1;
+          this.renderQuiz();
+          window.scrollTo({ top: 100, behavior: 'smooth' });
+        };
+        bar.appendChild(prev);
+
+        for (let p = 0; p < totalPages; p++) {
+          const btn = document.createElement('button');
+          const isCurrent = p === this.pageIndex;
+          btn.className = isCurrent 
+            ? 'w-8 h-8 rounded bg-orange-600 text-white font-medium flex items-center justify-center text-xs'
+            : 'w-8 h-8 rounded border border-stone-200 bg-white hover:bg-stone-50 text-slate-600 flex items-center justify-center text-xs transition-colors';
+          btn.textContent = p + 1;
+          btn.onclick = () => {
+            this.pageIndex = p;
+            this.renderQuiz();
+            window.scrollTo({ top: 100, behavior: 'smooth' });
+          };
+          bar.appendChild(btn);
+        }
+
+        const next = document.createElement('button');
+        next.className = 'w-8 h-8 rounded border border-stone-200 bg-white hover:bg-stone-50 text-slate-600 flex items-center justify-center disabled:opacity-40 transition-colors text-sm';
+        next.innerHTML = '&rsaquo;';
+        next.disabled = this.pageIndex === totalPages - 1;
+        next.onclick = () => {
+          this.pageIndex += 1;
+          this.renderQuiz();
+          window.scrollTo({ top: 100, behavior: 'smooth' });
+        };
+        bar.appendChild(next);
+      },
+
+      updateStats() {
+        const allQuestions = this.activeSessionQuestions;
+        let score = 0;
+        let answered = 0;
+
+        allQuestions.forEach(q => {
+          if (this.userAnswers.hasOwnProperty(q.displayNum)) {
+            answered += 1;
+            if (this.userAnswers[q.displayNum] === q.correctAnswer) {
+              score += 1;
+            }
+          }
+        });
+
+        const totalFiltered = this.filteredQuestions.length;
+        const currentNum = this.quizMode === 'single' ? (this.singleIndex + 1) : Math.min((this.pageIndex + 1) * this.pageSize, totalFiltered);
+
+        document.getElementById('pill-progress').innerHTML = `ข้อที่ <strong class="text-slate-900">${currentNum} / ${totalFiltered}</strong>`;
+        document.getElementById('pill-score').innerHTML = `คะแนน: <strong class="text-orange-600">${score}</strong>`;
+        document.getElementById('pill-answered').innerHTML = `ตอบแล้ว: <strong class="text-slate-900">${answered} / 150</strong>`;
+
+        const percent = Math.round((answered / 150) * 100);
+        document.getElementById('quiz-progress-fill').style.width = `${percent}%`;
+      },
+
+      // Drawer Modal (Question Grid 1-150)
+      toggleDrawer(open) {
+        const drawer = document.getElementById('drawer-grid');
+        if (open) {
+          drawer.classList.remove('hidden');
+        } else {
+          drawer.classList.add('hidden');
+        }
+      },
+
+      renderDrawerGrid() {
+        const grid = document.getElementById('drawer-jump-grid');
+        grid.innerHTML = '';
+
+        const allQuestions = this.activeSessionQuestions;
+        const activeQNum = (this.quizMode === 'single' && this.filteredQuestions[this.singleIndex])
+          ? this.filteredQuestions[this.singleIndex].displayNum
+          : null;
+
+        allQuestions.forEach(q => {
+          const btn = document.createElement('button');
+          let btnClass = 'h-8 rounded border text-xs font-prompt font-medium transition-colors flex items-center justify-center';
+
+          if (this.userAnswers.hasOwnProperty(q.displayNum)) {
+            const isCorrect = this.userAnswers[q.displayNum] === q.correctAnswer;
+            if (isCorrect) {
+              btnClass += ' bg-emerald-50 border-emerald-400 text-emerald-800 font-semibold';
+            } else {
+              btnClass += ' bg-rose-50 border-rose-300 text-rose-800 font-semibold';
+            }
+          } else {
+            btnClass += ' bg-white border-stone-200 text-slate-600 hover:border-stone-400';
+          }
+
+          if (q.displayNum === activeQNum) {
+            btnClass += ' ring-2 ring-orange-500';
+          }
+
+          btn.className = btnClass;
+          btn.textContent = q.displayNum;
+          btn.onclick = () => this.jumpToQuestion(q.displayNum);
+          grid.appendChild(btn);
+        });
+      },
+
+      // Finish Quiz
+      finishQuiz() {
+        const allQuestions = this.activeSessionQuestions;
+        let correctCount = 0;
+        let wrongCount = 0;
+        let answeredCount = 0;
+
+        const catStats = {};
+        categories.slice(1).forEach(c => {
+          catStats[c.id] = { name: c.name.split(':')[0], correct: 0, total: (c.end - c.start + 1) };
+        });
+
+        allQuestions.forEach(q => {
+          if (this.userAnswers.hasOwnProperty(q.displayNum)) {
+            answeredCount += 1;
+            const isCorrect = this.userAnswers[q.displayNum] === q.correctAnswer;
+            if (isCorrect) {
+              correctCount += 1;
+            } else {
+              wrongCount += 1;
+            }
+
+            const matchedCat = categories.slice(1).find(c => q.originalId >= c.start && q.originalId <= c.end);
+            if (matchedCat && isCorrect) {
+              catStats[matchedCat.id].correct += 1;
+            }
+          }
+        });
+
+        if (answeredCount < 150) {
+          if (!confirm(`คุณเพิ่งทำข้อสอบไป ${answeredCount} จาก 150 ข้อ ต้องการส่งข้อสอบและดูผลคะแนนเลยหรือไม่?`)) {
+            return;
+          }
+        }
+
+        document.getElementById('quiz-container').classList.add('hidden');
+        document.getElementById('single-nav-row').classList.add('hidden');
+        document.getElementById('page-nav-bar').classList.add('hidden');
+
+        const percent = Math.round((correctCount / 150) * 100);
+        document.getElementById('res-score-num').textContent = correctCount;
+        document.getElementById('res-score-sub').textContent = `จาก 150 ข้อ (${percent}%)`;
+
+        const heading = document.getElementById('res-heading');
+        const msg = document.getElementById('res-message');
+
+        if (percent >= 80) {
+          heading.textContent = 'ยอดเยี่ยมมาก! (Excellent)';
+          heading.className = 'text-lg sm:text-2xl font-prompt font-bold text-emerald-800 mb-2';
+          msg.textContent = 'คุณมีความเข้าใจในเนื้อหาไพธอนระดับดีเยี่ยม พร้อมสำหรับการทำข้อสอบจริง';
+        } else if (percent >= 60) {
+          heading.textContent = 'ผ่านเกณฑ์มาตรฐาน (Good Job)';
+          heading.className = 'text-lg sm:text-2xl font-prompt font-bold text-orange-800 mb-2';
+          msg.textContent = 'คุณทำได้ดี มีพื้นฐานที่ถูกต้อง แนะนำให้อ่านสรุปเนื้อหาทบทวนในข้อที่ตอบผิดเพื่อความแม่นยำ';
+        } else {
+          heading.textContent = 'ต้องพยายามอีกนิด (Keep Learning)';
+          heading.className = 'text-lg sm:text-2xl font-prompt font-bold text-slate-700 mb-2';
+          msg.textContent = 'ยังมีจุดสำคัญที่เข้าใจคลาดเคลื่อน ลองทบทวนชีทสรุปเนื้อหาทั้ง 6 บทแล้วกลับมาทดสอบใหม่';
+        }
+
+        const tbody = document.getElementById('res-breakdown-body');
+        tbody.innerHTML = '';
+        Object.keys(catStats).forEach(cId => {
+          const item = catStats[cId];
+          const catPercent = Math.round((item.correct / item.total) * 100);
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td class="p-2.5 sm:p-3 font-medium text-slate-800 font-prompt">${item.name}</td>
+            <td class="p-2.5 sm:p-3 text-center">${item.correct} / ${item.total}</td>
+            <td class="p-2.5 sm:p-3 text-right font-semibold font-prompt ${catPercent >= 70 ? 'text-emerald-700' : (catPercent >= 50 ? 'text-orange-700' : 'text-rose-700')}">
+              ${catPercent}%
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+
+        const reviewBtn = document.getElementById('btn-review-mistakes');
+        if (wrongCount > 0) {
+          reviewBtn.classList.remove('hidden');
+        } else {
+          reviewBtn.classList.add('hidden');
+        }
+
+        document.getElementById('quiz-result-view').classList.remove('hidden');
+        window.scrollTo({ top: 60, behavior: 'smooth' });
+      },
+
+      escapeHtml(str) {
+        if (!str) return '';
+        return str
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+      }
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+      app.init();
+    });
+  </script>
+</body>
+</html>
